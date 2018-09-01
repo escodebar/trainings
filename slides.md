@@ -1395,6 +1395,7 @@ Notes:
 
 ...is slightly more complicated:
 ```shell
+$ cd .git && git add . && git commit -m 'Commit a rebase conflict' && cd ..
 [master cd7d697] Commit a rebase conflict
  29 files changed, 80 insertions(+), 2 deletions(-)
  create mode 100644 REBASE_HEAD
