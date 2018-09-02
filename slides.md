@@ -1,18 +1,26 @@
 ---
 theme: solarized
 title: Git training
+revealOptions:
+    transition: 'fade'
 ---
 
 # Learning Git
 # the hard way
 
+---
+
+![Git](https://imgs.xkcd.com/comics/git_2x.png)<!-- .element: height="500px" -->
+
 Notes:
 * The goal is to show what Git does when it is used, to allow you to choose when and how to use it
-* The training covers theory for using Git, however routine is required
+* The training covers theory for using Git, however brain muscle is needed
 * Use *all* the commands and ask yourself how you can improve your workflows
 * This training is made for people who barely used Git before, but includes information for more experienced users
+* This training covers using Git when there is no "happy path"
 * A short introduction to GitHub and the pull-request workflow is also made
-* This training is very technical
+* Some parts of this training are rather technical and go deep into Git's internals
+* It's going to be tough, but hopefully fun as well!
 
 ---
 
@@ -39,7 +47,12 @@ If you know how to type commands in a terminal and parse its output,
 this training is made for you!
 
 Notes:
-* Git editor integration are not discussed
+* Reading is crucial here, you'll be using the "man"-pages a lot!
+* No specific Git editor integration is discussed
+* Also no Git GUI is discussed
+* Many intergrations and GUIs do not cover all of Git's features, so I recommend you to get used to the terminal
+* In many occasions you'll find yourself connected to a server with a Git repository, knowing the commands in that situation is crucial
+* For some features, an integration for your favorite editor might be useful, yet start using the terminal
 
 ---
 
@@ -89,6 +102,7 @@ You may have your own motivation to use a VCS
 ## problem
 
 Notes:
+
 Situation:
 * You have a working software version
 * You introduce experimental changes
@@ -96,6 +110,7 @@ Situation:
 * You want to fix the bug and keep the experimental changes
 
 With enough Git routine, this won't be a problem again.
+Not all version control systems help you solving this situation
 
 ---
 
@@ -126,7 +141,7 @@ Notes:
 # Git
 
 Notes:
-* I have little experience with svn and no experience with all the other VCS (besides Git)
+* I have little experience with subversion and no experience with all the other VCS (besides Git)
 * I started using Git, because the company I worked for used Git
 * I kept using Git because I found enough "Why is Git better than X"-blog entries
 * I keep using Git because Git is all I need (so far)
@@ -158,6 +173,9 @@ Notes:
 # Git
 ## will make you
 # a better programmer!
+
+Notes:
+* But only if you're willing to change! (Improvement always comes with change)
 
 ---
 
@@ -199,20 +217,30 @@ $ git config --global core.editor 'atom --wait'
 ```
 
 Notes:
+
+Setup:
+* Most of you probably have Git installed already, if not, please install Git using your package manager
+* If you are using a Mac, follow the instructions of the link provided by the slides
+
+Configuration:
+* The configuration may be made per repository or per user
+* You may want to configure a project with another author or email depending on the customer of the project (work, university, private...)
+
+Editor configuration:
 * Choose an editor you feel comfortable with (or get comfortable with the editor you choose)
-* This configuration may be made per repository or per user
-* More settings can be configured, this is just a minimal setup
+* More settings can be configured, this is just a minimal setup, so please read the documentation about Git configuration
 
 ---
 
 ## First steps
 
-Create the repository:
+Create a repository:
 
 ```shell
-$ cd ~/working/directory/ && git init .
+$ mkdir ~/working/directory/ && cd $_ && git init .
 Initialized empty Git repository in ~/working/directory/.git/
 ```
+
 ```shell
 $ ls -blah
 total 0
@@ -260,9 +288,13 @@ Notes:
 
 ## Gitception
 
-Behold!
+Behold
 ```shell
-$ cd .git
+$ cd ~/working/directory/.git
+```
+
+We are creating a repository inside the repository
+```shell
 $ git init . && git add . && git commit -m 'Add the repository'
 Initialized empty Git repository in ~/working/directory/.git/.git/
 [master (root-commit) 1c2f932] Add the repository
@@ -274,17 +306,17 @@ Initialized empty Git repository in ~/working/directory/.git/.git/
  [...]
  create mode 100755 hooks/update.sample
  create mode 100644 info/exclude
-$ cd ..
 ```
 <!-- .element: style="font-size: 0.535em" -->
 
-I haven't seen an other Git training doing this!
+Don't do this at home!
 
 Notes:
 * Git keeps track of all the changes in the repository, it is therefore a perfect analysis tool
 * Git goes up the directory path to the point where it finds a ``.git`` folder, but ignores its contents
 * Therefore we can create a repository in the repository to track the changes and understand Git's behaviour
 * Ignore the added files for now, most of them are discussed later during the training
+* I haven't seen an other Git training doing this!
 
 ---
 
@@ -293,7 +325,7 @@ Notes:
 Notes:
 * Xzibit shows up on every slide which uses the repository in the repository to set you in the right context
 * You do not need to run the commands of these slides, since they're only for comprehension
-* You may want to open a second terminal window and navigate to the repository's repository to switch context easier
+* Open a second terminal window and navigate to the repository's repository to switch context easier
 
 ---
 
@@ -401,7 +433,7 @@ Notes:
 ## What happened in the repository?
 
 ```shell
-$ cd .git && git add . && git commit -m 'Add files to index' && cd ..
+$ git add . && git commit -m 'Add files to index'
 [master 6147d79] Add files to index
  2 files changed, 0 insertions(+), 0 deletions(-)
  create mode 100644 index
@@ -440,12 +472,14 @@ Objects can be inspected using:
 ```shell
 $ git cat-file -t b27501a
 blob
+```
+```shell
 $ git cat-file -p b27501a
 # My awwwesome training
 ```
 
 Notes:
-* Files are stored as objects of type "blob"
+* Files are stored as objects of type "blob" (Binary Large OBject)
 * Not only files are stored in objects
 * You can find the size of an object by using the ``-s`` flag
 * Only the first few (min. 7) hexadecimal digits of a hash are required to determine the file
@@ -533,6 +567,7 @@ index 0000000..b27501a
 @@ -0,0 +1 @@
 +# My awwwesome training
 ```
+<!-- .element: style="font-size:0.5em;" -->
 
 Notes:
 * See ``HEAD``, ``master``, etc.? We met these already
@@ -550,7 +585,7 @@ The repository's content must have changed,
 commit the changes and go back to the main repository
 
 ```shell
-$ cd .git && git add . && git commit -m 'Commit file' && cd ..
+$ git add . && git commit -m 'Commit file'
 [master 85240e8] Commit file
  7 files changed, 4 insertions(+)
  create mode 100644 COMMIT_EDITMSG
@@ -572,12 +607,14 @@ Notes:
 
 ---
 
-## More objects!
+## Commit objects!
 
 What is the objects with the commit's hash?
 ```shell
 $ git cat-file -t 78d7aa6
 commit
+```
+```shell
 $ git cat-file -p 78d7aa6
 tree a44f211c376b94d122c6429ef8e87ffa7856419d
 author Pablo Escodebar <escodebar@gmail.com> 1533199402 +0200
@@ -585,24 +622,42 @@ committer Pablo Escodebar <escodebar@gmail.com> 1533199402 +0200
 
 Describe the training
 ```
-
-What is the object with the tree's hash?
-```shell
-$ git cat-file -t a44f211
-tree
-$ git cat-file -p a44f211
-100644 blob b27501ade65f39bc91a5e6eb0d707903ba225a00	README.md
-```
-<!-- .element: style="font-size: 0.545em;" -->
+...so this is what a commit looks like!
 
 Notes:
 * Git commits in objects as well
 * The author and the committer are not necessarily the same person
 * The first commit (also called root) has no parent
 * Other commits are seen later in during the training
-* The tree an object containing references to the blobs the blobs
 
-"Lost" objects can be found in the repository by looking by the date of creation using scripts
+---
+
+## Tree objects!
+
+What is the object with the tree's hash?
+```shell
+$ git cat-file -t a44f211
+tree
+```
+
+```shell
+$ git cat-file -p a44f211
+100644 blob b27501ade65f39bc91a5e6eb0d707903ba225a00	README.md
+```
+<!-- .element: style="font-size: 0.545em;" -->
+
+...the tree is a just a collection of references to objects!
+
+Notes:
+* The tree an object containing references to the blobs
+* The tree also stores the permissions and the names of the files
+* "Lost" objects can be found in the repository by looking by the date of creation using scripts
+
+By now, you know more about Git internals than many who consider themselves proficient in Git.
+
+---
+
+# Short break
 
 ---
 
@@ -612,13 +667,13 @@ Notes:
 
 Notes:
 Take a look at the graph in the comic:
-* It is a directed graph.
-* No number appears twice.
-* There are no loops
-...it could be a valid graph of a Git repository.
+* It is a directed graph
+* No number appears twice
+* There are no loops... it could be a valid graph of a Git repository.
+* Each node in the comic could correspond to a commit
+* No matter where you start, if you follow the arrows, you'll always finish at one!
 
-* Each node in the commit could correspond to a commit
-* Let's build such a tree
+Let's build such a graph!
 
 ---
 
@@ -634,15 +689,17 @@ index b27501a..22d2d62 100644
 @@ -1 +1,2 @@
  # My awwwesome training
 +This training will make you better!
-Stage this hunk [y,n,q,a,d,/,e,?]? y
+Stage this hunk [y,n,q,a,d,/,e,?]?
+```
+<!-- .element: style="font-size: 0.485em;" -->
 
+```shell
 $ git commit -m 'Add motivation for the participant'
 [master 113b2fe] Add motivation for the participant
  1 file changed, 1 insertion(+)
 ```
-<!-- .element: style="font-size: 0.495em;" -->
 
-This is a great way to organize the logic of your code!
+This is a great way to group your code!
 
 Notes:
 * This interactive process allow to select the hunks to add to the index.
@@ -664,6 +721,7 @@ Notes:
 
 ## How does the new commit look like?
 
+This second commit shouldn't be a root commit:
 ```shell
 $ git cat-file -p 113b2fe
 tree 10d06a676fb65acc4b1a2e57454039d904318393
@@ -673,9 +731,9 @@ committer Pablo Escodebar <escodebar@gmail.com> 1534533899 +0200
 
 Add motivation for the participant
 ```
+...it has a parent!
 
 Notes:
-* Now we have a parent!
 * Think of the graph we saw before
 
 ---
@@ -719,7 +777,7 @@ Notes:
 
 ---
 
-## What have we done so far?
+## Git log
 
 Take a look back at your work using:
 ```shell
@@ -728,11 +786,14 @@ a894a8e (HEAD -> master) Add motivation for the speaker
 113b2fe Add motivation for the participant
 78d7aa6 Describe the training
 ```
+...so this is why we want short commit titles?
 
 Notes:
+* The newest commits are displayed on top
 * Without the ``--oneline`` flag, each commit would use several lines
 * ``--abbrev-commit`` is standard for the git log command, it can be used with most commands
 * We have a branch (called ``master``) with three commmits.
+* This command is one of the reasons to choose short, meaningful commit titles
 
 ---
 
@@ -740,7 +801,7 @@ Notes:
 
 Add the new objects to the repository's repository:
 ```shell
-$ cd .git && git add . && git commit -m 'Add two more commits in patch mode'
+$ git add . && git commit -m 'Add two more commits in patch mode'
 [master 9b01029] Add two more commits
  11 files changed, 7 insertions(+), 2 deletions(-)
  create mode 100644 objects/10/d06a676fb65acc4b1a2e57454039d904318393
@@ -749,7 +810,6 @@ $ cd .git && git add . && git commit -m 'Add two more commits in patch mode'
  create mode 100644 objects/38/52d81df67551ce4174a25ce844cf690499f55c
  create mode 100644 objects/3f/652ededa8ed2a054ffa2c02bb34f99b53e94dd
  create mode 100644 objects/a8/94a8e197ea8e5a59323522ac9549a5f974f483
-$ cd ..
 ```
 <!-- .element: style="font-size: 0.465em;" -->
 
@@ -763,10 +823,7 @@ Questions:
 
 ---
 
-# Lunch
-
-Notes:
-* 1 hour break
+# Short Break
 
 ---
 
@@ -775,6 +832,12 @@ Notes:
 aka. *a reference*
 
 "*References are pointers to commits.*"
+
+Notes:
+
+Goal:
+* Creating branches with diverging commits
+* Add the changes of a branch to an other branch
 
 ---
 
@@ -785,8 +848,7 @@ aka. *a reference*
 * allow to work in parallel on several features.
 
 Notes:
-There are also other references: tags
-We are going to take a look at tags later.
+* There are also other references: tags
 
 ---
 
@@ -819,7 +881,7 @@ Notes:
 How are branches stored in the repository?
 
 ```shell
-$ cd .git && git add .
+$ git add .
 $ git commit -m 'Add and checkout a new branch'
 [master ffce5ba] Add and checkout a new branch
  4 files changed, 4 insertions(+), 1 deletion(-)
@@ -829,9 +891,6 @@ $ git commit -m 'Add and checkout a new branch'
 ```shell
 $ cat refs/heads/pe/new_branch
 a894a8e197ea8e5a59323522ac9549a5f974f483
-```
-```shell
-$ cd ..
 ```
 
 ![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
@@ -862,7 +921,7 @@ index 22d2d62..3f652ed 100644
  This training will make you better!
 +Buy me a beer if it made you better.
 ```
-<!-- .element: style="font-size: 0.445em" -->
+<!-- .element: style="font-size: 0.44em" -->
 
 ...that's why creating branches is so fast!
 
@@ -878,11 +937,12 @@ Statistics:
 ## Create and checkout branches
 ## in one step!
 
-Using the checkout command:
+Check out a *new* branch using checkout:
 ```shell
 $ git checkout -b pe/add_list_of_favorite_beers master
 Switched to branch 'pe/add_list_of_favorite_beers'
 ```
+...one command is faster than two!
 
 Notes:
 * If you leave the starting point, the current HEAD is used
@@ -893,7 +953,7 @@ Notes:
 ## Add a commit to the new branch
 
 ```shell
-$ cat << EOBL > beers.md
+$ cat << EOBL > beers.md && git add beers.md
 * To Øl - 1 ton of Happiness
 * Rokki - Muikea
 * Felsenau - Bärner Müntschi
@@ -901,13 +961,16 @@ $ cat << EOBL > beers.md
 * Egger - Galopper
 EOBL
 $ echo 'My list of [favorite beers](beers.md).' >> README.md
-$ git add beers.md
 $ git commit -a -m 'Let people know, what beer to buy'
 [pe/add_list_of_favorite_beers 000ce0a] Let people know, what beer to buy
  2 files changed, 6 insertions(+)
  create mode 100644 beers.md
 ```
 <!-- .element: style="font-size: 0.485em;" -->
+
+Notes:
+* The first command creates and adds a file called "beers.md" (take a minute to digest it)
+* the ``-a`` flag commits adding all *tracked* and modified files to the staging area!
 
 ---
 
@@ -921,7 +984,7 @@ Switched to branch 'pe/whiskey_is_also_an_option'
 ```
 ```shell
 $ echo 'Whiskey is also a good reward.' >> README.md
-$ cat << EOWL > whiskeys.md
+$ cat << EOWL > whiskeys.md && git add whiskeys.md
 * Lagavulin - 16
 * Ledaig - 10
 * Talisker - Storm
@@ -929,7 +992,6 @@ $ cat << EOWL > whiskeys.md
 * Laphroaig - Quarter Cask
 EOWL
 $ echo '[These whiskeys](whiskeys.md) are great!' >> README.md
-$ git add whiskeys.md
 $ git commit -a -m 'Accept whiskey as reward'
 [pe/whiskey_is_also_an_option 68f2339] Accept whiskey as reward
  2 files changed, 7 insertions(+)
@@ -959,6 +1021,7 @@ Our tree starts growing branches!
 
 Notes:
 * Using ``--all`` you can display commits of other branches as well.
+* The graph a little bit more hard to read: the lines represent connections
 
 ---
 
@@ -966,7 +1029,7 @@ Notes:
 
 We do not want to have uncommitted changes!
 ```shell
-$ cd .git && git add . && git commit -m 'Add branches with commits'
+$ git add . && git commit -m 'Add branches with commits'
 [master ccc7056] Add braches with commits
  16 files changed, 19 insertions(+), 12 deletions(-)
  create mode 100644 logs/refs/heads/pe/add_list_of_favorite_beers
@@ -981,9 +1044,8 @@ $ cd .git && git add . && git commit -m 'Add branches with commits'
  create mode 100644 objects/d3/719373bb86bdd46c56e521135a1bd7f69d40ab
  create mode 100644 refs/heads/pe/add_list_of_favorite_beers
  create mode 100644 refs/heads/pe/whiskey_is_also_an_option
-$ cd ..
 ```
-<!-- .element: style="font-size: 0.51em;" -->
+<!-- .element: style="font-size: 0.5em;" -->
 
 ![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
 
@@ -995,7 +1057,10 @@ Questions:
 
 ---
 
-# Short break
+# Break
+
+Notes:
+* Lunch?
 
 ---
 
@@ -1005,6 +1070,8 @@ Notes:
 * There are several ways and workflows to achieve this.
 * Conflicts often arise when combining changes of several files.
 * You need to chose the workflow according to your projects' needs and developers' skills.
+
+We created branches with diverging history, to simulate common situations.
 
 ---
 
@@ -1021,7 +1088,7 @@ Notes:
 
 ## Git Merge
 
-![merge](https://wac-cdn.atlassian.com/dam/jcr:83323200-3c57-4c29-9b7e-e67e98745427/Branch-1.png?cdnVersion=lj) <!-- .element: height="380px" style="background: white" -->
+![merge](https://wac-cdn.atlassian.com/dam/jcr:83323200-3c57-4c29-9b7e-e67e98745427/Branch-1.png?cdnVersion=lj) <!-- .element: height="380px" style="background: white;" -->
 
 
 > Join development histories
@@ -1087,7 +1154,7 @@ Notes:
 
 How does Git handle merge conflicts?
 ```shell
-$ cd .git && git add . && git commit -m 'Commit during merge conflict'
+$ git add . && git commit -m 'Commit during merge conflict'
 [master cc2485f] Commit during merge conflict
  10 files changed, 14 insertions(+), 1 deletion(-)
  create mode 100644 MERGE_HEAD
@@ -1098,7 +1165,6 @@ $ cd .git && git add . && git commit -m 'Commit during merge conflict'
  create mode 100644 logs/refs/heads/pe/merging
  create mode 100644 objects/74/53e34d766307d5056d804f80e4cc2395fb4179
  create mode 100644 refs/heads/pe/merging
-$ cd ..
 ```
 <!-- .element: style="font-size: 0.505em" -->
 
@@ -1215,7 +1281,7 @@ Notes:
 
 Commit the changes into the repository's repository
 ```shell
-$ cd .git && git add . && git commit -m 'Add the merge' && cd ..
+$ git add . && git commit -m 'Add the merge'
 [master 5dbb9d5] Add the merge
  11 files changed, 6 insertions(+), 7 deletions(-)
  delete mode 100644 MERGE_HEAD
@@ -1237,6 +1303,10 @@ Notes:
 
 Questions:
 * How many new objects are added?
+
+---
+
+# Short break
 
 ---
 
@@ -1271,6 +1341,8 @@ a894a8e (pe/new_branch, master) Add motivation for the speaker
 78d7aa6 Describe the training
 ```
 
+---
+
 ...then pick it up!
 ```shell
 $ git cherry-pick 68f2339
@@ -1290,7 +1362,7 @@ Notes:
 
 Dig, dig, dig, dig
 ```shell
-$ cd .git && git add . && git commit -m 'Commit a cherry pick conflict'
+$ git add . && git commit -m 'Commit a cherry pick conflict'
 [master 8bb838d] Commit during cherry pick conflict
  8 files changed, 11 insertions(+), 1 deletion(-)
  create mode 100644 CHERRY_PICK_HEAD
@@ -1299,7 +1371,6 @@ $ cd .git && git add . && git commit -m 'Commit a cherry pick conflict'
  create mode 100644 logs/refs/heads/pe/cherry_picking
  create mode 100644 objects/77/047a805c055408b0f9a6ef2a96ef932d677efb
  create mode 100644 refs/heads/pe/cherry_picking
-$ cd ..
 ```
 <!-- .element: style="font-size: 0.495em" -->
 
@@ -1309,6 +1380,9 @@ Another object!
 
 Notes:
 * This is again the conflicting file
+
+Question:
+* Why do we have an other object?
 
 ---
 
@@ -1330,7 +1404,7 @@ $ git cherry-pick --continue
 
 Once again...
 ```shell
-$ cd .git && git add . && git commit -m 'Add the cherry-pick' && cd ..
+$ git add . && git commit -m 'Add the cherry-pick'
 [master a5f2863] Add the cherry-pick
  8 files changed, 26 insertions(+), 7 deletions(-)
  delete mode 100644 CHERRY_PICK_HEAD
@@ -1350,7 +1424,7 @@ Notes:
 
 ## Git rebase
 
-![rebase](https://wac-cdn.atlassian.com/dam/jcr:e4a40899-636b-4988-9774-eaa8a440575b/02.svg?cdnVersion=lj) <!-- .element: height="400px" style="background: white" -->
+![rebase](https://wac-cdn.atlassian.com/dam/jcr:e4a40899-636b-4988-9774-eaa8a440575b/02.svg?cdnVersion=lj) <!-- .element: height="350px" style="background: white" -->
 
 > Reapply commits on top of another branch<!-- .element: style="font-size: 0.95em;" -->
 
@@ -1384,7 +1458,7 @@ Resolve all conflicts manually, mark them as resolved with
 You can instead skip this commit: run "git rebase --skip".
 To abort and get back to the state before "git rebase", run "git rebase --abort".
 ```
-<!-- .element: style="font-size: 0.435em" -->
+<!-- .element: style="font-size: 0.43em" -->
 
 Notes:
 * This time "the point of view" changes, therefore we checkout the branch which will be rebased
@@ -1395,6 +1469,7 @@ Notes:
 
 ...is slightly more complicated:
 ```shell
+$ git add . && git commit -m 'Commit a rebase conflict'
 [master cd7d697] Commit a rebase conflict
  29 files changed, 80 insertions(+), 2 deletions(-)
  create mode 100644 REBASE_HEAD
@@ -1428,9 +1503,6 @@ Notes:
 
 ![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
 
-Notes:
-*
-
 ---
 
 ## Finish rebasing
@@ -1446,7 +1518,7 @@ Applying: Accept whiskey as reward
 ## What about the rebase files?
 
 ```shell
-$ cd .git && git add . && git commit -m 'Add the rebase' && cd ..
+$ git add . && git commit -m 'Add the rebase'
 [master 46da891] Add the rebase
  28 files changed, 5 insertions(+), 76 deletions(-)
  delete mode 100644 REBASE_HEAD
@@ -1485,12 +1557,27 @@ Notes:
 
 ---
 
+# Short Break
+
+---
+
 ## Rebasing in interactive mode
 
-The interactive mode allows to change the commit history before rebasing!
+The interactive mode allows to "change" the commit history before rebasing!
 
 Notes:
 * This is a really powerful tool to organize the commit history and make it more meaningful
+
+---
+
+![Git log](https://imgs.xkcd.com/comics/git_commit_2x.png)<!-- .element: height="400px" -->
+
+Notes:
+* Please do not do this!
+* Keep a clean history
+* This is important for later code analysis
+* Think of the people who will deal with your repository
+* Think of the repositories you will deal with
 
 ---
 
@@ -1507,7 +1594,7 @@ $ echo 'Personal feedback is the best.' >> README.md
 $ git commit -a -m 'Ask for personal feedback'
 [pe/interactive_rebasing 450dc77] Ask for personal feedback
  1 file changed, 1 insertion(+)
-$ echo 'Helpful feedback is awarded with great coffeee' >> README.md
+$ echo 'Helpful feedback is awarded with great coffee.' >> README.md
 $ git commit -a -m 'Trade feedback for coffee'
 [pe/interactive_rebasing 1603ef5] Trade feedback for coffee
  1 file changed, 1 insertion(+)
@@ -1528,7 +1615,9 @@ $ git rebase -i pe/rebasing
 
 Your editor now lists all the commits of your branch!
 
-```
+---
+
+```text
 pick c16a824 Ask for feedback
 pick 450dc77 Ask for personal feedback
 pick 1603ef5 Trade feedback for coffee
@@ -1562,7 +1651,9 @@ pick 1603ef5 Trade feedback for coffee
 <!-- .element: style="font-size: 0.47em;" -->
 
 Notes:
+* The first command cannot be a squash or a fixup!
 * Drop, squash, fix up or change the order of the commits as required
+* Mastering the interactive rebase is worth a salary raise!
 
 ---
 
@@ -1586,12 +1677,14 @@ $ git log --oneline --abbrev-commit --all --graph
 ```
 <!-- .element: style="font-size: 0.46em" -->
 
+The graph is now more complex!
+
 ---
 
 ## Commit the changes in the repository's repository
 
 ```shell
-$ cd .git && git add . && git commit -m 'Add interactive rebase'
+$ git add . && git commit -m 'Add interactive rebase'
 [master f1fc09c] Add interactive rebase
  17 files changed, 32 insertions(+), 25 deletions(-)
  rewrite COMMIT_EDITMSG (100%)
@@ -1600,7 +1693,6 @@ $ cd .git && git add . && git commit -m 'Add interactive rebase'
  [...]
  create mode 100644 objects/c3/2f3348d4d95fed6ff7c80054daf3690c50e390
  create mode 100644 refs/heads/pe/interactive_rebasing
-$ cd ..
 ```
 <!-- .element: style="font-size: 0.51em" -->
 
@@ -1617,14 +1709,50 @@ Notes:
 
 ## Git is distributed!
 
-Repositories can be hosted on any server
-
-(for instance on [GitHub](https://github.com/), [Bitbucket](https://bitbucket.org/) or [C4Science](https://c4science.ch/))
-
-...and connected to each other.
+Repositories can be hosted on any computer and connected to each other!
 
 Notes:
-* Git calls these "remotes"
+* You can connect to a repository of a coworker's computer, as long as it can provide a URL
+* If you cannot provide a long-lasting URL (because of dynamic IPs, a missing DNS etc.), connecting a remote becomes painful
+* Using a "centralized" repository host (a server) simplifies this issue
+
+---
+
+## Free repository hosts
+
+There are many free repository hosts
+* [GitHub](https://github.com/)
+* [Bitbucket](https://bitbucket.org/)
+* [C4Science](https://c4science.ch/)
+
+Notes:
+* The features of the hosts vary and some features are not available for free
+* Choose a host according to your needs.
+
+---
+
+## Seting up your own server
+
+You can [setup your own server](https://git-scm.com/book/en/v2/Git-on-the-Server-Setting-Up-the-Server)
+
+or use [GitLab (Community Edition)](https://gitlab.com/gitlab-org/gitlab-ce).
+
+Notes:
+* GitLab provides more features out of the box!
+
+---
+
+## GitHub
+
+![GitHub](https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png)
+<!-- .element: height="250px" -->
+
+Create a GitHub account (if you don't have one yet).
+
+Notes:
+* For this training, GitHub is used
+* GitHub is the biggest free repository host
+* It has a lot of free features
 
 ---
 
@@ -1679,7 +1807,7 @@ Notes:
 ## Where is the shovel?
 
 ```shell
-$ cd .git && git diff
+$ git diff
 diff --git a/config b/config
 index 515f483..8a721a0 100644
 --- a/config
@@ -1691,7 +1819,7 @@ index 515f483..8a721a0 100644
 +[remote "origin"]
 +    url = git@github.com:escodebar/awwwesome.git
 +    fetch = +refs/heads/*:refs/remotes/origin/*
-$ git commit -a -m 'Add the origin remote' && cd ..
+$ git commit -a -m 'Add the origin remote'
 [master 25493d8] Add the origin remote
  1 file changed, 3 insertions(+)
 ```
@@ -1735,7 +1863,7 @@ Notes:
 ## And the repository's repository?
 
 ```shell
-$ cd .git && git add . && git commit -m 'Push everything to origin' && cd ..
+$ git add . && git commit -m 'Push everything to origin'
 [master d1aeb57] Push everything to origin
  16 files changed, 16 insertions(+)
  create mode 100644 logs/refs/remotes/origin/master
@@ -1782,6 +1910,8 @@ Notes:
 
 👉<!-- .element: style="display: inline; position: absolute; left: 745px; top: 195px; transform: rotate(-45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
 
+👉<!-- .element: style="display: inline; position: absolute; left: 845px; top: 425px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
+
 👉<!-- .element: style="display: inline; position: absolute; left: 155px; top: 230px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
 
 ---
@@ -1792,9 +1922,15 @@ Notes:
 
 👉<!-- .element: style="display: inline; position: absolute; left: 70px; top: 310px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
 
+👉<!-- .element: style="display: inline; position: absolute; left: 715px; top: 195px; transform: rotate(90deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
+
 👉<!-- .element: style="display: inline; position: absolute; left: 760px; top: 195px; transform: rotate(90deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
 
-👉<!-- .element: style="display: inline; position: absolute; left: 815px; top: 195px; transform: rotate(90deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
+---
+
+![Populated repository](GitHub/populated_repository.png)
+
+👉<!-- .element: style="display: inline; position: absolute; left: 350px; top: 230px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
 
 ---
 
@@ -1816,15 +1952,13 @@ Notes:
 
 ---
 
-## Collaboration
+## Collaborators
 
-GitHub offers a simple yet elegant way to collaborate using pull requests.
-
-Create groups and add each other as collaborators.
+To allow others to contribute to your repository, you need to add them as collaborators.
 
 Notes:
-* Roles: Committer, Reviewer, Administrator
-* Bitbucket has merge requests
+* They could also fork (clone) your repository, making the collaboration workflow more complicated
+* Create groups and add each other as collaborators, also add me as a collaborator
 
 ---
 
@@ -1840,7 +1974,65 @@ Notes:
 
 ---
 
+## Git clone
+
+To contribute to an existing repository, clone it to your computer:
+```shell
+$ mkdir ~/collaboration/directory && cd $_
+```
+```shell
+$ git clone git@github.com:escodebar/awwwesome.git .
+Cloning into '.' ...
+done.
+```
+
+Notes:
+* All repositories can be cloned
+* When a repository is cloned, the remote "origin" is already set
+* The origin repository might not allow you to push changes to it
+* GitHub only allows you to push to repositories if you are a collaborator or owner
+
+---
+
+## The GitHub Flow
+
+GitHub offers a simple yet elegant workflow to
+
+*review* and *discuss changes*
+
+before merging them to the master branch.
+
+Take a look at [The GitHub Flow](https://guides.github.com/introduction/flow/)
+
+Notes:
+* Reviewing code is an often forgotten, but important part of software development
+* Pull request might be missleading, GitLab calls it "merge request"
+* Roles: Committer, Reviewer, Administrator
+
+---
+
+## Code reviews
+
+...are *important*
+
+![Technical debt](http://agileforgrowth.com/wp-content/uploads/2017/01/Techdebt.jpg)
+
+Seriously!
+
+---
+
 ## Making a pull request
+
+Prepare the branch in the cloned repository:
+
+```shell
+$ git checkout -b pe/pull_request pe/interactive_rebasing
+```
+
+Edit format the README.md file and push it to the remote:
+```shell
+$ git push -u origin pe/pull_request
+```
 
 Notes:
 * Compare the changes
@@ -2004,7 +2196,7 @@ Notes:
 ## One last view into the repository's repository
 
 ```shell
-$ cd .git && git add . && git commit -m 'Add the merged pull request'
+$ git add . && git commit -m 'Add the merged pull request'
 [master f923540] Add the merged pull request
  8 files changed, 16 insertions(+), 4 deletions(-)
  create mode 100644 FETCH_HEAD
