@@ -32,12 +32,25 @@ Notes:
 * Collaborating with Git / GitHub
 
 Notes:
+* For starters the concept of version control systems is introduced
+* I will try to give you a motivation to use version control systems even when you work on your own
+* The main course will be about Git, its usage and its internals
+* During this part I will give you guidelines I found very useful
+* As soon as we're ready to take a look at remote repositories, GitHub will be introduced
+* A whole course could be dedicated to GitHbu, therefore we won't be covering all of its features
+* Once we feel comfortable with most of GitHub's UI, we will see how it can be used for collaboration
+* Only a simple collaboration workflow will be covered
 
 ---
 
 Pablo Vergés
 ([GitHub](https://github.com/escodebar),
 [Bitbucket](https://bitbucket.org/escodebar))
+
+Notes:
+* I don't want to go into much details about myself
+* Come towards me during the breaks or after the lecture
+* You may also send me an email
 
 ---
 
@@ -68,12 +81,15 @@ Notes:
 * Collaboration: Ever tried to collaborate using a shared folder?
 * Version control: How are new features added to stable versions?
 * "The tangled working copy problem" is discussed later
+* Never lose a line of code again and forget about rewriting work already done!
 
 Statistics:
 * Who worked already in a collaboration?
 * How many people where part of the collaboration? (2, 5, 10, bigger groups)
 * Who collaborated using Dropbox?
 * How did you exchange code / text files?
+* Who had to maintain several versions of the same software already?
+* How did you handle that situation?
 
 ---
 
@@ -86,14 +102,23 @@ A VCS may also be helpful for:
 * System analysis
 
 Notes:
-* Integration: Run automated tests against code changes
-* Deploying: Easily install a version of an application!
-* Error analysis: Find out which is the breaking change!
-* System analysis: See what with your system when you do use it
 
-Automate systematic work
+Integration:
+* Tests may be run against code changes automatically to detect possible functionality breaks or bugs
+* You may also compile the code automatically after a significant change
+* Automate systematic work
 
-You may have your own motivation to use a VCS
+Deploying:
+* Install a specific version of an application without breaking a sweat
+* Automate systematic work
+
+Error analysis:
+* Find out which is the breaking change
+* Find out who broke the software
+
+System analysis:
+* See what happens within your system when you use it
+* Find out what the difference is between system configurations
 
 ---
 
@@ -134,6 +159,11 @@ TFVCS,
 Veracity, ...
 
 Notes:
+
+Statistics:
+* Who worked with a version control system already?
+* Which of the VCS listed here did you use?
+* How was your experience with the VCS?
 * Do you know a VCS which is not listed in here?
 
 ---
@@ -165,7 +195,7 @@ Notes:
 * Depending on your workflow, the development might be
   - chaotic (which is totally fine, think of eating)
   - organized
-* This liberty requires understanding Git
+* This liberty requires understanding Git tough
 * This liberty also allows to evolve your development workflow
 
 ---
@@ -191,10 +221,10 @@ If you feel that this training is not made for you, this is the right moment to 
 https://escodebar.github.io/trainings/git/
 
 Notes:
-* Handy for clicking on links or copy-paste code
-* You might press "s" to get the speaker notes
-* With "o" you get an overview of the slides
-* The URL indicates the slide number (for asking questions)
+* The sildes are handy for clicking on links or copy-paste code
+* You might press "s" to get the speaker notes, but don't do that during the training, as it will spoil a few jokes
+* With "o" you get an overview of the slides for faster navigation
+* The URL indicates the slide number (handy for asking questions)
 
 ---
 
@@ -252,6 +282,9 @@ drwxr-xr-x 7 escodebar escodebar 200 Aug  2 10:39 .git
 See that `.git` folder there? That's the repository.
 
 Notes:
+* During this training a repository is used
+* We will be adding changes to the repository during the training to confront you with typical Git situations
+* Please do not use an existing repository as it might change the output
 * Everything tracked by Git is inside the repository
 * If there is something you want to backup, then it's the ``.git`` folder
 
@@ -752,15 +785,20 @@ index 22d2d62..3f652ed 100644
 # My awwwesome training
  This training will make you better!
 +Buy me a beer if it made you better.
-Stage this hunk [y,n,q,a,d,/,e,?]? y
+Stage this hunk [y,n,q,a,d,/,e,?]?
+```
 
+Once all hunks are decided, a commit will be created
+```shell
 [master a894a8e] Add motivation for the speaker
  1 file changed, 1 insertion(+)
 ```
 
-It's like adding in patch mode and commit in one step!
 
 Notes:
+* It is like adding in patch mode and commit in one step!
+* Try adding in patch mode and committing while you feel insecure using the patch mode
+* Once you feel comfortable enough, start committing directly in patch mode to save time
 * The flags are the same as for the add command
   - y - stage this hunk
   - n - do not stage this hunk
@@ -2063,6 +2101,11 @@ Notes:
 
 👉<!-- .element: style="display: inline; position: absolute; left: 210px; top: 280px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
 
+Notes:
+* GitHub allows to compare the changes before creating the pull request
+* When you create a pull request, make sure the changes are comprehensible, such that another developer can review it easily
+* Once you the changes are ready to be reviewed, a pull request can be opened
+
 ---
 
 ![Open a pull request](GitHub/open_pull_request.png)
@@ -2076,6 +2119,12 @@ Notes:
 👉<!-- .element: style="display: inline; position: absolute; left: 855px; top: 360px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
 
 👉<!-- .element: style="display: inline; position: absolute; left: 445px; top: 415px; transform: rotate(45deg); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
+
+Notes:
+* When opening a pull request, a lot of metadata can be set
+* The notes and the title should be very explicit
+* Similar to the commit message, explain the "why" instead of the "what", since the "what" is visible in the commits
+* Add screenshots of the application to make the changes more clear
 
 ---
 
