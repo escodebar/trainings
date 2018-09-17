@@ -690,7 +690,7 @@ By now, you know more about Git internals than many who consider themselves prof
 
 ---
 
-# Short break
+# Break
 
 ---
 
@@ -861,7 +861,7 @@ Questions:
 
 ---
 
-# Short Break
+# Break
 
 ---
 
@@ -1344,7 +1344,7 @@ Questions:
 
 ---
 
-# Short break
+# Break
 
 ---
 
@@ -1595,7 +1595,7 @@ Notes:
 
 ---
 
-# Short Break
+# Break
 
 ---
 
@@ -1990,6 +1990,10 @@ Notes:
 
 ---
 
+# Break
+
+---
+
 ## Collaborators
 
 To allow others to contribute to your repository, you need to add them as collaborators.
@@ -2142,6 +2146,10 @@ Notes:
 
 ---
 
+# Break
+
+---
+
 ![Pull request commit per commit](GitHub/pull_request_commit_per_commit.png)
 
 👉<!-- .element: style="display: inline; position: absolute; left: 130px; top: 530px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
@@ -2179,6 +2187,10 @@ Notes:
 ![Merged pull request](GitHub/merged_pull_request.png)
 
 👉<!-- .element: style="display: inline; position: absolute; left: 595px; top: 515px; transform: rotate(45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
+
+---
+
+# Break
 
 ---
 
