@@ -267,7 +267,7 @@ Editor configuration:
 Create a repository:
 
 ```shell
-$ mkdir ~/working/directory/ && cd $_ && git init .
+$ mkdir -p ~/working/directory/ && cd $_ && git init .
 Initialized empty Git repository in ~/working/directory/.git/
 ```
 
