@@ -2016,23 +2016,7 @@ Notes:
 
 ---
 
-## Git clone
-
-To contribute to an existing repository, clone it to your computer:
-```shell
-$ mkdir ~/collaboration/directory && cd $_
-```
-```shell
-$ git clone git@github.com:escodebar/awwwesome.git .
-Cloning into '.' ...
-done.
-```
-
-Notes:
-* All repositories can be cloned
-* When a repository is cloned, the remote "origin" is already set
-* The origin repository might not allow you to push changes to it
-* GitHub only allows you to push to repositories if you are a collaborator or owner
+# Break
 
 ---
 
@@ -2060,6 +2044,26 @@ Notes:
 ![Technical debt](http://agileforgrowth.com/wp-content/uploads/2017/01/Techdebt.jpg)
 
 Seriously!
+
+---
+
+## Git clone
+
+To contribute to an existing repository, clone it to your computer:
+```shell
+$ mkdir -p ~/collaboration/directory && cd $_
+```
+```shell
+$ git clone git@github.com:escodebar/awwwesome.git .
+Cloning into '.' ...
+done.
+```
+
+Notes:
+* All repositories can be cloned
+* When a repository is cloned, the remote "origin" is already set
+* The origin repository might not allow you to push changes to it
+* GitHub only allows you to push to repositories if you are a collaborator or owner
 
 ---
 
