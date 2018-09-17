@@ -2072,7 +2072,7 @@ Notes:
 Prepare the branch in the cloned repository:
 
 ```shell
-$ git checkout -b pe/pull_request pe/interactive_rebasing
+$ git checkout -b pe/pull_request origin/pe/interactive_rebasing
 ```
 
 Edit format the README.md file and push it to the remote:
