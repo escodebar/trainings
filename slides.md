@@ -1625,15 +1625,15 @@ Add a branch with a few commits
 ```shell
 $ git checkout -b pe/interactive_rebasing pe/rebasing
 $ echo 'I would also love some feedback.' >> README.md
-$ git commit -a -m 'Ask for feedback'
+$ git commit -am 'Ask for feedback'
 [pe/interactive_rebasing c16a824] Ask for feedback
  1 file changed, 1 insertion(+)
 $ echo 'Personal feedback is the best.' >> README.md
-$ git commit -a -m 'Ask for personal feedback'
+$ git commit -am 'Ask for personal feedback'
 [pe/interactive_rebasing 450dc77] Ask for personal feedback
  1 file changed, 1 insertion(+)
 $ echo 'Helpful feedback is awarded with great coffee.' >> README.md
-$ git commit -a -m 'Trade feedback for coffee'
+$ git commit -am 'Trade feedback for coffee'
 [pe/interactive_rebasing 1603ef5] Trade feedback for coffee
  1 file changed, 1 insertion(+)
 ```
