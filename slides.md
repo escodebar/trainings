@@ -7,9 +7,68 @@ revealOptions:
 
 # Git basics
 
+## or: How I learned to stop worrying and love the rebase
+<!-- .element: class="fragment" -->
+
 ---
 
 ![Git](https://imgs.xkcd.com/comics/git_2x.png)<!-- .element: height="500px" -->
+
+Notes:
+* The goal of this training is to show what Git does when it is used, to allow you to choose when and how to use it
+* This training covers theory for using Git, however brain muscle is needed
+* Use *all* the commands and ask yourself how you can improve your workflows
+* This training is made for people who barely used Git before, but includes information for more experencied users
+* This training covers using Git when there is no *happy path*
+* Some parts of this training are rather technical and go deep into Git's internals
+* It also introduces a method to learn Git by your own
+* It's going to be tough, but hopefully fun as well!
+
+---
+
+## Requirements
+
+If you know how to type commands in a terminal and parse its output, this traning is made for you!
+
+Notes:
+* Reading is crucial here, by the end of the training you'll be using the *man*-pages a lot!
+* No specific Git editor integration is discussed, since none of them covers all of Git's features
+* For the same reason, no Git GUI is discussed
+* I recommend using the terminal all of the time and start using other tools, if they make you more efficient than when using the console alternative
+* In many occasions you'll find yourself connected to a server with a Git repository, knowing the commands in that situation is crucial
+* For some features, an integration for your favorite editor might be useful, yet start using the terminal
+
+---
+
+## The
+## Tangled Working Copy
+## Problem
+
+Notes:
+* Before we start I'd like to discuss a situation which shows Git's true power
+* This situation is pretty common for developers who don't have a thoroughly organized workflow
+* Git helps us solving this situation in several ways, so find the way with suits you better
+
+Situation:
+* You have a working software version
+* You introduce experimental changes
+* You notice a bug (not introduced by the experimental changes)
+* You want to fix the bug and keep the experimental changes uncommitted
+
+With enough Git routine, this won't be a problem again.
+
+---
+
+## Boot your notebooks
+
+Notes:
+* If you feel that this training is not made for you, this is the right moment to leave the room
+
+---
+
+## Slides
+
+[https://escodebar.github.io/trainings/git/basics/](https://escodebar.github.io/trainings/git/basics/)
 
 ---
 
@@ -21,6 +80,76 @@ if it is not already provided by your operating system.
 Notes:
 * Most of you probably have Git installed already, if not, please install Git using your package manager
 * If you are using a Mac, follow the instructions of the link provided by the slides
+* Update your Git if the version you're using is older than 2.0
+* Previous versions of Git were not that useful, also the documentation improved a lot with never versions
+
+---
+
+## Git help
+
+Display help information about Git
+
+Notes:
+* Never underestimate the power of *man*-pages
+* When in doubt, call the help command with the command name you want to be helped with
+
+---
+
+## Git? Help!
+
+```shell
+$ git help
+usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
+           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
+           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           <command> [<args>]
+
+These are common Git commands used in various situations:
+
+start a working area (see also: git help tutorial)
+    clone      Clone a repository into a new directory
+    init       Create an empty Git repository or reinitialize an existing one
+
+work on the current change (see also: git help everyday)
+    add        Add file contents to the index
+    mv         Move or rename a file, a directory, or a symlink
+    reset      Reset current HEAD to the specified state
+    rm         Remove files from the working tree and from the index
+
+examine the history and state (see also: git help revisions)
+    bisect     Use binary search to find the commit that introduced a bug
+    grep       Print lines matching a pattern
+    log        Show commit logs
+    show       Show various types of objects
+    status     Show the working tree status
+
+grow, mark and tweak your common history
+    branch     List, create, or delete branches
+    checkout   Switch branches or restore working tree files
+    commit     Record changes to the repository
+    diff       Show changes between commits, commit and working tree, etc
+    merge      Join two or more development histories together
+    rebase     Reapply commits on top of another base tip
+    tag        Create, list, delete or verify a tag object signed with GPG
+
+collaborate (see also: git help workflows)
+    fetch      Download objects and refs from another repository
+    pull       Fetch from and integrate with another repository or a local branch
+    push       Update remote refs along with associated objects
+
+'git help -a' and 'git help -g' list available subcommands and some
+concept guides. See 'git help <command>' or 'git help <concept>'
+to read about a specific subcommand or concept.
+```
+<!-- .element: style="font-size: 0.43em;" -->
+
+Notes:
+* Whenever you see a *$*, it's a terminal input
+* The more I know Git, the more useful is this command's output
+* It is an important resource of information
+* This traning covers most of the commands used here in a meaningful order
+* But let's start with a command which is not in this list!
 
 ---
 
@@ -30,15 +159,16 @@ Get and set repository or global options
 
 Notes:
 * There are three levels of configuration: system, global, repository
-    - "system" configuration is applied to all repositories of the machine
-    - "global" configuration is used on all repositories of the user
-    - "local" configuration is used on the current repository
+  - "system" configuration is applied to all repositories of the machine
+  - "global" configuration is used on all repositories of the user
+  - "local" configuration is used on the current repository
 * The more features you know about Git, the more you will configure Git
 * You can configure a *lot* of things like:
-    - advice messages
-    - editor(s)
-    - pager
-    - diff algorithm
+  - advice messages
+  - editor(s)
+  - pager
+  - diff algorithm
+  - aliases
 
 ---
 
@@ -59,6 +189,8 @@ $ git config --global core.editor 'atom --wait'
 ```
 
 Notes:
+* The more you use Git, the more you will configure it to your needs
+* But again, I would use the defaults until you feel confortable with these (think of being connected to an uncofigured server)
 
 Configuration:
 * You may want to configure a project with another author or email depending on the customer of the project (work, university, private...)
@@ -75,7 +207,8 @@ Create an empty Git repository or reinitialize an existing one.
 
 Notes:
 * Running `git init` in an existing repository is safe.
-* You may also pass a template directory with a project structure.
+* You may also pass a template directory with a project structure (I have never used this feature)
+* You may also initialise a repository in a non-empty folder
 
 ---
 
@@ -99,11 +232,10 @@ drwxr-xr-x 7 escodebar escodebar 200 Aug  2 10:39 .git
 See that `.git` folder there? That's the repository.
 
 Notes:
-* During this training a repository is used
+* During this training a toy repository is used
 * We will be adding changes to the repository during the training to confront you with typical Git situations
-* Please do not use an existing repository as it might change the output
-* Everything tracked by Git is inside the repository
-* If there is something you want to backup, then it's the ``.git`` folder
+* Everything tracked by Git is inside the repository. Everything! Seriously... everything! Or almost everything!
+* If there is something you want to backup, then it's the ``.git`` folder... but's let's discuss that later
 
 ---
 
@@ -137,12 +269,16 @@ Notes:
 
 ## Gitception
 
-Behold
+Behold, run this in a separate terminal!
+<!-- .element: class="fragment" -->
+
 ```shell
 $ cd ~/working/directory/.git
 ```
+<!-- .element: class="fragment" -->
 
 We are creating a repository inside the repository
+<!-- .element: class="fragment" -->
 ```shell
 $ git init . && git add . && git commit -m 'Add the repository'
 Initialized empty Git repository in ~/working/directory/.git/.git/
@@ -156,15 +292,17 @@ Initialized empty Git repository in ~/working/directory/.git/.git/
  create mode 100755 hooks/update.sample
  create mode 100644 info/exclude
 ```
-<!-- .element: style="font-size: 0.535em" -->
+<!-- .element: class="fragment" style="font-size: 0.535em" -->
 
 Don't do this at home!
+<!-- .element: class="fragment" -->
 
 Notes:
 * Git keeps track of all the changes in the repository, it is therefore a perfect analysis tool
-* Git goes up the directory path to the point where it finds a ``.git`` folder, but ignores its contents
+* Most Git commands go up the directory path to the point where they find a ``.git`` folder, but "ignore" its contents
 * Therefore we can create a repository in the repository to track the changes and understand Git's behaviour
 * Ignore the added files for now, most of them are discussed later during the training
+* Also ignore the "new" commands, as they're discussed in the next few slides
 * I haven't seen an other Git training doing this!
 
 ---
@@ -208,22 +346,25 @@ nothing to commit (create/copy files and use "git add" to track)
 
 Notes:
 * The repository is on the master branch
-* Branches are discussed later, for now, just remember that the master branch is the default branch
+* Branches are discussed later, for now, just remember that the master branch is (in most repositories) the default branch
 * There are no commits
 * Commits are discussed in detail in a few slides
-* Use ``git help`` to display the documentation of any command
-* In many cases Git tells you what to do
+* In many cases Git tells you what to do, you may configure these advices with the Git config command
 
 ---
 
 ## Let's do something!
 
 Documentation first!
+<!-- .element: class="fragment" -->
+
 ```shell
 $ echo '# My awwwesome training' > README.md
 ```
+<!-- .element: class="fragment" -->
 
 What's the status now?
+<!-- .element: class="fragment" -->
 ```shell
 $ git status
 On branch master
@@ -237,16 +378,16 @@ Untracked files:
 
 nothing added to commit but untracked files present (use "git add" to track)
 ```
-<!-- .element: style="font-size: 0.465em;" -->
+<!-- .element: class="fragment"  style="font-size: 0.465em;" -->
 
 Notes:
-* You can tell Git to ignore files using ``.gitignore``
+* You can tell Git to ignore files using ``.gitignore``, then they won't be listed in the "Untracked files" section
 * Ignore large files and non-project specific files:
   - backup files
   - binary files
   - data files
   - system specific files (like .DS_Store, or local configurations)
-  - files containing (personal) passwords
+  - files containing (personal) passwords (move passwords to enivornment variables and use the environment variables)
 
 ---
 
@@ -312,7 +453,7 @@ Notes:
 * The index file is a binary file and it is not discussed in this training
 * The name of the objects is given by their (SHA1) hash
 * To improve file-system usage, the objects are stored in folders
-* You can add any kind of content into a Git repository.
+* You can add any kind of content into a Git repository, yet some objects shouldn't be added (large files which change a lot)
 * Git will store this content in an object.
 * Git objects are seen as part of the Git internals!
 * Understanding objects is relevant for using Git well
@@ -335,15 +476,17 @@ Notes:
 
 ## What's in the newly created object?
 
-Inspect the created object using:
+Inspect the created object
 ```shell
 $ git cat-file -t b27501a
 blob
 ```
+<!-- .element: class="fragment" -->
 ```shell
 $ git cat-file -p b27501a
 # My awwwesome training
 ```
+<!-- .element: class="fragment" -->
 
 Notes:
 * Files are stored as objects of type "blob" (Binary Large OBject)
@@ -351,6 +494,7 @@ Notes:
 * You can find the size of an object by using the ``-s`` flag
 * Only the first few (min. 7) hexadecimal digits of a hash are required to determine the file
 * More objects are discussed later
+* Please remember, that the whole file and not only the diff is stored!
 
 ---
 
@@ -404,16 +548,16 @@ Notes:
 * Guidelines for commit messages exist
 * Title as short as possible and in imperative mode
 * One empty line after the commit title
-* Describe WHY you are doing the change (WHAT is described in the code)
-* If you need to describe the what, you should probably rethink your code
+* Describe WHAT and WHY you are doing the change (HOW is described in the code)
+* If you need to describe the how, you should probably rethink your code
 * If a commit is not complete, you might want to stash the changes instead or the title can be provided with a [WIP]
-* If you have a test driven workflow, you may commit the test first and then the rest
+* If you have a test driven workflow, you may commit the test first and then the rest, but then mark, the test as expected to fail
 
 ---
 
 ## Save the changes
 
-Commit the changes to the repository running:
+Commit the changes to the repository
 ```shell
 $ git commit -m 'Describe the training'
 [master (root-commit) 78d7aa6] Describe the training
@@ -423,7 +567,7 @@ $ git commit -m 'Describe the training'
 
 Notes:
 * See ``master``?
-* ``root-commit``: This is a special one, it has no parent
+* ``root-commit``: This is a special one, it has no parent, well see that in a minute
 * Create mode with permissions (not all permissions are stored in Git)
 * You can also run just ``git commit``, then your editor will pop-up
 * I did not describe the "why" here, do as I tell you, not as I do (here)
@@ -461,10 +605,12 @@ Notes:
 ## Commit objects!
 
 What is the object with the commit's hash?
+<!-- .element: class="fragment" -->
 ```shell
 $ git cat-file -t 78d7aa6
 commit
 ```
+<!-- .element: class="fragment" -->
 ```shell
 $ git cat-file -p 78d7aa6
 tree a44f211c376b94d122c6429ef8e87ffa7856419d
@@ -473,7 +619,9 @@ committer Pablo Escodebar <escodebar@gmail.com> 1533199402 +0200
 
 Describe the training
 ```
+<!-- .element: class="fragment" -->
 ...so this is what a commit looks like!
+<!-- .element: class="fragment" -->
 
 Notes:
 * Git commits in objects as well
@@ -486,22 +634,25 @@ Notes:
 ## Tree objects!
 
 What is the object with the tree's hash?
+<!-- .element: class="fragment" -->
 ```shell
 $ git cat-file -t a44f211
 tree
 ```
+<!-- .element: class="fragment" -->
 
 ```shell
 $ git cat-file -p a44f211
 100644 blob b27501ade65f39bc91a5e6eb0d707903ba225a00	README.md
 ```
-<!-- .element: style="font-size: 0.545em;" -->
+<!-- .element: class="fragment" style="font-size: 0.545em;" -->
 
-...the tree is a just a collection of references to objects!
+...it's collection of references to objects!
+<!-- .element: class="fragment" -->
 
 Notes:
-* The tree an object containing references to the blobs
-* The tree also stores the permissions and the names of the files
+* The tree is an object containing references to the blobs (or other trees)
+* The tree also stores the permissions and the names of the files, but you can't set all permissions!
 * "Lost" objects can be found in the repository by looking by the date of creation using scripts
 
 By now, you know more about Git internals than many who consider themselves proficient in Git.
@@ -515,8 +666,7 @@ Show various types of objects
 Notes:
 * This command is similar to `git cat-file`
 * The output of `git cat-file` displays information raw while `git show` processes the information
-* `git show` has several output format options
-* A custom format can chosen
+* `git show` has several output format options, a custom format can chosen
 
 ---
 
@@ -542,12 +692,12 @@ index 0000000..b27501a
 <!-- .element: style="font-size:0.5em;" -->
 
 Notes:
+* If no argument is passed, the commit currently checked out will be shown
 * See ``HEAD``, ``master``, etc.? We met these already
-* ``HEAD`` is not discussed during this training
+* We will discuss ``HEAD`` in a couple of slides
 * ``master`` is a branch, branches are discussed later
 * More details about commits are discussed in a few slides
 * A commit hash can be passed to the show command to show a specific commit
-* If no argument is passed, the currently checked out commit will be shown
 
 ---
 
@@ -610,6 +760,7 @@ Notes:
   - s - split the current hunk into smaller hunks
   - e - manually edit the current hunk
   - ? - print help
+* You can always abort this command with ``Ctrl-c``
 
 ---
 
@@ -628,7 +779,7 @@ Motivate the participant
 ...it has a parent!
 
 Notes:
-* Think of the graph we saw before
+* Think of the graph we saw before, every commit (with exception of root commits) point to another commit
 
 ---
 
@@ -739,25 +890,28 @@ Questions:
 
 ## Git branch
 
-aka. *a reference*
+List, create, or delete branches
 
-"*References are pointers to commits.*"
-
-Notes:
-
-Goal:
-* Creating branches with diverging commits
-* Add the changes of a branch to an other branch
+...but what's a branch?
+<!-- .element: class="fragment" -->
 
 ---
 
-## Branches
+## A branch
+
+aka. *a reference*
+
+"*References are pointers to commits.*"
 
 * simplify complex workflows.
 * allow to group the logic of a feature.
 * allow to work in parallel on several features.
 
 Notes:
+
+Goal:
+* Creating branches with diverging commits
+* Add the changes of a branch to an other branch
 * There are also other references: tags
 
 ---
@@ -785,11 +939,9 @@ Notes:
 How are branches stored in the repository?
 
 ```shell
-$ git add .
-$ git commit -m 'Add a new branch'
+$ git add . && git commit -m 'Add a new branch'
 [master ffce5ba] Add a new branch
- 4 files changed, 4 insertions(+), 1 deletion(-)
- create mode 100644 logs/refs/heads/pe/new_branch
+ 3 files changed, 3 insertions(+), 1 deletion(-)
  create mode 100644 refs/heads/pe/new_branch
 ```
 ```shell
@@ -956,8 +1108,9 @@ We do not want to have uncommitted changes!
 ```shell
 $ git add . && git commit -m 'Add branches with commits'
 [master ccc7056] Add braches with commits
- 16 files changed, 19 insertions(+), 12 deletions(-)
+ 17 files changed, 20 insertions(+), 12 deletions(-)
  create mode 100644 logs/refs/heads/pe/add_list_of_favorite_beers
+ create mode 100644 logs/refs/heads/pe/new_branch
  create mode 100644 logs/refs/heads/pe/whiskey_is_also_an_option
  create mode 100644 objects/00/0ce0a9703aebd0722e2ac3f285985b6b223312
  create mode 100644 objects/0d/f4281955475551ad1a4232fce76a5fb6d340d0
@@ -1581,6 +1734,7 @@ Notes:
 * The first command cannot be a squash or a fixup!
 * Drop, squash, fix up or change the order of the commits as required
 * Mastering the interactive rebase is worth a salary raise!
+* There are commit commands to create automtic fixup and squash commands, let's discuss them after a break!
 
 ---
 
@@ -1665,5 +1819,8 @@ HEAD is now at 019ece3 Ask for feedback
 
 ---
 
+## Questions & Feedback
+
+---
+
 ## Thank you!
-🍺<!-- .element: style="font-size: 100pt;" class="fragment" -->
