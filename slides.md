@@ -5,234 +5,46 @@ revealOptions:
     transition: 'fade'
 ---
 
-# Learning Git
-# the hard way
+# Git basics
 
 ---
 
 ![Git](https://imgs.xkcd.com/comics/git_2x.png)<!-- .element: height="500px" -->
-
-Notes:
-* The goal is to show what Git does when it is used, to allow you to choose when and how to use it
-* The training covers theory for using Git, however brain muscle is needed
-* Use *all* the commands and ask yourself how you can improve your workflows
-* This training is made for people who barely used Git before, but includes information for more experienced users
-* This training covers using Git when there is no "happy path"
-* A short introduction to GitHub and the pull-request workflow is also made
-* Some parts of this training are rather technical and go deep into Git's internals
-* It's going to be tough, but hopefully fun as well!
-
----
-
-## Schedule
-
-* Version control systems
-* Understanding and using Git
-* Understanding and using GitHub
-* Collaborating with Git / GitHub
-
-Notes:
-* For starters the concept of version control systems is introduced
-* I will try to give you a motivation to use version control systems even when you work on your own
-* The main course will be about Git, its usage and its internals
-* During this part I will give you guidelines I found very useful
-* As soon as we're ready to take a look at remote repositories, GitHub will be introduced
-* A whole course could be dedicated to GitHbu, therefore we won't be covering all of its features
-* Once we feel comfortable with most of GitHub's UI, we will see how it can be used for collaboration
-* Only a simple collaboration workflow will be covered
-
----
-
-Pablo Vergés
-([GitHub](https://github.com/escodebar),
-[Bitbucket](https://bitbucket.org/escodebar))
-
-Notes:
-* I don't want to go into much details about myself
-* Come towards me during the breaks or after the lecture
-* You may also send me an email
-
----
-
-## Requirements
-
-If you know how to type commands in a terminal and parse its output,
-this training is made for you!
-
-Notes:
-* Reading is crucial here, you'll be using the "man"-pages a lot!
-* No specific Git editor integration is discussed
-* Also no Git GUI is discussed
-* Many intergrations and GUIs do not cover all of Git's features, so I recommend you to get used to the terminal
-* In many occasions you'll find yourself connected to a server with a Git repository, knowing the commands in that situation is crucial
-* For some features, an integration for your favorite editor might be useful, yet start using the terminal
-
----
-
-## Version control systems
-
-What is a VCS and why do I need it?
-
-* Collaboration
-* Version control
-* The tangled working copy problem
-
-Notes:
-* Collaboration: Ever tried to collaborate using a shared folder?
-* Version control: How are new features added to stable versions?
-* "The tangled working copy problem" is discussed later
-* Never lose a line of code again and forget about rewriting work already done!
-
-Statistics:
-* Who worked already in a collaboration?
-* How many people where part of the collaboration? (2, 5, 10, bigger groups)
-* Who collaborated using Dropbox?
-* How did you exchange code / text files?
-* Who had to maintain several versions of the same software already?
-* How did you handle that situation?
-
----
-
-## Other motivations
-
-A VCS may also be helpful for:
-* Continuous Integration
-* Continuous Deployment
-* Error analysis
-* System analysis
-
-Notes:
-
-Integration:
-* Tests may be run against code changes automatically to detect possible functionality breaks or bugs
-* You may also compile the code automatically after a significant change
-* Automate systematic work
-
-Deploying:
-* Install a specific version of an application without breaking a sweat
-* Automate systematic work
-
-Error analysis:
-* Find out which is the breaking change
-* Find out who broke the software
-
-System analysis:
-* See what happens within your system when you use it
-* Find out what the difference is between system configurations
-
----
-
-## The
-## tangled working copy
-## problem
-
-Notes:
-
-Situation:
-* You have a working software version
-* You introduce experimental changes
-* You notice a bug (not introduced by the experimental changes)
-* You want to fix the bug and keep the experimental changes
-
-With enough Git routine, this won't be a problem again.
-Not all version control systems help you solving this situation
-
----
-
-## Some VCS
-
-ArX,
-Bazaar,
-BitKeeper,
-Codeville,
-CVS,
-Darcs,
-DCVS,
-Fossil,
-Git,
-GNU arch,
-Mercurial,
-Monotone,
-Perforce,
-Subversion,
-TFVCS,
-Veracity, ...
-
-Notes:
-
-Statistics:
-* Who worked with a version control system already?
-* Which of the VCS listed here did you use?
-* How was your experience with the VCS?
-* Do you know a VCS which is not listed in here?
-
----
-
-# Git
-
-Notes:
-* I have little experience with subversion and no experience with all the other VCS (besides Git)
-* I started using Git, because the company I worked for used Git
-* I kept using Git because I found enough "Why is Git better than X"-blog entries
-* I keep using Git because Git is all I need (so far)
-* Try to find out what your needs are and find the VCS which suits your use case (which will be probably be Git)
-
----
-
-## Git
-
-"*... is oddly liberal with how and when you use it.*"
-
-* is a powerful analysis tool
-* allows running automated tasks
-* simplifies collaboration
-* simplifies code organization
-* makes working in parallel trivial
-* solves the tangled working copy problem
-
-Notes:
-* Git does not force you to suit certain workflows, it doesn't get in your way
-* Depending on your workflow, the development might be
-  - chaotic (which is totally fine, think of eating)
-  - organized
-* This liberty requires understanding Git tough
-* This liberty also allows to evolve your development workflow
-
----
-
-# Git
-## will make you
-# a better programmer!
-
-Notes:
-* But only if you're willing to change! (Improvement always comes with change)
-
----
-
-## Boot your notebooks
-
-Notes:
-If you feel that this training is not made for you, this is the right moment to leave the room
-
----
-
-## Slides
-
-https://escodebar.github.io/trainings/git/
-
-Notes:
-* The sildes are handy for clicking on links or copy-paste code
-* You might press "s" to get the speaker notes, but don't do that during the training, as it will spoil a few jokes
-* With "o" you get an overview of the slides for faster navigation
-* The URL indicates the slide number (handy for asking questions)
 
 ---
 
 ## Setup
 
 [Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-and tell it who you are
+if it is not already provided by your operating system.
 
+Notes:
+* Most of you probably have Git installed already, if not, please install Git using your package manager
+* If you are using a Mac, follow the instructions of the link provided by the slides
+
+---
+
+## Git config
+
+Get and set repository or global options
+
+Notes:
+* There are three levels of configuration: system, global, repository
+    - "system" configuration is applied to all repositories of the machine
+    - "global" configuration is used on all repositories of the user
+    - "local" configuration is used on the current repository
+* The more features you know about Git, the more you will configure Git
+* You can configure a *lot* of things like:
+    - advice messages
+    - editor(s)
+    - pager
+    - diff algorithm
+
+---
+
+## Configure your username and editor
+
+On your machine you may want to run the following
 ```shell
 $ git config --global user.name 'Pablo Escodebar'
 $ git config --global user.email 'escodebar@gmail.com'
@@ -248,17 +60,22 @@ $ git config --global core.editor 'atom --wait'
 
 Notes:
 
-Setup:
-* Most of you probably have Git installed already, if not, please install Git using your package manager
-* If you are using a Mac, follow the instructions of the link provided by the slides
-
 Configuration:
-* The configuration may be made per repository or per user
 * You may want to configure a project with another author or email depending on the customer of the project (work, university, private...)
 
 Editor configuration:
 * Choose an editor you feel comfortable with (or get comfortable with the editor you choose)
 * More settings can be configured, this is just a minimal setup, so please read the documentation about Git configuration
+
+---
+
+## Git init
+
+Create an empty Git repository or reinitialize an existing one.
+
+Notes:
+* Running `git init` in an existing repository is safe.
+* You may also pass a template directory with a project structure.
 
 ---
 
@@ -314,8 +131,7 @@ This is deep enough for now!
 Notes:
 * Be aware of the listed objects
 * HEAD, config, description are files
-* The rest is folders
-* To study the behavior of the repository, a repository is made inside the repository.
+* The rest are folders
 
 ---
 
@@ -366,6 +182,15 @@ Notes:
 
 Notes:
 * Go digest the Gitception
+
+---
+
+## Git status
+
+Show the working tree status.
+
+Notes:
+* The directory where the code is edited is called the working tree
 
 ---
 
@@ -425,6 +250,14 @@ Notes:
 
 ---
 
+## Git add
+
+Add file contents to the index.
+
+...but what's the index?<!-- .element: class="fragment" -->
+
+---
+
 ## The index
 
 aka. *the staging area*
@@ -435,7 +268,6 @@ aka. *the staging area*
 
 Notes:
 * Not all VCS have this feature!
-* This solves the tangled working copy problem (but there are more ways!)
 
 ---
 
@@ -480,6 +312,10 @@ Notes:
 * The index file is a binary file and it is not discussed in this training
 * The name of the objects is given by their (SHA1) hash
 * To improve file-system usage, the objects are stored in folders
+* You can add any kind of content into a Git repository.
+* Git will store this content in an object.
+* Git objects are seen as part of the Git internals!
+* Understanding objects is relevant for using Git well
 
 Questions:
 * How many folders will be created at max?
@@ -488,20 +324,18 @@ Questions:
 
 ---
 
-## Git objects
+## Git cat-file
 
-You can add any kind of content into a Git repository.
-Git will store this content in an object.
+Provide content or type and size information for repository objects.
 
 Notes:
-* Git objects are seen as part of the Git internals!
-* Understanding objects is relevant for using Git well
+* This command is rarely used, but it is good to know that it exists!
 
 ---
 
-## Inspect objects
+## What's in the newly created object?
 
-Objects can be inspected using:
+Inspect the created object using:
 ```shell
 $ git cat-file -t b27501a
 blob
@@ -517,6 +351,12 @@ Notes:
 * You can find the size of an object by using the ``-s`` flag
 * Only the first few (min. 7) hexadecimal digits of a hash are required to determine the file
 * More objects are discussed later
+
+---
+
+## Git diff
+
+Show changes between commits, commit and working tree, etc.
 
 ---
 
@@ -542,6 +382,16 @@ Notes:
 
 ---
 
+## Git commit
+
+Record changes to the repository.
+
+Notes:
+* This command is used a lot!
+* It has many options, some of which are discussed during this training.
+
+---
+
 ## A commit
 
 aka. *a change*
@@ -561,54 +411,22 @@ Notes:
 
 ---
 
-## Git commit
+## Save the changes
 
-You can commit the changes to the repository running:
+Commit the changes to the repository running:
 ```shell
 $ git commit -m 'Describe the training'
 [master (root-commit) 78d7aa6] Describe the training
  1 file changed, 1 insertion(+)
  create mode 100644 README.md
 ```
-This commit is now (pretty) save
 
 Notes:
 * See ``master``?
 * ``root-commit``: This is a special one, it has no parent
-* Create mode with permissions
+* Create mode with permissions (not all permissions are stored in Git)
 * You can also run just ``git commit``, then your editor will pop-up
 * I did not describe the "why" here, do as I tell you, not as I do (here)
-
----
-
-## Git show
-
-Take a look at a change using:
-```shell
-$ git show
-commit 78d7aa680e7ac5f3e851727ac29dd34afeb766f6 (HEAD -> master)
-Author: Pablo Escodebar <escodebar@gmail.com>
-Date:   Thu Aug 2 10:43:22 2018 +0200
-
-    Describe the training
-
-diff --git a/README.md b/README.md
-new file mode 100644
-index 0000000..b27501a
---- /dev/null
-+++ b/README.md
-@@ -0,0 +1 @@
-+# My awwwesome training
-```
-<!-- .element: style="font-size:0.5em;" -->
-
-Notes:
-* See ``HEAD``, ``master``, etc.? We met these already
-* ``HEAD`` is not discussed during this training
-* ``master`` is a branch, branches are discussed later
-* More details about commits are discussed in a few slides
-* A commit hash can be passed to the show command to show a specific commit
-* If no argument is passed, the currently checked out commit will be shown
 
 ---
 
@@ -642,7 +460,7 @@ Notes:
 
 ## Commit objects!
 
-What is the objects with the commit's hash?
+What is the object with the commit's hash?
 ```shell
 $ git cat-file -t 78d7aa6
 commit
@@ -690,6 +508,49 @@ By now, you know more about Git internals than many who consider themselves prof
 
 ---
 
+## Git show
+
+Show various types of objects
+
+Notes:
+* This command is similar to `git cat-file`
+* The output of `git cat-file` displays information raw while `git show` processes the information
+* `git show` has several output format options
+* A custom format can chosen
+
+---
+
+## What was the last commit?
+
+Take a look at a change using:
+```shell
+$ git show
+commit 78d7aa680e7ac5f3e851727ac29dd34afeb766f6 (HEAD -> master)
+Author: Pablo Escodebar <escodebar@gmail.com>
+Date:   Thu Aug 2 10:43:22 2018 +0200
+
+    Describe the training
+
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..b27501a
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1 @@
++# My awwwesome training
+```
+<!-- .element: style="font-size:0.5em;" -->
+
+Notes:
+* See ``HEAD``, ``master``, etc.? We met these already
+* ``HEAD`` is not discussed during this training
+* ``master`` is a branch, branches are discussed later
+* More details about commits are discussed in a few slides
+* A commit hash can be passed to the show command to show a specific commit
+* If no argument is passed, the currently checked out commit will be shown
+
+---
+
 # Break
 
 ---
@@ -727,8 +588,8 @@ Stage this hunk [y,n,q,a,d,/,e,?]?
 <!-- .element: style="font-size: 0.485em;" -->
 
 ```shell
-$ git commit -m 'Add motivation for the participant'
-[master 113b2fe] Add motivation for the participant
+$ git commit -m 'Motivate the participant'
+[master 113b2fe] Motivate the participant
  1 file changed, 1 insertion(+)
 ```
 
@@ -762,7 +623,7 @@ parent 78d7aa680e7ac5f3e851727ac29dd34afeb766f6
 author Pablo Escodebar <escodebar@gmail.com> 1534533899 +0200
 committer Pablo Escodebar <escodebar@gmail.com> 1534533899 +0200
 
-Add motivation for the participant
+Motivate the participant
 ```
 ...it has a parent!
 
@@ -776,7 +637,7 @@ Notes:
 My favorite way of committing!
 ```shell
 $ echo 'Buy me a beer if it made you better.' >> README.md
-$ git commit -p -m 'Add motivation for the speaker'
+$ git commit -p -m 'Motivate the speaker'
 diff --git a/README.md b/README.md
 index 22d2d62..3f652ed 100644
 --- a/README.md
@@ -790,7 +651,7 @@ Stage this hunk [y,n,q,a,d,/,e,?]?
 
 Once all hunks are decided, a commit will be created
 ```shell
-[master a894a8e] Add motivation for the speaker
+[master a894a8e] Motivate the speaker
  1 file changed, 1 insertion(+)
 ```
 
@@ -817,11 +678,22 @@ Notes:
 
 ## Git log
 
+Show commit logs
+
+Notes:
+* This is a handy way to see the change log of a project
+* It can also be used to see the change log of files
+* The cleaner the commit history, the more powerful this command
+
+---
+
+## What did we do so far?
+
 Take a look back at your work using:
 ```shell
 $ git log --oneline --abbrev-commit
-a894a8e (HEAD -> master) Add motivation for the speaker
-113b2fe Add motivation for the participant
+a894a8e (HEAD -> master) Motivate the speaker
+113b2fe Motivate the participant
 78d7aa6 Describe the training
 ```
 ...so this is why we want short commit titles?
@@ -897,12 +769,6 @@ Branches are created using
 $ git branch pe/new_branch
 ```
 
-To checkout a branch, run:
-```shell
-$ git checkout pe/new_branch
-Switched to branch 'pe/new_branch'
-```
-
 Notes:
 * There are naming conventions for branches
 * Prefix branches with your initials, to tell others not to touch it
@@ -920,8 +786,8 @@ How are branches stored in the repository?
 
 ```shell
 $ git add .
-$ git commit -m 'Add and checkout a new branch'
-[master ffce5ba] Add and checkout a new branch
+$ git commit -m 'Add a new branch'
+[master ffce5ba] Add a new branch
  4 files changed, 4 insertions(+), 1 deletion(-)
  create mode 100644 logs/refs/heads/pe/new_branch
  create mode 100644 refs/heads/pe/new_branch
@@ -948,7 +814,7 @@ commit a894a8e197ea8e5a59323522ac9549a5f974f483 (HEAD -> pe/new_branch, master)
 Author: Pablo Escodebar <escodebar@gmail.com>
 Date:   Thu Aug 2 10:46:30 2018 +0200
 
-    Add motivation for the speaker
+    Motivate the speaker
 
 diff --git a/README.md b/README.md
 index 22d2d62..3f652ed 100644
@@ -972,8 +838,28 @@ Statistics:
 
 ---
 
+## Git checkout
+
+Switch branches or restore working tree files
+
+Notes:
+* If you checkout a branch and add a commit, the branch will reference the new commit
+* Beware! This command might delete unstaged changes.
+
+---
+
+## Checkout the newly created branch
+
+To checkout a branch, run:
+```shell
+$ git checkout pe/new_branch
+Switched to branch 'pe/new_branch'
+```
+
+---
+
 ## Create and checkout branches
-## in one step!
+## ...in one step!
 
 Check out a *new* branch using checkout:
 ```shell
@@ -985,6 +871,7 @@ Switched to branch 'pe/add_list_of_favorite_beers'
 Notes:
 * If you leave the starting point, the current HEAD is used
 * Read the commands documentation, it is very useful (similar to the reset command)
+* `git checkout` might require some runtime, depending on the size of the files to be copied
 
 ---
 
@@ -1050,8 +937,8 @@ $ git log --oneline --abbrev-commit --all --graph
 * 68f2339 (HEAD -> pe/whiskey_is_also_an_option) Accept whiskey as reward
 | * 000ce0a (pe/add_list_of_favorite_beers) Let people know, what beer to buy
 |/
-* a894a8e (pe/new_branch, master) Add motivation for the speaker
-* 113b2fe Add motivation for the participant
+* a894a8e (pe/new_branch, master) Motivate the speaker
+* 113b2fe Motivate the participant
 * 78d7aa6 Describe the training
 ```
 <!-- .element: style="font-size: 0.46em;" -->
@@ -1124,12 +1011,12 @@ Notes:
 
 ---
 
-## Git Merge
+## Git merge
 
 ![merge](https://wac-cdn.atlassian.com/dam/jcr:83323200-3c57-4c29-9b7e-e67e98745427/Branch-1.png?cdnVersion=lj) <!-- .element: height="380px" style="background: white;" -->
 
 
-> Join development histories
+Join development histories
 
 Notes:
 * This results in a forked (non-linear) commit-history.
@@ -1348,16 +1235,18 @@ Questions:
 
 ---
 
-## Git Cherry-Pick
+## Git cherry-pick
 
 ![cherry pick](https://wac-cdn.atlassian.com/dam/jcr:8d62148d-ba03-4762-bd3a-06ddc465b07f/hero.svg?cdnVersion=jo) <!-- .element: height="300px" style="background: white" -->
 
 
-> Apply the changes introduced by some existing commits
+Apply the changes introduced by some existing commits
 
 Notes:
 * This results in a linear commit-history
 * This is not handy if the changes of many commits need to be introduced
+* Your working tree needs to be clean
+* Merge commits can be cherry-picked! (But you need to specify the mainline)
 
 ---
 
@@ -1374,8 +1263,8 @@ Find the hash of the cherry (commit) to be picked
 ```shell
 $ git log --oneline --abbrev-commit pe/whiskey_is_also_an_option
 68f2339 (pe/whiskey_is_also_an_option) Accept whiskey as reward
-a894a8e (pe/new_branch, master) Add motivation for the speaker
-113b2fe Add motivation for the participant
+a894a8e (pe/new_branch, master) Motivate the speaker
+113b2fe Motivate the participant
 78d7aa6 Describe the training
 ```
 
@@ -1695,30 +1584,6 @@ Notes:
 
 ---
 
-## Take a look at your work
-
-```shell
-$ git log --oneline --abbrev-commit --all --graph
-* 019ece3 (HEAD -> pe/interactive_rebasing) Ask for feedback
-* c96224a (pe/rebasing) Accept whiskey as reward
-| * b7083bf (pe/cherry_picking) Accept whiskey as reward
-|/
-| *   3a1f82c (pe/merging) Add the list of beers first
-| |\
-|/ /
-| * 68f2339 (pe/whiskey_is_also_an_option) Accept whiskey as reward
-* | 000ce0a (pe/add_list_of_favorite_beers) Let people know, what beer to buy
-|/
-* a894a8e (pe/new_branch, master) Add motivation for the speaker
-* 113b2fe Add motivation for the participant
-* 78d7aa6 Describe the training
-```
-<!-- .element: style="font-size: 0.46em" -->
-
-The graph is now more complex!
-
----
-
 ## Commit the changes in the repository's repository
 
 ```shell
@@ -1738,553 +1603,53 @@ $ git add . && git commit -m 'Add interactive rebase'
 
 Notes:
 
-
 ---
 
 # Break
 
 ---
 
-## Git is distributed!
-
-Repositories can be hosted on any computer and connected to each other!
-
-Notes:
-* You can connect to a repository of a coworker's computer, as long as it can provide a URL
-* If you cannot provide a long-lasting URL (because of dynamic IPs, a missing DNS etc.), connecting a remote becomes painful
-* Using a "centralized" repository host (a server) simplifies this issue
-
----
-
-## Free repository hosts
-
-There are many free repository hosts
-* [GitHub](https://github.com/)
-* [Bitbucket](https://bitbucket.org/)
-* [C4Science](https://c4science.ch/)
-
-Notes:
-* The features of the hosts vary and some features are not available for free
-* Choose a host according to your needs.
-
----
-
-## Seting up your own server
-
-You can [setup your own server](https://git-scm.com/book/en/v2/Git-on-the-Server-Setting-Up-the-Server)
-
-or use [GitLab (Community Edition)](https://gitlab.com/gitlab-org/gitlab-ce).
-
-Notes:
-* GitLab provides more features out of the box!
-
----
-
-## GitHub
-
-![GitHub](https://assets-cdn.github.com/images/modules/logos_page/GitHub-Mark.png)
-<!-- .element: height="250px" -->
-
-Create a GitHub account (if you don't have one yet).
-
-Notes:
-* For this training, GitHub is used
-* GitHub is the biggest free repository host
-* It has a lot of free features
-
----
-
-## Create a remote repository
-
-Create a repository using your [GitHub](https://github.com/new) account.
-
----
-
-![Profile](GitHub/profile.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 295px; top: 105px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-![Repositories](GitHub/repositories.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 705px; top: 155px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-![Create a repository](GitHub/create_repository.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 530px; top: 210px; transform: scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 160px; top: 295px; font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 160px; top: 340px; font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 225px; top: 405px; transform: rotate(-45deg) scalex(-1); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-![Empty repository](GitHub/empty_repository.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 690px; top: 220px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-## Add a remote
+## Take a look at your work
 
 ```shell
-$ git remote add origin git@github.com:escodebar/awwwesome.git
+$ git log --oneline --abbrev-commit --all --graph
+* 019ece3 (HEAD -> pe/interactive_rebasing) Ask for feedback
+* c96224a (pe/rebasing) Accept whiskey as reward
+| * b7083bf (pe/cherry_picking) Accept whiskey as reward
+|/
+| *   3a1f82c (pe/merging) Add the list of beers first
+| |\
+|/ /
+| * 68f2339 (pe/whiskey_is_also_an_option) Accept whiskey as reward
+* | 000ce0a (pe/add_list_of_favorite_beers) Let people know, what beer to buy
+|/
+* a894a8e (pe/new_branch, master) Motivate the speaker
+* 113b2fe Motivate the participant
+* 78d7aa6 Describe the training
 ```
+<!-- .element: style="font-size: 0.46em" -->
 
-Notes:
-* origin is a convention
-* use names like production, testing, staging etc.
+The graph is now more complex!
 
 ---
 
-## Where is the shovel?
+## Git reset
+
+Reset current HEAD to the specified state
+
+Notes:
+* Unless you use `--hard`, this command will leave your working tree untouched
+* `git reset` can be used to move branches
+
+---
+
+## Update your master branch
 
 ```shell
-$ git diff
-diff --git a/config b/config
-index 515f483..8a721a0 100644
---- a/config
-+++ b/config
-@@ -3,3 +3,6 @@
-     filemode = true
-     bare = false
-     logallrefupdates = true
-+[remote "origin"]
-+    url = git@github.com:escodebar/awwwesome.git
-+    fetch = +refs/heads/*:refs/remotes/origin/*
-$ git commit -a -m 'Add the origin remote'
-[master 25493d8] Add the origin remote
- 1 file changed, 3 insertions(+)
+$ git checkout master && git reset --hard pe/interactive_rebasing
+HEAD is now at 019ece3 Ask for feedback
 ```
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
-
-Notes:
-* The ``-a`` flag adds changed to the index files before committing
-* New files still need to be added using ``git add``
-
----
-
-## Adding local branches to a remote
-
-Send all the local branches and their objects:
-```shell
-$ git push --all
-Enumerating objects: 25, done.
-Counting objects: 100% (25/25), done.
-Delta compression using up to 4 threads.
-Compressing objects: 100% (21/21), done.
-Writing objects: 100% (25/25), 2.21 KiB | 1.10 MiB/s, done.
-Total 25 (delta 8), reused 0 (delta 0)
-To git@github.com:escodebar/awwwesome.git
- * [new branch]      master -> master
- * [new branch]      pe/add_list_of_favorite_beers -> pe/add_list_of_favorite_beers
- * [new branch]      pe/cherry_picking -> pe/cherry_picking
- * [new branch]      pe/interactive_rebasing -> pe/interactive_rebasing
- * [new branch]      pe/merging -> pe/merging
- * [new branch]      pe/new_branch -> pe/new_branch
- * [new branch]      pe/rebasing -> pe/rebasing
- * [new branch]      pe/whiskey_is_also_an_option -> pe/whiskey_is_also_an_option
-```
-<!-- .element: style="font-size: 0.425em" -->
-
-Notes:
-* Git will use "origin" if no remote is specified
-* We will see how to send a specific branch later
-
----
-
-## And the repository's repository?
-
-```shell
-$ git add . && git commit -m 'Push everything to origin'
-[master d1aeb57] Push everything to origin
- 16 files changed, 16 insertions(+)
- create mode 100644 logs/refs/remotes/origin/master
- create mode 100644 logs/refs/remotes/origin/pe/add_list_of_favorite_beers
- create mode 100644 logs/refs/remotes/origin/pe/cherry_picking
- create mode 100644 logs/refs/remotes/origin/pe/interactive_rebasing
- create mode 100644 logs/refs/remotes/origin/pe/merging
- create mode 100644 logs/refs/remotes/origin/pe/new_branch
- create mode 100644 logs/refs/remotes/origin/pe/rebasing
- create mode 100644 logs/refs/remotes/origin/pe/whiskey_is_also_an_option
- create mode 100644 refs/remotes/origin/master
- create mode 100644 refs/remotes/origin/pe/add_list_of_favorite_beers
- create mode 100644 refs/remotes/origin/pe/cherry_picking
- create mode 100644 refs/remotes/origin/pe/interactive_rebasing
- create mode 100644 refs/remotes/origin/pe/merging
- create mode 100644 refs/remotes/origin/pe/new_branch
- create mode 100644 refs/remotes/origin/pe/rebasing
- create mode 100644 refs/remotes/origin/pe/whiskey_is_also_an_option
-```
-<!-- .element: style="font-size: 0.44em" -->
-
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
-
-Notes:
-* Git creates references for remote references
-
----
-
-## And what happened on GitHub?
-
----
-
-![Populated repository](GitHub/populated_repository.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 55px; top: 335px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 55px; top: 415px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 55px; top: 510px; transform: rotate(45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 175px; top: 195px; transform: rotate(-45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 365px; top: 195px; transform: rotate(-45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 745px; top: 195px; transform: rotate(-45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 845px; top: 425px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 155px; top: 230px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-![Commits](GitHub/commits.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 185px; top: 185px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 70px; top: 310px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 715px; top: 195px; transform: rotate(90deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 760px; top: 195px; transform: rotate(90deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
----
-
-![Populated repository](GitHub/populated_repository.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 350px; top: 230px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-![Branches](GitHub/branches.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 55px; top: 230px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 55px; top: 310px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 55px; top: 560px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 565px; top: 280px; transform: rotate(90deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 755px; top: 280px; transform: rotate(90deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 825px; top: 280px; transform: rotate(90deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 50px; top: 165px; font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
----
-
-# Break
-
----
-
-## Collaborators
-
-To allow others to contribute to your repository, you need to add them as collaborators.
-
-Notes:
-* They could also fork (clone) your repository, making the collaboration workflow more complicated
-* Create groups and add each other as collaborators, also add me as a collaborator
-
----
-
-![Collaborators](GitHub/collaborators.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 575px; top: 145px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 50px; top: 200px; font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 270px; top: 345px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 630px; top: 335px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-# Break
-
----
-
-## The GitHub Flow
-
-GitHub offers a simple yet elegant workflow to
-
-*review* and *discuss changes*
-
-before merging them to the master branch.
-
-Take a look at [The GitHub Flow](https://guides.github.com/introduction/flow/)
-
-Notes:
-* Reviewing code is an often forgotten, but important part of software development
-* Pull request might be missleading, GitLab calls it "merge request"
-* Roles: Committer, Reviewer, Administrator
-
----
-
-## Code reviews
-
-...are *important*
-
-![Technical debt](http://agileforgrowth.com/wp-content/uploads/2017/01/Techdebt.jpg)
-
-Seriously!
-
----
-
-## Git clone
-
-To contribute to an existing repository, clone it to your computer:
-```shell
-$ mkdir -p ~/collaboration/directory && cd $_
-```
-```shell
-$ git clone git@github.com:escodebar/awwwesome.git .
-Cloning into '.' ...
-done.
-```
-
-Notes:
-* All repositories can be cloned
-* When a repository is cloned, the remote "origin" is already set
-* The origin repository might not allow you to push changes to it
-* GitHub only allows you to push to repositories if you are a collaborator or owner
-
----
-
-## Making a pull request
-
-Prepare the branch in the cloned repository:
-
-```shell
-$ git checkout -b pe/pull_request origin/pe/interactive_rebasing
-```
-
-Edit format the README.md file and push it to the remote:
-```shell
-$ git push -u origin pe/pull_request
-```
-
-Notes:
-* Compare the changes
-* Open a pull request
-* Ask for a review
-* Discuss the review if necessary
-* Merge the pull request
-
----
-
-![Pull requests](GitHub/pull_requests.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 280px; top: 150px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 620px; top: 280px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-![Compare changes](GitHub/compare_changes.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 400px; top: 250px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 45px; top: 345px; font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 45px; top: 430px; font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 45px; top: 545px; transform: rotate(45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 210px; top: 280px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
-Notes:
-* GitHub allows to compare the changes before creating the pull request
-* When you create a pull request, make sure the changes are comprehensible, such that another developer can review it easily
-* Once you the changes are ready to be reviewed, a pull request can be opened
-
----
-
-![Open a pull request](GitHub/open_pull_request.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 340px; top: 285px; transform: scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 95px; top: 360px; font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 855px; top: 300px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 855px; top: 360px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 445px; top: 415px; transform: rotate(45deg); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
-Notes:
-* When opening a pull request, a lot of metadata can be set
-* The notes and the title should be very explicit
-* Similar to the commit message, explain the "why" instead of the "what", since the "what" is visible in the commits
-* Add screenshots of the application to make the changes more clear
-
----
-
-![Pull request](GitHub/pull_request.png)<!-- .element style="height: 800px;" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 165px; top: 475px; font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 165px; top: 600px; font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 305px; top: 225px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 465px; top: 225px; transform: rotate(45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 475px; top: 320px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-# Break
-
----
-
-![Pull request commit per commit](GitHub/pull_request_commit_per_commit.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 130px; top: 530px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 705px; top: 330px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-![Pull request review](GitHub/pull_request_review.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 850px; top: 255px; transform: rotate(-45deg) scalex(-1); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 505px; top: 360px; font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 550px; top: 565px; transform: rotate(-90deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 695px; top: 575px; transform: rotate(-45deg); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-![Pull request](GitHub/pull_request.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 205px; top: 510px; transform: rotate(-45deg) scalex(-1); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-![Confirm merge pull request](GitHub/confirm_merge_pull_request.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 115px; top: 565px; font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
-👉<!-- .element: style="display: inline; position: absolute; left: 205px; top: 485px; transform: rotate(-45deg) scalex(-1); font-weight: bold; color: brown; font-size: 100pt;" class="fragment" -->
-
----
-
-![Merged pull request](GitHub/merged_pull_request.png)
-
-👉<!-- .element: style="display: inline; position: absolute; left: 595px; top: 515px; transform: rotate(45deg); font-weight: bold; color: brown; font-size: 30pt;" class="fragment" -->
-
----
-
-# Break
-
----
-
-## How do we update our local branches?
-
-There are two commands which allow this!
-
----
-
-## Git fetch
-
-> Download objects and refs from another repository
-
-Notes:
-* Git will use "origin" if no remote is specified
-
----
-
-## Git pull
-
-> Fetch from and integrate with another repository or a local branch
-
----
-
-## What's the difference?
-
-``git pull`` is a short hand for
-```shell
-$ git fetch && git merge FETCH_HEAD
-```
-
-Adding a merge commit to a local branch? Puaj!
-
-Notes:
-* The actual behavior of ``git pull`` may be configured
-* Adopt a workflow without ``git pull``!
-
-Questions:
-* What if you have local changes on the branch you are pulling?
-
----
-
-## Let's fetch!
-
-My favorite option is to use ``git fetch``:
-```shell
-$ git fetch
-From /home/escodebar/dev/trainings/remote_repository
-   a894a8e..019ece3  master     -> origin/master
-```
-
-...and rebase local branches:
-```shell
-$ git rebase origin/master master
-First, rewinding head to replay your work on top of it...
-Fast-forwarded master to origin/master.
-```
-
-Notes:
-* I keep only feature branches in my development repository
-
----
-
-## One last view into the repository's repository
-
-```shell
-$ git add . && git commit -m 'Add the merged pull request'
-[master f923540] Add the merged pull request
- 8 files changed, 16 insertions(+), 4 deletions(-)
- create mode 100644 FETCH_HEAD
-```
-<!-- .element: style="font-size: 0.51em;" -->
-
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
-
----
-
-## What's next?
-
-* Configuring your shell for Git
-* Using the stash to store unfinished changes
-* Get used to the reset command
-* Using the blame command to analyze files
-* Working with tags for version control
-* Using bisect to find commits introducing bugs
-* Setting up your custom Git server
-* Hooks for continuous integration / deployment
-* Working with Git submodules
-* Custom porcelain / plumbing commands
-* Contribute to Git
+<!-- .element: style="font-size: 0.54em" -->
 
 ---
 
