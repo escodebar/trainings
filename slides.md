@@ -1,28 +1,56 @@
 ---
 theme: solarized
-title: Git training
+title: Git meetup
 revealOptions:
     transition: 'fade'
 ---
 
-# Git basics
+# Dr. Git-love
 
 ## or: How I learned to stop worrying and love the rebase
 <!-- .element: class="fragment" -->
 
+Notes:
+* Most of the things we discuss here are not only achievable with Git, but can be made with other VCS as well
+* I am a total Git-Fanboy, whatever I say during this meetup is totally opinionated
+* I want to make this a fun experience for all of us!
+
 ---
 
-![Git](https://imgs.xkcd.com/comics/git_2x.png)<!-- .element: height="500px" -->
+## A few words about
+# this training
 
 Notes:
-* The goal of this training is to show what Git does when it is used, to allow you to choose when and how to use it
-* This training covers theory for using Git, however brain muscle is needed
-* Use *all* the commands and ask yourself how you can improve your workflows
-* This training is made for people who barely used Git before, but includes information for more experencied users
-* This training covers using Git when there is no *happy path*
-* Some parts of this training are rather technical and go deep into Git's internals
-* It also introduces a method to learn Git by your own
-* It's going to be tough, but hopefully fun as well!
+* It all started when I was asked to give a full day introduction to Git for a CAS
+* I prepared a training trying to add something useful for several levels of Git knowledge
+* The intended audience was PhD students with basic to no Git experience and technicians
+* The training was very successful, receiving a lot of good feedback
+* I gave this training a few more times
+* At the last SoCraTes conference I rushed through the training
+* Then we decided to host this meetup
+* It is going to be tough (for all of us) but rewarding
+* I hope you do not mind the bad jokes
+
+---
+
+## Schedule
+
+* Gitception: Reaching into the substructure
+* Of trees, branches and pieces of fruit
+* It's a backup system... It's a patch system... It's Git!
+* Change distribution using the remote control
+
+Notes:
+* Gitception is about using Git to understand Git and understanding the structure of Git
+* The concept of Gitception is used throught the training
+* The second block introduces branching and "merging" branches
+* The third block treats in more detail how to create patches using Git
+* This block is about cleaning up the Git history before a feature is released
+* The last block discusses using Git as a distributed version control system
+* I do not know yet if we can go through these 4 blocks within 3 hours (including questions)
+* I expect to discuss each block in within 40 minutes leaving around 5 minutes for questions
+* I prefer answering questions between the blocks rather than rushing through it
+* I consider hosting a second event if the interest is high and we do not make it through
 
 ---
 
@@ -34,185 +62,36 @@ Notes:
 * Reading is crucial here, by the end of the training you'll be using the *man*-pages a lot!
 * No specific Git editor integration is discussed, since none of them covers all of Git's features
 * For the same reason, no Git GUI is discussed
-* I recommend using the terminal all of the time and start using other tools, if they make you more efficient than when using the console alternative
+* I recommend using the terminal all of the time and start using other tools, if they make you more efficient than when using the console
 * In many occasions you'll find yourself connected to a server with a Git repository, knowing the commands in that situation is crucial
 * For some features, an integration for your favorite editor might be useful, yet start using the terminal
 
 ---
 
-## The
-## Tangled Working Copy
-## Problem
-
-Notes:
-* Before we start I'd like to discuss a situation which shows Git's true power
-* This situation is pretty common for developers who don't have a thoroughly organized workflow
-* Git helps us solving this situation in several ways, so find the way with suits you better
-
-Situation:
-* You have a working software version
-* You introduce experimental changes
-* You notice a bug (not introduced by the experimental changes)
-* You want to fix the bug and keep the experimental changes uncommitted
-
-With enough Git routine, this won't be a problem again.
-
----
-
-## Boot your notebooks
-
-Notes:
-* If you feel that this training is not made for you, this is the right moment to leave the room
-
----
-
 ## Slides
 
-[https://escodebar.github.io/trainings/git/basics/](https://escodebar.github.io/trainings/git/basics/)
+[https://escodebar.github.io/trainings/git/meetup/](https://escodebar.github.io/trainings/git/meetup/)
+
+---
+
+# Are you ready?
+
+---
+
+![Git](https://imgs.xkcd.com/comics/git_2x.png)<!-- .element: height="500px" -->
+
+Notes:
+* The goal of this meetup is to show what Git does when it is used, to allow you to choose when and how to use it
+* This training covers theory for using Git, however brain muscle (training) is needed
+* Use *all* the commands and ask yourself how you can improve your workflows
+* This meetup is made for people who did not use Git in depth before, but includes information for more experencied users
+* This meetup covers using Git when there is no *happy path*
+* Some parts of this training are rather technical and go deep into Git's internals
+* It also introduces a method to learn Git by your own
 
 ---
 
 ## Setup
-
-[Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-if it is not already provided by your operating system.
-
-Notes:
-* Most of you probably have Git installed already, if not, please install Git using your package manager
-* If you are using a Mac, follow the instructions of the link provided by the slides
-* Update your Git if the version you're using is older than 2.0
-* Previous versions of Git were not that useful, also the documentation improved a lot with never versions
-
----
-
-## Git help
-
-Display help information about Git
-
-Notes:
-* Never underestimate the power of *man*-pages
-* When in doubt, call the help command with the command name you want to be helped with
-
----
-
-## Git? Help!
-
-```shell
-$ git help
-usage: git [--version] [--help] [-C <path>] [-c <name>=<value>]
-           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]
-           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--bare]
-           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
-           <command> [<args>]
-
-These are common Git commands used in various situations:
-
-start a working area (see also: git help tutorial)
-    clone      Clone a repository into a new directory
-    init       Create an empty Git repository or reinitialize an existing one
-
-work on the current change (see also: git help everyday)
-    add        Add file contents to the index
-    mv         Move or rename a file, a directory, or a symlink
-    reset      Reset current HEAD to the specified state
-    rm         Remove files from the working tree and from the index
-
-examine the history and state (see also: git help revisions)
-    bisect     Use binary search to find the commit that introduced a bug
-    grep       Print lines matching a pattern
-    log        Show commit logs
-    show       Show various types of objects
-    status     Show the working tree status
-
-grow, mark and tweak your common history
-    branch     List, create, or delete branches
-    checkout   Switch branches or restore working tree files
-    commit     Record changes to the repository
-    diff       Show changes between commits, commit and working tree, etc
-    merge      Join two or more development histories together
-    rebase     Reapply commits on top of another base tip
-    tag        Create, list, delete or verify a tag object signed with GPG
-
-collaborate (see also: git help workflows)
-    fetch      Download objects and refs from another repository
-    pull       Fetch from and integrate with another repository or a local branch
-    push       Update remote refs along with associated objects
-
-'git help -a' and 'git help -g' list available subcommands and some
-concept guides. See 'git help <command>' or 'git help <concept>'
-to read about a specific subcommand or concept.
-```
-<!-- .element: style="font-size: 0.43em;" -->
-
-Notes:
-* Whenever you see a *$*, it's a terminal input
-* The more I know Git, the more useful is this command's output
-* It is an important resource of information
-* This traning covers most of the commands used here in a meaningful order
-* But let's start with a command which is not in this list!
-
----
-
-## Git config
-
-Get and set repository or global options
-
-Notes:
-* There are three levels of configuration: system, global, repository
-  - "system" configuration is applied to all repositories of the machine
-  - "global" configuration is used on all repositories of the user
-  - "local" configuration is used on the current repository
-* The more features you know about Git, the more you will configure Git
-* You can configure a *lot* of things like:
-  - advice messages
-  - editor(s)
-  - pager
-  - diff algorithm
-  - aliases
-
----
-
-## Configure your username and editor
-
-On your machine you may want to run the following
-```shell
-$ git config --global user.name 'Pablo Escodebar'
-$ git config --global user.email 'escodebar@gmail.com'
-```
-
-Then configure the editor you want to use
-```shell
-$ git config --global core.editor 'vim'
-$ git config --global core.editor 'emacs'
-$ git config --global core.editor 'subl -n -w'
-$ git config --global core.editor 'atom --wait'
-```
-
-Notes:
-* The more you use Git, the more you will configure it to your needs
-* But again, I would use the defaults until you feel confortable with these (think of being connected to an uncofigured server)
-
-Configuration:
-* You may want to configure a project with another author or email depending on the customer of the project (work, university, private...)
-
-Editor configuration:
-* Choose an editor you feel comfortable with (or get comfortable with the editor you choose)
-* More settings can be configured, this is just a minimal setup, so please read the documentation about Git configuration
-
----
-
-## Git init
-
-Create an empty Git repository or reinitialize an existing one.
-
-Notes:
-* Running `git init` in an existing repository is safe.
-* You may also pass a template directory with a project structure (I have never used this feature)
-* You may also initialise a repository in a non-empty folder
-
----
-
-## First steps
 
 Create a repository:
 
@@ -280,7 +159,7 @@ $ cd ~/working/directory/.git
 We are creating a repository inside the repository
 <!-- .element: class="fragment" -->
 ```shell
-$ git init . && git add . && git commit -m 'Add the repository'
+$ git init . && git add . && git commit -m "Add the repository"
 Initialized empty Git repository in ~/working/directory/.git/.git/
 [master (root-commit) 1c2f932] Add the repository
  15 files changed, 653 insertions(+)
@@ -301,6 +180,7 @@ Notes:
 * Git keeps track of all the changes in the repository, it is therefore a perfect analysis tool
 * Most Git commands go up the directory path to the point where they find a ``.git`` folder, but "ignore" its contents
 * Therefore we can create a repository in the repository to track the changes and understand Git's behaviour
+* If you do not remember what happens when you run a specific command, you can look it up later in the "Gitception" repository
 * Ignore the added files for now, most of them are discussed later during the training
 * Also ignore the "new" commands, as they're discussed in the next few slides
 * I haven't seen an other Git training doing this!
@@ -311,24 +191,9 @@ Notes:
 
 Notes:
 * Xzibit shows up on every slide which uses the repository in the repository to set you in the right context
-* You do not need to run the commands of these slides, since they're only for comprehension
 * Open a second terminal window and navigate to the repository's repository to switch context easier
-
----
-
-# Break
-
-Notes:
-* Go digest the Gitception
-
----
-
-## Git status
-
-Show the working tree status.
-
-Notes:
-* The directory where the code is edited is called the working tree
+* You do not need to run the commands of these slides, since they're only for comprehension
+* The repository is publicly available, you can clone it and take a look at its history
 
 ---
 
@@ -356,15 +221,12 @@ Notes:
 ## Let's do something!
 
 Documentation first!
-<!-- .element: class="fragment" -->
 
 ```shell
-$ echo '# My awwwesome training' > README.md
+$ echo "# My awwwesome training" > README.md
 ```
-<!-- .element: class="fragment" -->
 
 What's the status now?
-<!-- .element: class="fragment" -->
 ```shell
 $ git status
 On branch master
@@ -378,7 +240,7 @@ Untracked files:
 
 nothing added to commit but untracked files present (use "git add" to track)
 ```
-<!-- .element: class="fragment"  style="font-size: 0.465em;" -->
+<!-- .element: style="font-size: 0.465em;" -->
 
 Notes:
 * You can tell Git to ignore files using ``.gitignore``, then they won't be listed in the "Untracked files" section
@@ -388,14 +250,7 @@ Notes:
   - data files
   - system specific files (like .DS_Store, or local configurations)
   - files containing (personal) passwords (move passwords to enivornment variables and use the environment variables)
-
----
-
-## Git add
-
-Add file contents to the index.
-
-...but what's the index?<!-- .element: class="fragment" -->
+* We want to track changes to the current untracked file!
 
 ---
 
@@ -439,7 +294,7 @@ Notes:
 ## What happened in the repository?
 
 ```shell
-$ git add . && git commit -m 'Add files to index'
+$ git add . && git commit -m "Add files to index"
 [master 6147d79] Add files to index
  2 files changed, 0 insertions(+), 0 deletions(-)
  create mode 100644 index
@@ -465,15 +320,6 @@ Questions:
 
 ---
 
-## Git cat-file
-
-Provide content or type and size information for repository objects.
-
-Notes:
-* This command is rarely used, but it is good to know that it exists!
-
----
-
 ## What's in the newly created object?
 
 Inspect the created object
@@ -481,12 +327,10 @@ Inspect the created object
 $ git cat-file -t b27501a
 blob
 ```
-<!-- .element: class="fragment" -->
 ```shell
 $ git cat-file -p b27501a
 # My awwwesome training
 ```
-<!-- .element: class="fragment" -->
 
 Notes:
 * Files are stored as objects of type "blob" (Binary Large OBject)
@@ -494,13 +338,7 @@ Notes:
 * You can find the size of an object by using the ``-s`` flag
 * Only the first few (min. 7) hexadecimal digits of a hash are required to determine the file
 * More objects are discussed later
-* Please remember, that the whole file and not only the diff is stored!
-
----
-
-## Git diff
-
-Show changes between commits, commit and working tree, etc.
+* Please remember, that the whole file and not only the diff is stored! (well... not really 😊)
 
 ---
 
@@ -526,16 +364,6 @@ Notes:
 
 ---
 
-## Git commit
-
-Record changes to the repository.
-
-Notes:
-* This command is used a lot!
-* It has many options, some of which are discussed during this training.
-
----
-
 ## A commit
 
 aka. *a change*
@@ -546,7 +374,7 @@ Notes:
 * Complete means: Tested, documented and ready to ship
 * A commit comes with a commit message
 * Guidelines for commit messages exist
-* Title as short as possible and in imperative mode
+* Expressive but short title and in imperative mode
 * One empty line after the commit title
 * Describe WHAT and WHY you are doing the change (HOW is described in the code)
 * If you need to describe the how, you should probably rethink your code
@@ -559,7 +387,7 @@ Notes:
 
 Commit the changes to the repository
 ```shell
-$ git commit -m 'Describe the training'
+$ git commit -m "Describe the training"
 [master (root-commit) 78d7aa6] Describe the training
  1 file changed, 1 insertion(+)
  create mode 100644 README.md
@@ -580,7 +408,7 @@ The repository's content must have changed,
 commit the changes and go back to the main repository
 
 ```shell
-$ git add . && git commit -m 'Commit file'
+$ git add . && git commit -m "Commit file"
 [master 85240e8] Commit file
  7 files changed, 4 insertions(+)
  create mode 100644 COMMIT_EDITMSG
@@ -605,12 +433,10 @@ Notes:
 ## Commit objects!
 
 What is the object with the commit's hash?
-<!-- .element: class="fragment" -->
 ```shell
 $ git cat-file -t 78d7aa6
 commit
 ```
-<!-- .element: class="fragment" -->
 ```shell
 $ git cat-file -p 78d7aa6
 tree a44f211c376b94d122c6429ef8e87ffa7856419d
@@ -619,9 +445,7 @@ committer Pablo Escodebar <escodebar@gmail.com> 1533199402 +0200
 
 Describe the training
 ```
-<!-- .element: class="fragment" -->
 ...so this is what a commit looks like!
-<!-- .element: class="fragment" -->
 
 Notes:
 * Git commits in objects as well
@@ -634,21 +458,18 @@ Notes:
 ## Tree objects!
 
 What is the object with the tree's hash?
-<!-- .element: class="fragment" -->
 ```shell
 $ git cat-file -t a44f211
 tree
 ```
-<!-- .element: class="fragment" -->
 
 ```shell
 $ git cat-file -p a44f211
 100644 blob b27501ade65f39bc91a5e6eb0d707903ba225a00	README.md
 ```
-<!-- .element: class="fragment" style="font-size: 0.545em;" -->
+<!-- .element: style="font-size: 0.545em;" -->
 
 ...it's collection of references to objects!
-<!-- .element: class="fragment" -->
 
 Notes:
 * The tree is an object containing references to the blobs (or other trees)
@@ -656,17 +477,6 @@ Notes:
 * "Lost" objects can be found in the repository by looking by the date of creation using scripts
 
 By now, you know more about Git internals than many who consider themselves proficient in Git.
-
----
-
-## Git show
-
-Show various types of objects
-
-Notes:
-* This command is similar to `git cat-file`
-* The output of `git cat-file` displays information raw while `git show` processes the information
-* `git show` has several output format options, a custom format can chosen
 
 ---
 
@@ -701,26 +511,6 @@ Notes:
 
 ---
 
-# Break
-
----
-
-## Graph theory
-
-![Graph theory](https://imgs.xkcd.com/comics/collatz_conjecture.png)
-
-Notes:
-Take a look at the graph in the comic:
-* It is a directed graph
-* No number appears twice
-* There are no loops... it could be a valid graph of a Git repository.
-* Each node in the comic could correspond to a commit
-* No matter where you start, if you follow the arrows, you'll always finish at one!
-
-Let's build such a graph!
-
----
-
 ## Add in patch mode
 
 ...to select the changes you want to stage
@@ -738,7 +528,7 @@ Stage this hunk [y,n,q,a,d,/,e,?]?
 <!-- .element: style="font-size: 0.485em;" -->
 
 ```shell
-$ git commit -m 'Motivate the participant'
+$ git commit -m "Motivate the participant"
 [master 113b2fe] Motivate the participant
  1 file changed, 1 insertion(+)
 ```
@@ -787,8 +577,8 @@ Notes:
 
 My favorite way of committing!
 ```shell
-$ echo 'Buy me a beer if it made you better.' >> README.md
-$ git commit -p -m 'Motivate the speaker'
+$ echo "Buy me a beer if it made you better." >> README.md
+$ git commit -p -m "Motivate the speaker"
 diff --git a/README.md b/README.md
 index 22d2d62..3f652ed 100644
 --- a/README.md
@@ -827,22 +617,11 @@ Notes:
 
 ---
 
-## Git log
-
-Show commit logs
-
-Notes:
-* This is a handy way to see the change log of a project
-* It can also be used to see the change log of files
-* The cleaner the commit history, the more powerful this command
-
----
-
 ## What did we do so far?
 
 Take a look back at your work using:
 ```shell
-$ git log --oneline --abbrev-commit
+$ git log --oneline
 a894a8e (HEAD -> master) Motivate the speaker
 113b2fe Motivate the participant
 78d7aa6 Describe the training
@@ -852,7 +631,6 @@ a894a8e (HEAD -> master) Motivate the speaker
 Notes:
 * The newest commits are displayed on top
 * Without the ``--oneline`` flag, each commit would use several lines
-* ``--abbrev-commit`` is standard for the git log command, it can be used with most commands
 * We have a branch (called ``master``) with three commmits.
 * This command is one of the reasons to choose short, meaningful commit titles
 
@@ -862,7 +640,7 @@ Notes:
 
 Add the new objects to the repository's repository:
 ```shell
-$ git add . && git commit -m 'Add two more commits in patch mode'
+$ git add . && git commit -m "Add two more commits in patch mode"
 [master 9b01029] Add two more commits
  11 files changed, 7 insertions(+), 2 deletions(-)
  create mode 100644 objects/10/d06a676fb65acc4b1a2e57454039d904318393
@@ -884,16 +662,21 @@ Questions:
 
 ---
 
-# Break
+# Time for questions
 
 ---
 
-## Git branch
+![Graph theory](https://imgs.xkcd.com/comics/collatz_conjecture.png)
 
-List, create, or delete branches
+Notes:
+Take a look at the graph in the comic:
+* It is a directed graph
+* No number appears twice
+* There are no loops... it could be a valid graph of a Git repository.
+* Each node in the comic could correspond to a commit
+* No matter where you start, if you follow the arrows, you'll always finish at one!
 
-...but what's a branch?
-<!-- .element: class="fragment" -->
+Let's build such a graph!
 
 ---
 
@@ -939,9 +722,10 @@ Notes:
 How are branches stored in the repository?
 
 ```shell
-$ git add . && git commit -m 'Add a new branch'
+$ git add . && git commit -m "Add a new branch"
 [master ffce5ba] Add a new branch
- 3 files changed, 3 insertions(+), 1 deletion(-)
+ 2 files changed, 2 insertions(+)
+ create mode 100644 logs/refs/heads/pe/new_branch
  create mode 100644 refs/heads/pe/new_branch
 ```
 ```shell
@@ -990,22 +774,12 @@ Statistics:
 
 ---
 
-## Git checkout
-
-Switch branches or restore working tree files
-
-Notes:
-* If you checkout a branch and add a commit, the branch will reference the new commit
-* Beware! This command might delete unstaged changes.
-
----
-
 ## Checkout the newly created branch
 
 To checkout a branch, run:
 ```shell
 $ git checkout pe/new_branch
-Switched to branch 'pe/new_branch'
+Switched to branch "pe/new_branch"
 ```
 
 ---
@@ -1016,7 +790,7 @@ Switched to branch 'pe/new_branch'
 Check out a *new* branch using checkout:
 ```shell
 $ git checkout -b pe/add_list_of_favorite_beers master
-Switched to branch 'pe/add_list_of_favorite_beers'
+Switched to branch "pe/add_list_of_favorite_beers"
 ```
 ...one command is faster than two!
 
@@ -1037,8 +811,8 @@ $ cat << EOBL > beers.md && git add beers.md
 * Rokki - Happo
 * Egger - Galopper
 EOBL
-$ echo 'My list of [favorite beers](beers.md).' >> README.md
-$ git commit -a -m 'Let people know, what beer to buy'
+$ echo "My list of [favorite beers](beers.md)." >> README.md
+$ git commit -a -m "Let people know, what beer to buy"
 [pe/add_list_of_favorite_beers 000ce0a] Let people know, what beer to buy
  2 files changed, 6 insertions(+)
  create mode 100644 beers.md
@@ -1057,10 +831,10 @@ Notes:
 
 ```shell
 $ git checkout -b pe/whiskey_is_also_an_option master
-Switched to branch 'pe/whiskey_is_also_an_option'
+Switched to branch "pe/whiskey_is_also_an_option"
 ```
 ```shell
-$ echo 'Whiskey is also a good reward.' >> README.md
+$ echo "Whiskey is also a good reward." >> README.md
 $ cat << EOWL > whiskeys.md && git add whiskeys.md
 * Lagavulin - 16
 * Ledaig - 10
@@ -1069,7 +843,7 @@ $ cat << EOWL > whiskeys.md && git add whiskeys.md
 * Laphroaig - Quarter Cask
 EOWL
 $ echo '[These whiskeys](whiskeys.md) are great!' >> README.md
-$ git commit -a -m 'Accept whiskey as reward'
+$ git commit -am "Accept whiskey as reward"
 [pe/whiskey_is_also_an_option 68f2339] Accept whiskey as reward
  2 files changed, 7 insertions(+)
  create mode 100644 whiskeys.md
@@ -1085,7 +859,7 @@ Notes:
 
 Take a look at the graph of the repository using:
 ```shell
-$ git log --oneline --abbrev-commit --all --graph
+$ git log --oneline --all --graph
 * 68f2339 (HEAD -> pe/whiskey_is_also_an_option) Accept whiskey as reward
 | * 000ce0a (pe/add_list_of_favorite_beers) Let people know, what beer to buy
 |/
@@ -1106,11 +880,10 @@ Notes:
 
 We do not want to have uncommitted changes!
 ```shell
-$ git add . && git commit -m 'Add branches with commits'
+$ git add . && git commit -m "Add branches with commits"
 [master ccc7056] Add braches with commits
- 17 files changed, 20 insertions(+), 12 deletions(-)
- create mode 100644 logs/refs/heads/pe/add_list_of_favorite_beers
- create mode 100644 logs/refs/heads/pe/new_branch
+ 16 files changed, 22 insertions(+), 12 deletions(-)
+ create mode 100645 logs/refs/heads/pe/add_list_of_favorite_beers
  create mode 100644 logs/refs/heads/pe/whiskey_is_also_an_option
  create mode 100644 objects/00/0ce0a9703aebd0722e2ac3f285985b6b223312
  create mode 100644 objects/0d/f4281955475551ad1a4232fce76a5fb6d340d0
@@ -1135,14 +908,7 @@ Questions:
 
 ---
 
-# Break
-
-Notes:
-* Lunch?
-
----
-
-## Adding features of a branch to another branch
+![Git](https://assets.amuniversal.com/ddf1fa20315201378d0e005056a9545d)
 
 Notes:
 * There are several ways and workflows to achieve this.
@@ -1150,6 +916,11 @@ Notes:
 * You need to chose the workflow according to your projects' needs and developers' skills.
 
 We created branches with diverging history, to simulate common situations.
+
+---
+
+## Adding features of a branch
+## to another branch
 
 ---
 
@@ -1183,7 +954,7 @@ Notes:
 Checkout a new branch for the merge
 ```shell
 $ git checkout -b pe/merging pe/add_list_of_favorite_beers
-Switched to a new branch 'pe/merging'
+Switched to a new branch "pe/merging"
 ```
 
 Merge...
@@ -1201,38 +972,11 @@ Note:
 
 ---
 
-## What's the status?
-
-Let's take a look at the status:
-```shell
-$ git status
-On branch pe/merging
-You have unmerged paths.
-  (fix conflicts and run "git commit")
-  (use "git merge --abort" to abort the merge)
-
-Changes to be committed:
-
-        new file:   whiskeys.md
-
-Unmerged paths:
-  (use "git add <file>..." to mark resolution)
-
-        both modified:   README.md
-```
-As expected, a file was modified by both branches!
-
-Notes:
-* ``README.md`` is modified by both branches, such that Git cannot tell how the changes should be merged.
-* Git is telling you what to do: either fix the conflicts or abort the merge
-
----
-
 ## Merge conflicts are fun!
 
 How does Git handle merge conflicts?
 ```shell
-$ git add . && git commit -m 'Commit during merge conflict'
+$ git add . && git commit -m "Commit during merge conflict"
 [master cc2485f] Commit during merge conflict
  10 files changed, 14 insertions(+), 1 deletion(-)
  create mode 100644 MERGE_HEAD
@@ -1285,6 +1029,33 @@ Notes:
 
 ---
 
+## What's the status?
+
+Let's take a look at the status:
+```shell
+$ git status
+On branch pe/merging
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Changes to be committed:
+
+        new file:   whiskeys.md
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   README.md
+```
+As expected, a file was modified by both branches!
+
+Notes:
+* ``README.md`` is modified by both branches, such that Git cannot tell how the changes should be merged.
+* Git is telling you what to do: either fix the conflicts or abort the merge
+
+---
+
 ## Conflict resolution
 
 Take a look at the conflicting files:
@@ -1319,7 +1090,7 @@ Notes:
 ...once you resolved the conflicts:
 ```shell
 $ git add README.md
-$ git commit -m 'Add the list of beers first'
+$ git commit -m "Add the list of beers first"
 [pe/merging 3a1f82c] Add the list of beers first
 ```
 That was easy!
@@ -1359,9 +1130,9 @@ Notes:
 
 Commit the changes into the repository's repository
 ```shell
-$ git add . && git commit -m 'Add the merge'
+$ git add . && git commit -m "Add the merge"
 [master 5dbb9d5] Add the merge
- 11 files changed, 6 insertions(+), 7 deletions(-)
+ 11 files changed, 8 insertions(+), 7 deletions(-)
  delete mode 100644 MERGE_HEAD
  delete mode 100644 MERGE_MODE
  delete mode 100644 MERGE_MSG
@@ -1381,10 +1152,6 @@ Notes:
 
 Questions:
 * How many new objects are added?
-
----
-
-# Break
 
 ---
 
@@ -1408,13 +1175,13 @@ Notes:
 Let's add another branch for cherry picking
 ```shell
 $ git checkout -b pe/cherry_picking pe/add_list_of_favorite_beers
-Switched to branch 'pe/cherry_picking'
+Switched to branch "pe/cherry_picking"
 ```
 <!-- .element: style="font-size: 0.545em;" -->
 
 Find the hash of the cherry (commit) to be picked
 ```shell
-$ git log --oneline --abbrev-commit pe/whiskey_is_also_an_option
+$ git log --oneline pe/whiskey_is_also_an_option
 68f2339 (pe/whiskey_is_also_an_option) Accept whiskey as reward
 a894a8e (pe/new_branch, master) Motivate the speaker
 113b2fe Motivate the participant
@@ -1428,8 +1195,8 @@ a894a8e (pe/new_branch, master) Motivate the speaker
 $ git cherry-pick 68f2339
 error: could not apply 68f2339... Accept whiskey as reward
 hint: after resolving the conflicts, mark the corrected paths
-hint: with 'git add <paths>' or 'git rm <paths>'
-hint: and commit the result with 'git commit'
+hint: with "git add <paths>" or "git rm <paths>"
+hint: and commit the result with "git commit"
 ```
 
 Notes:
@@ -1438,13 +1205,13 @@ Notes:
 
 ---
 
-## Enjoy cherry pick conflicts!
+## Sweet sweet conflicts
 
 Dig, dig, dig, dig
 ```shell
-$ git add . && git commit -m 'Commit a cherry pick conflict'
+$ git add . && git commit -m "Commit a cherry pick conflict"
 [master 8bb838d] Commit during cherry pick conflict
- 8 files changed, 11 insertions(+), 1 deletion(-)
+ 8 files changed, 10 insertions(+), 1 deletion(-)
  create mode 100644 CHERRY_PICK_HEAD
  create mode 100644 MERGE_MSG
  rewrite index (100%)
@@ -1466,11 +1233,69 @@ Question:
 
 ---
 
+## Use a mergetool
+
+...to fix the conflict!
+
+```shell
+$ git mergetool
+
+This message is displayed because 'merge.tool' is not configured.
+See 'git mergetool --tool-help' or 'git help config' for more details.
+'git mergetool' will now attempt to use one of the following tools:
+[...] meld [...] vimdiff [...]
+Merging:
+README.md
+
+Normal merge conflict for 'README.md':
+  {local}: modified file
+  {remote}: modified file
+Hit return to start merge resolution tool (vimdiff):
+```
+<!-- .element: style="font-size: 0.505em" -->
+
+Conflict resolution with assistance!
+
+---
+
+## A safety net
+
+...in case something went wrong!
+```shell
+$ git status
+On branch pe/cherry_picking
+You are currently cherry-picking commit 2fe20c0.
+  (all conflicts fixed: run "git cherry-pick --continue")
+  (use "git cherry-pick --abort" to cancel the cherry-pick operation)
+
+Changes to be committed:
+
+        modified:   README.md
+        new file:   whiskeys.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        README.md.orig
+
+```
+<!-- .element: style="font-size: 0.51em" -->
+
+
+Therefore clean up!
+```shell
+$ rm README.md.orig
+```
+
+Notes:
+Also notice, that the README.md file was already added to the staging area.
+You can configure Git not to create this backup file.
+
+---
+
 ## Finish cherry-picking
 
-...once you resolved the conflicts:
 ```shell
-$ git add README.md
 $ git cherry-pick --continue
 [pe/cherry_picking b7083bf] Accept whiskey as reward
  Date: Fri Jun 29 19:47:30 2018 +0200
@@ -1484,7 +1309,7 @@ $ git cherry-pick --continue
 
 Once again...
 ```shell
-$ git add . && git commit -m 'Add the cherry-pick'
+$ git add . && git commit -m "Add the cherry-pick"
 [master a5f2863] Add the cherry-pick
  8 files changed, 26 insertions(+), 7 deletions(-)
  delete mode 100644 CHERRY_PICK_HEAD
@@ -1518,7 +1343,7 @@ Notes:
 
 ```shell
 $ git checkout -b pe/rebasing pe/whiskey_is_also_an_option
-Switched to branch 'pe/rebasing'
+Switched to branch "pe/rebasing"
 ```
 ```shell
 $ git rebase pe/add_list_of_favorite_beers
@@ -1531,8 +1356,7 @@ Auto-merging README.md
 CONFLICT (content): Merge conflict in README.md
 error: Failed to merge in the changes.
 Patch failed at 0001 Let people know, what beer to buy
-The copy of the patch that failed is found in: .git/rebase-apply/patch
-
+hint: Use 'git am --show-current-patch' to see the failed patch
 Resolve all conflicts manually, mark them as resolved with
 "git add/rm <conflicted_files>", then run "git rebase --continue".
 You can instead skip this commit: run "git rebase --skip".
@@ -1549,9 +1373,9 @@ Notes:
 
 ...is slightly more complicated:
 ```shell
-$ git add . && git commit -m 'Commit a rebase conflict'
+$ git add . && git commit -m "Commit a rebase conflict"
 [master cd7d697] Commit a rebase conflict
- 29 files changed, 80 insertions(+), 2 deletions(-)
+ 29 files changed, 79 insertions(+), 2 deletions(-)
  create mode 100644 REBASE_HEAD
  rewrite index (100%)
  create mode 100644 logs/refs/heads/pe/rebasing
@@ -1598,9 +1422,9 @@ Applying: Accept whiskey as reward
 ## What about the rebase files?
 
 ```shell
-$ git add . && git commit -m 'Add the rebase'
+$ git add . && git commit -m "Add the rebase"
 [master 46da891] Add the rebase
- 28 files changed, 5 insertions(+), 76 deletions(-)
+ 28 files changed, 5 insertions(+), 75 deletions(-)
  delete mode 100644 REBASE_HEAD
  rewrite index (100%)
  create mode 100644 objects/c9/6224a8837cfd2996396e0e523032e09ebb461a
@@ -1637,16 +1461,7 @@ Notes:
 
 ---
 
-# Break
-
----
-
-## Rebasing in interactive mode
-
-The interactive mode allows to "change" the commit history before rebasing!
-
-Notes:
-* This is a really powerful tool to organize the commit history and make it more meaningful
+# Time for questions
 
 ---
 
@@ -1658,25 +1473,26 @@ Notes:
 * This is important for later code analysis
 * Think of the people who will deal with your repository
 * Think of the repositories you will deal with
+* There are several strategies to clean such a history
 
 ---
 
-## Preparing the interactive rebase
+## Preparing the branch of backups
 
 Add a branch with a few commits
 ```shell
-$ git checkout -b pe/interactive_rebasing pe/rebasing
-$ echo 'I would also love some feedback.' >> README.md
-$ git commit -am 'Ask for feedback'
-[pe/interactive_rebasing c16a824] Ask for feedback
+$ git checkout -b pe/backups pe/rebasing
+$ echo "I would also love some feedback." >> README.md
+$ git commit -am "Ask for feedback"
+[pe/backups c16a824] Ask for feedback
  1 file changed, 1 insertion(+)
-$ echo 'Personal feedback is the best.' >> README.md
-$ git commit -am 'Ask for personal feedback'
-[pe/interactive_rebasing 450dc77] Ask for personal feedback
+$ echo "Personal feedback is the best." >> README.md
+$ git commit -am "Ask for personal feedback"
+[pe/backups 450dc77] Ask for personal feedback
  1 file changed, 1 insertion(+)
-$ echo 'Helpful feedback is awarded with great coffee.' >> README.md
-$ git commit -am 'Trade feedback for coffee'
-[pe/interactive_rebasing 1603ef5] Trade feedback for coffee
+$ echo "Helpful feedback is awarded with great coffee." >> README.md
+$ git commit -am "Trade feedback for coffee"
+[pe/backups 1603ef5] Trade feedback for coffee
  1 file changed, 1 insertion(+)
 ```
 <!-- .element: style="font-size: 0.52em" -->
@@ -1686,14 +1502,46 @@ Notes:
 
 ---
 
-## Reeeebaaaase!
+## Commit the changes in the repository
 
-Start the interactive rebase with the ``-i`` flag:
 ```shell
+$ git add . && git commit -m "Add the branch of backups"
+[master 000b173] Add the branch of backups
+ 15 files changed, 19 insertions(+), 24 deletions(-)
+ rewrite COMMIT_EDITMSG (100%)
+ create mode 100644 logs/refs/heads/pe/backups
+ create mode 100644 objects/34/96ebedc52ee70e2b129e315084623c7deea6a2
+ create mode 100644 objects/44/09126657b95c9c83a73ac6d730ae7353b6aac1
+ create mode 100644 objects/4f/56584f94dc324de2c2ffd66b4e145a6912f480
+ create mode 100644 objects/58/ad30ba9d86b178e9c878ac031b1217d89ac4a7
+ create mode 100644 objects/a9/f13a5d39e490577cca3e7af6a579c15dd9c546
+ create mode 100644 objects/ba/1cdecffc9b11e65b5b58077ceeaef2fd417bbf
+ create mode 100644 objects/c3/2f3348d4d95fed6ff7c80054daf3690c50e390
+ create mode 100644 objects/e3/d06c425b6a61e3c8b97f4343ef4bc15366108f
+ create mode 100644 objects/f1/c24400178f30d7f56ac2967d2fd796968197d5
+ create mode 100644 refs/heads/pe/backups
+```
+<!-- .element: style="font-size: 0.5em" -->
+
+![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
+
+---
+
+## Rebasing in interactive mode
+
+"Change" the commit history during rebase!
+
+```shell
+$ git checkout -b pe/interactive_rebase pe/backups
+Switched to a new branch "pe/interactive_rebase"
 $ git rebase -i pe/rebasing
 ```
+<!-- .element: style="font-size: 0.52em" -->
 
 Your editor now lists all the commits of your branch!
+
+Notes:
+* This is a really powerful tool to organize the commit history and make it more meaningful
 
 ---
 
@@ -1718,7 +1566,7 @@ pick 1603ef5 Trade feedback for coffee
 # .       create a merge commit using the original merge commit's
 # .       message (or the oneline, if no original merge commit was
 # .       specified). Use -c <commit> to reword the commit message.
-#
+#a
 # These lines can be re-ordered; they are executed from top to bottom.
 #
 # If you remove a line here THAT COMMIT WILL BE LOST.
@@ -1734,76 +1582,438 @@ Notes:
 * The first command cannot be a squash or a fixup!
 * Drop, squash, fix up or change the order of the commits as required
 * Mastering the interactive rebase is worth a salary raise!
-* There are commit commands to create automtic fixup and squash commands, let's discuss them after a break!
+* There are commit commands to create automtic fixup and squash commands!
 
 ---
 
-## Commit the changes in the repository's repository
+## Commit the changes in the repository
 
 ```shell
-$ git add . && git commit -m 'Add interactive rebase'
-[master f1fc09c] Add interactive rebase
- 17 files changed, 32 insertions(+), 25 deletions(-)
- rewrite COMMIT_EDITMSG (100%)
- create mode 100644 logs/refs/heads/pe/interactive_rebasing
- create mode 100644 objects/01/9ece38ca9ad05589d46c853faf4d24bb68ba5b
- [...]
- create mode 100644 objects/c3/2f3348d4d95fed6ff7c80054daf3690c50e390
- create mode 100644 refs/heads/pe/interactive_rebasing
+$ git add . && git commit -m "Rebase in interactive mode"
+[master dabfcec] Rebase in interactive mode
+ 6 files changed, 7 insertions(+), 2 deletions(-)
+ create mode 100644 logs/refs/heads/pe/interactive_rebase
+ create mode 100644 refs/heads/pe/interactive_rebase
 ```
-<!-- .element: style="font-size: 0.51em" -->
 
 ![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
 
 Notes:
+This output is expected if you only used the command "pick".
+If you squashed or fixed up commits, more objects would have been created.
 
 ---
 
-# Break
+## There's a shortcut!
 
----
-
-## Take a look at your work
+To fix up and squash commits together!
 
 ```shell
-$ git log --oneline --abbrev-commit --all --graph
-* 019ece3 (HEAD -> pe/interactive_rebasing) Ask for feedback
-* c96224a (pe/rebasing) Accept whiskey as reward
-| * b7083bf (pe/cherry_picking) Accept whiskey as reward
-|/
-| *   3a1f82c (pe/merging) Add the list of beers first
-| |\
-|/ /
-| * 68f2339 (pe/whiskey_is_also_an_option) Accept whiskey as reward
-* | 000ce0a (pe/add_list_of_favorite_beers) Let people know, what beer to buy
-|/
-* a894a8e (pe/new_branch, master) Motivate the speaker
-* 113b2fe Motivate the participant
-* 78d7aa6 Describe the training
-```
-<!-- .element: style="font-size: 0.46em" -->
+$ git help commit | grep "autosquash" -C 2
 
-The graph is now more complex!
+       --fixup=<commit>
+           Construct a commit message for use with rebase --autosquash. The commit message will be
+           the subject line from the specified commit with a prefix of "fixup! ". See git-rebase(1)
+           for details.
+
+       --squash=<commit>
+           Construct a commit message for use with rebase --autosquash. The commit message subject
+           line is taken from the specified commit with a prefix of "squash! ". Can be used with
+           additional commit message options (-m/-c/-C/-F). See git-rebase(1) for details.
+```
+<!-- .element: style="font-size: 0.355em" -->
 
 ---
 
-## Git reset
+## But what if
 
-Reset current HEAD to the specified state
+* ...it is more complex?
+* ...commits need to be split?
+* ...part of a commit sneaked into another commit?
+
+`reset`, `checkout` and `stash` to the help!
 
 Notes:
-* Unless you use `--hard`, this command will leave your working tree untouched
-* `git reset` can be used to move branches
+* The reset and checkout commands are two of the most confusing parts of Git when first encountered
+* They do many different things depending on the used arguments
+* Once you think you understood them, you will find another usage which will change your concept of these commands completely (or to a big part)
+* Let's therefore "demystify" these commands!
 
 ---
 
-## Update your master branch
+## The Three Trees
+
+* the HEAD
+* the Index
+* Working Directory
+
+Notes:
+* We took a quick look at these when discussing the index
+* HEAD: Last commit snapshot, next parent, what we called "the repository" before.
+* Index: Proposed next commit snapshot
+* Working directory: Sandbox
+
+---
+
+## Reset vs checkout vs stash
+
+Reset will move what your HEAD is pointing to
+
+Checkout will move your HEAD
+
+Stash will change your index and working directory
+
+Notes:
+
+---
+
+## Reset in detail
+
+The following steps are executed when resetting:
+
+```raw
+1. Move the branch HEAD points to (--soft)
+2. Make the index look like HEAD (--mixed, default)
+3. Make the working directory look like the index (--hard)
+```
+
+Notes:
+If reset is used with a path, the first step is skipped!
+
+---
+
+## Let's see it in action!
 
 ```shell
-$ git checkout master && git reset --hard pe/interactive_rebasing
-HEAD is now at 019ece3 Ask for feedback
+$ git checkout -b pe/reset pe/backups && git reset pe/rebasing
+Switched to a new branch 'pe/reset'
+Unstaged changes after reset:
+M   README.md
 ```
-<!-- .element: style="font-size: 0.54em" -->
+
+```shell
+$ git status
+On branch pe/reset
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+<!-- .element: style="font-size: 0.47em;" -->
+
+---
+
+## Let's commit the changes!
+
+```shell
+$ git add . && git commit -m "Commit the reset"
+[master 3127cce] Commit the reset
+ 6 files changed, 7 insertions(+), 2 deletions(-)
+ create mode 100644 logs/refs/heads/pe/reset
+ create mode 100644 refs/heads/pe/reset
+```
+
+![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
+
+---
+
+## Create a more meaningful commit
+
+```shell
+$ git diff
+diff --git a/README.md b/README.md
+index 93d56bd..58ad30b 100644
+--- a/README.md
++++ b/README.md
+@@ -4,3 +4,6 @@ Buy me a beer if it made you better.
+ My list of [favorite beers](beers.md).
+ Whiskey is also a good reward.
+ [These whiskeys](whiskeys.md) are great!
++I would also love some feedback.
++Personal feedback is the best.
++Helpful feedback is awarded with great coffee.
+```
+
+```shell
+$ git commit -am "Trade coffee for personal feedback"
+[pe/reset 08be0f2] Trade coffee for personal feedback
+ 1 file changed, 3 insertions(+)
+```
+
+---
+
+## Commit the changes in the repository
+
+```shell
+$ git add . && git commit -m "Reset to improve the log"
+[master 2c0f85b] Reset to improve the log
+ 7 files changed, 10 insertions(+), 3 deletions(-)
+ create mode 100644 logs/refs/heads/pe/resetting
+ create mode 100644 objects/84/45a59c91529fbb551e2e7e5f9318dd2c144705
+ create mode 100644 refs/heads/pe/resetting
+```
+<!-- .element: style="font-size: 0.51em" -->
+
+![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; " -->
+
+---
+
+## Checkout in detail
+
+The following steps are executed when checking out:
+
+```raw
+1. Try a trivial merge with chosen commit
+2. Move the HEAD
+3. Make the working directory look like the HEAD
+```
+
+But used with a path the following happens:
+```raw
+1. Make the index look like chosen commit
+2. Make the working directory look like the index
+```
+
+Notes:
+* If checkout is used with a path is not working directory safe!
+* This means, that you can use `git checkout -p` to selectively discard edits from your current working tree.
+
+---
+
+## Use the checkout command
+
+...to clean up the backup history
+
+```shell
+$ git checkout -b pe/checkingout pe/rebasing
+Switched to a new branch 'pe/checkout'
+```
+
+```shell
+$ git checkout -p pe/backups
+diff --git b/README.md a/README.md
+index 93d56bd..58ad30b 100644
+--- b/README.md
++++ a/README.md
+@@ -4,3 +4,6 @@ Buy me a beer if it made you better.
+ My list of [favorite beers](beers.md).
+ Whiskey is also a good reward.
+ [These whiskeys](whiskeys.md) are great!
++I would also love some feedback.
++Personal feedback is the best.
++Helpful feedback is awarded with great coffee.
+Apply this hunk to index and worktree [y,n,q,a,d,e,?]? 
+```
+
+---
+
+## What did the checkout do?
+
+```shell
+$ git status
+On branch pe/checkout
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        modified:   README.md
+```
+
+...it put the files in the index!
+
+---
+
+## Create the new commit
+
+```shell
+$ git commit -m "Trade coffee for personal feedback"
+[pe/checkout 92fd5bb] Trade coffee for personal feedback
+ 1 file changed, 3 insertions(+)
+```
+
+---
+
+## And what happened in the repository?
+
+```shell
+$ git add . && git commit -m "Checkout to improve the log"
+[master 3b1465c] Checkout to improve the log
+ 6 files changed, 4 insertions(+), 2 deletions(-)
+ create mode 100644 objects/92/fd5bb1c51339c8fda4f6584543d96b1a19aca2
+```
+<!-- .element: style="font-size: 0.51em" -->
+
+![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; " -->
+
+---
+
+## The change stash 
+
+...can also be used for changes which
+* are "work in progress"
+* do not belong to the current branch
+* do not require a commit but need to be kept
+
+---
+
+## Let's see what stash does
+
+Create a new branch
+```shell
+$ git checkout -b pe/stashing pe/rebasing
+Switched to a new branch 'pe/stashing'
+```
+
+...and add a change not worth committing
+```shell
+$ echo "You can use [beerpay](TODO: activate beerpay) to buy me a beer." >> README.md
+```
+<!-- .element: style="font-size: 0.41em" -->
+
+---
+
+## Put in the stash
+
+...what prevents you from continue working
+```shell
+$ git stash push -m "Mention beerpay (TODO: activate account)"
+Saved working directory and index state On stashing: Mention beerpay (TODO: activate account)
+```
+<!-- .element: style="font-size: 0.38em" -->
+
+and the working directory is clean again!
+```shell
+$ git status
+On branch pe/stashing
+nothing to commit, working tree clean
+```
+
+Notes:
+Changes in the index which differ from the working directory will not be taken into account.
+
+---
+
+## No muscle soreness yet
+
+...so let's check what happened in the repository:
+```shell
+$ git add . && git commit -m "Commit the stashed changes"
+[master 29f0dc5] Commit the stashed changes
+ 12 files changed, 10 insertions(+), 2 deletions(-)
+ create mode 100644 logs/refs/heads/pe/stashing
+ create mode 100644 logs/refs/stash
+ create mode 100644 objects/09/935986918f82200d5c17821e30065969cfa0b7
+ create mode 100644 objects/71/451e45b521185acf42faf83b5af5e9a2a1a973
+ create mode 100644 objects/89/148ed3bf53ccbaada4ec301d3a0a52e7cc7feb
+ create mode 100644 objects/e0/413b19ca77279ce47926db500dad21578e439d
+ create mode 100644 refs/heads/pe/stashing
+ create mode 100644 refs/stash
+```
+<!-- .element: style="font-size: 0.51em" -->
+![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
+
+---
+
+## Getting stashed changes back
+
+...as soon as you need them
+```shell
+$ git stash list
+stash@{0}: On stashing: Mention beerpay (TODO: activate account)
+```
+
+```shell
+$ git stash pop
+On branch pe/stashing
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   README.md
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Dropped refs/stash@{0} (89148ed3bf53ccbaada4ec301d3a0a52e7cc7feb)
+```
+<!-- .element: style="font-size: 0.47em" -->
+
+Notes:
+If you want to keep the change in the stash for later use, you can use "apply" instead of "pop"
+
+---
+
+## No blisters either
+
+...so check the repository again!
+```shell
+$ git add . && git commit -m "Commit the stash pop"
+[master ad59e16] Commit the stash pop
+ 3 files changed, 2 deletions(-)
+ delete mode 100644 logs/refs/stash
+ delete mode 100644 refs/stash
+```
+![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
+
+---
+
+# Time for questions
+
+---
+
+## Connect other repositories
+
+...by declaring them as your remote
+
+```shell
+$ git remote add origin git@github.com/escodebar/awwwesome.git
+```
+
+---
+
+## How are remotes stored in the repository?
+
+```shell
+$ git add . && git commit -m "Add the origin remote"
+```
+
+---
+
+## Push the objects to the remote
+
+```shell
+$ git push -u origin --all
+```
+
+---
+
+## See the new references?
+
+```shell
+$ git add . && git commit -m "Push everything to the remote"
+```
+
+---
+
+## Local branches?
+
+What do we need them for? We have the references in the remote!
+
+```shell
+$ git checkout origin/master && git branch | xargs git branch -D 
+```
+
+Now we're in detached `HEAD`!
+
+---
+
+## Automatize tasks using hooks
+
+---
+
+## Prevent hidden hidden commits
+
+...by using the fetch command
 
 ---
 
