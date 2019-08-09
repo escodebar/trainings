@@ -38,17 +38,15 @@ Notes:
 * Gitception: Reaching into the substructure
 * Of trees, branches and pieces of fruit
 * It's a backup system... It's a patch system... It's Git!
-* Change distribution using the remote control
 
 Notes:
 * Gitception is about using Git to understand Git and understanding the structure of Git
 * The concept of Gitception is used throught the training
 * The second block introduces branching and "merging" branches
-* The third block treats in more detail how to create patches using Git
+* The last block treats in more detail how to create patches using Git
 * This block is about cleaning up the Git history before a feature is released
-* The last block discusses using Git as a distributed version control system
-* I do not know yet if we can go through these 4 blocks within 3 hours (including questions)
-* I expect to discuss each block in within 40 minutes leaving around 5 minutes for questions
+* I do not know yet if we can go through these 3 blocks within 3 hours (including questions)
+* I expect to discuss each block in within 40 minutes leaving around 15 minutes for questions
 * I prefer answering questions between the blocks rather than rushing through it
 * I consider hosting a second event if the interest is high and we do not make it through
 
@@ -1961,62 +1959,6 @@ $ git add . && git commit -m "Commit the stash pop"
 
 ---
 
-## Connect other repositories
-
-...by declaring them as your remote
-
-```shell
-$ git remote add origin git@github.com/escodebar/awwwesome.git
-```
-
----
-
-## How are remotes stored in the repository?
-
-```shell
-$ git add . && git commit -m "Add the origin remote"
-```
-
----
-
-## Push the objects to the remote
-
-```shell
-$ git push -u origin --all
-```
-
----
-
-## See the new references?
-
-```shell
-$ git add . && git commit -m "Push everything to the remote"
-```
-
----
-
-## Local branches?
-
-What do we need them for? We have the references in the remote!
-
-```shell
-$ git checkout origin/master && git branch | xargs git branch -D 
-```
-
-Now we're in detached `HEAD`!
-
----
-
-## Automatize tasks using hooks
-
----
-
-## Prevent hidden hidden commits
-
-...by using the fetch command
-
----
-
 ## Resources
 * [Git Magic](http://www-cs-students.stanford.edu/~blynn/gitmagic/ch08.html)
 * [Git Reference](https://git-scm.com/docs/)
@@ -2034,3 +1976,5 @@ Now we're in detached `HEAD`!
 ---
 
 ## Thank you!
+
+🍺🍻🍺
