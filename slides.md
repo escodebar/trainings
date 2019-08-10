@@ -159,7 +159,7 @@ We are creating a repository inside the repository
 ```shell
 $ git init . && git add . && git commit -m "Add the repository"
 Initialized empty Git repository in ~/working/directory/.git/.git/
-[master (root-commit) 1c2f932] Add the repository
+[master (root-commit) b913f57] Add the repository
  15 files changed, 653 insertions(+)
  create mode 100644 HEAD
  create mode 100644 config
@@ -293,7 +293,7 @@ Notes:
 
 ```shell
 $ git add . && git commit -m "Add files to index"
-[master 6147d79] Add files to index
+[master 0a758f5] Add files to index
  2 files changed, 0 insertions(+), 0 deletions(-)
  create mode 100644 index
  create mode 100644 objects/b2/7501ade65f39bc91a5e6eb0d707903ba225a00
@@ -407,13 +407,13 @@ commit the changes and go back to the main repository
 
 ```shell
 $ git add . && git commit -m "Commit file"
-[master 85240e8] Commit file
+[master 3608ed6] Commit file
  7 files changed, 4 insertions(+)
  create mode 100644 COMMIT_EDITMSG
  create mode 100644 logs/HEAD
  create mode 100644 logs/refs/heads/master
- create mode 100644 objects/78/d7aa680e7ac5f3e851727ac29dd34afeb766f6
  create mode 100644 objects/a4/4f211c376b94d122c6429ef8e87ffa7856419d
+ create mode 100644 objects/f7/26ad352b9c3ea93ab643c038e2bdde4d9a2635
  create mode 100644 refs/heads/master
 ```
 <!-- .element: style="font-size: 0.51em;" -->
@@ -639,14 +639,14 @@ Notes:
 Add the new objects to the repository's repository:
 ```shell
 $ git add . && git commit -m "Add two more commits in patch mode"
-[master 9b01029] Add two more commits
+[master 318183b] Add two more commits
  11 files changed, 7 insertions(+), 2 deletions(-)
  create mode 100644 objects/10/d06a676fb65acc4b1a2e57454039d904318393
- create mode 100644 objects/11/3b2feae77a409de1c17d0c400490ac49b6a348
+ create mode 100644 objects/1d/960fd4261eb3535d6c03b8cf6ff3448a70c833
  create mode 100644 objects/22/d2d6223474b8b442b8aae05d4deab6f57a4a2a
  create mode 100644 objects/38/52d81df67551ce4174a25ce844cf690499f55c
  create mode 100644 objects/3f/652ededa8ed2a054ffa2c02bb34f99b53e94dd
- create mode 100644 objects/a8/94a8e197ea8e5a59323522ac9549a5f974f483
+ create mode 100644 objects/45/5befbc50035c52a21060a84c6ff8aaa0d84a93
 ```
 <!-- .element: style="font-size: 0.465em;" -->
 
@@ -721,7 +721,7 @@ How are branches stored in the repository?
 
 ```shell
 $ git add . && git commit -m "Add a new branch"
-[master ffce5ba] Add a new branch
+[master 8234c3b] Add a new branch
  2 files changed, 2 insertions(+)
  create mode 100644 logs/refs/heads/pe/new_branch
  create mode 100644 refs/heads/pe/new_branch
@@ -879,14 +879,14 @@ Notes:
 We do not want to have uncommitted changes!
 ```shell
 $ git add . && git commit -m "Add branches with commits"
-[master ccc7056] Add braches with commits
+[master 8104794] Add braches with commits
  16 files changed, 22 insertions(+), 12 deletions(-)
  create mode 100645 logs/refs/heads/pe/add_list_of_favorite_beers
  create mode 100644 logs/refs/heads/pe/whiskey_is_also_an_option
- create mode 100644 objects/00/0ce0a9703aebd0722e2ac3f285985b6b223312
  create mode 100644 objects/0d/f4281955475551ad1a4232fce76a5fb6d340d0
  create mode 100644 objects/21/990ee9610d1601649ca9c669f7f51ecad5358b
- create mode 100644 objects/68/f2339b23c674d3b288411a9754991145883e56
+ create mode 100644 objects/2f/e20c072d3c6b563cb603213295a24f37f454f2
+ create mode 100644 objects/78/097d4cd84c56382e2e63508563aab8dc4d3728
  create mode 100644 objects/7e/c764e3ac5af8a360fc2df5ac5c58aa5bffcd11
  create mode 100644 objects/9c/8d69a8414db1654a6c725de0c670fa28df33a4
  create mode 100644 objects/a2/8e0af61a8785cfec49e2ea707f8172d4b93b78
@@ -975,7 +975,7 @@ Note:
 How does Git handle merge conflicts?
 ```shell
 $ git add . && git commit -m "Commit during merge conflict"
-[master cc2485f] Commit during merge conflict
+[master c993da9] Commit during merge conflict
  10 files changed, 14 insertions(+), 1 deletion(-)
  create mode 100644 MERGE_HEAD
  create mode 100644 MERGE_MODE
@@ -1129,13 +1129,13 @@ Notes:
 Commit the changes into the repository's repository
 ```shell
 $ git add . && git commit -m "Add the merge"
-[master 5dbb9d5] Add the merge
+[master d089e18] Add the merge
  11 files changed, 8 insertions(+), 7 deletions(-)
  delete mode 100644 MERGE_HEAD
  delete mode 100644 MERGE_MODE
  delete mode 100644 MERGE_MSG
  rewrite index (100%)
- create mode 100644 objects/3a/1f82cf3b89824878b6844f5752a0b28ab95284
+ create mode 100644 objects/00/1073986b1388011c70edf0ec0aff31f490b04d
  create mode 100644 objects/93/d56bde8cd7e1ac44d1f4f454a189b71b7b0d1f
  create mode 100644 objects/d5/a29e72348dd06004654c605f561d7d6fc32e6c
 ```
@@ -1208,13 +1208,13 @@ Notes:
 Dig, dig, dig, dig
 ```shell
 $ git add . && git commit -m "Commit a cherry pick conflict"
-[master 8bb838d] Commit during cherry pick conflict
+[master deb5f6e] Commit during cherry pick conflict
  8 files changed, 10 insertions(+), 1 deletion(-)
  create mode 100644 CHERRY_PICK_HEAD
  create mode 100644 MERGE_MSG
  rewrite index (100%)
  create mode 100644 logs/refs/heads/pe/cherry_picking
- create mode 100644 objects/77/047a805c055408b0f9a6ef2a96ef932d677efb
+ create mode 100644 objects/5a/6ddc109bd95bbc63cd4a573107eac735681120
  create mode 100644 refs/heads/pe/cherry_picking
 ```
 <!-- .element: style="font-size: 0.495em" -->
@@ -1308,13 +1308,13 @@ $ git cherry-pick --continue
 Once again...
 ```shell
 $ git add . && git commit -m "Add the cherry-pick"
-[master a5f2863] Add the cherry-pick
+[master cd70856] Add the cherry-pick
  8 files changed, 26 insertions(+), 7 deletions(-)
  delete mode 100644 CHERRY_PICK_HEAD
  rewrite COMMIT_EDITMSG (100%)
  delete mode 100644 MERGE_MSG
  rewrite index (100%)
- create mode 100644 objects/b7/083bff4b2604a3d5669cdf73ed3629d53bfcfc
+ create mode 100644 objects/7f/4cb0aa69d5a30bee03b30a0025929fae0c7699
 ```
 <!-- .element: style="font-size: 0.505em;" -->
 
@@ -1372,7 +1372,7 @@ Notes:
 ...is slightly more complicated:
 ```shell
 $ git add . && git commit -m "Commit a rebase conflict"
-[master cd7d697] Commit a rebase conflict
+[master 6c044a5] Commit a rebase conflict
  29 files changed, 79 insertions(+), 2 deletions(-)
  create mode 100644 REBASE_HEAD
  rewrite index (100%)
@@ -1425,7 +1425,7 @@ $ git add . && git commit -m "Add the rebase"
  28 files changed, 5 insertions(+), 75 deletions(-)
  delete mode 100644 REBASE_HEAD
  rewrite index (100%)
- create mode 100644 objects/c9/6224a8837cfd2996396e0e523032e09ebb461a
+ create mode 100644 objects/d1/9a3f12787585ba9f50cde724e238cea8f29c73
  delete mode 100644 rebase-apply/0001
  delete mode 100644 rebase-apply/abort-safety
  delete mode 100644 rebase-apply/apply-opt
