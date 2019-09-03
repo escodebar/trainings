@@ -94,16 +94,11 @@ Notes:
 Create a repository:
 
 ```shell
-$ mkdir -p ~/working/directory/ && cd $_ && git init .
-Initialized empty Git repository in ~/working/directory/.git/
+$ mkdir -p ~/working/directory/ && cd $_ && {{ "git init ."|run }}
 ```
 
 ```shell
-$ ls -blah
-total 0
-drwxr-xr-x 3 escodebar escodebar  60 Aug  2 10:39 .
-drwxr-xr-x 3 escodebar escodebar  60 Aug  2 10:38 ..
-drwxr-xr-x 7 escodebar escodebar 200 Aug  2 10:39 .git
+$ {{ "ls -blah"|run }}
 ```
 
 See that `.git` folder there? That's the repository.
@@ -121,18 +116,7 @@ Notes:
 Don't panic!
 
 ```shell
-$ ls -blah .git
-total 12K
-drwxr-xr-x 7 escodebar escodebar 200 Aug  2 10:39 .
-drwxr-xr-x 3 escodebar escodebar  60 Aug  2 10:39 ..
-drwxr-xr-x 2 escodebar escodebar  40 Aug  2 10:39 branches
--rw-r--r-- 1 escodebar escodebar  92 Aug  2 10:39 config
--rw-r--r-- 1 escodebar escodebar  73 Aug  2 10:39 description
--rw-r--r-- 1 escodebar escodebar  23 Aug  2 10:39 HEAD
-drwxr-xr-x 2 escodebar escodebar 260 Aug  2 10:39 hooks
-drwxr-xr-x 2 escodebar escodebar  60 Aug  2 10:39 info
-drwxr-xr-x 4 escodebar escodebar  80 Aug  2 10:39 objects
-drwxr-xr-x 4 escodebar escodebar  80 Aug  2 10:39 refs
+$ {{ "ls -blah .git"|run }}
 ```
 
 This is deep enough for now!
@@ -157,17 +141,7 @@ $ cd ~/working/directory/.git
 We are creating a repository inside the repository
 <!-- .element: class="fragment" -->
 ```shell
-$ git init . && git add . && git commit -m "Add the repository"
-Initialized empty Git repository in ~/working/directory/.git/.git/
-[master (root-commit) b913f57] Add the repository
- 15 files changed, 653 insertions(+)
- create mode 100644 HEAD
- create mode 100644 config
- create mode 100644 description
- create mode 100755 hooks/applypatch-msg.sample
- [...]
- create mode 100755 hooks/update.sample
- create mode 100644 info/exclude
+$ {{ "git init . && git add -A && git commit -m 'Add the repository'"|multirun(gitception=True) }}
 ```
 <!-- .element: class="fragment" style="font-size: 0.535em" -->
 
@@ -199,12 +173,7 @@ Notes:
 
 To get an overview of the repository run:
 ```shell
-$ git status
-On branch master
-
-No commits yet
-
-nothing to commit (create/copy files and use "git add" to track)
+$ {{ "git status"|run }}
 ```
 
 Notes:
@@ -221,22 +190,12 @@ Notes:
 Documentation first!
 
 ```shell
-$ echo "# My awwwesome training" > README.md
+$ {{ 'echo "# My awwwesome training" > README.md'|shell }}
 ```
 
 What's the status now?
 ```shell
-$ git status
-On branch master
-
-No commits yet
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-
-        README.md
-
-nothing added to commit but untracked files present (use "git add" to track)
+$ {{ "git status"|run }}
 ```
 <!-- .element: style="font-size: 0.465em;" -->
 
@@ -269,15 +228,7 @@ Notes:
 
 Put files in the staging area:
 ```shell
-$ git add README.md && git status
-On branch master
-
-No commits yet
-
-Changes to be committed:
-  (use "git rm --cached <file>..." to unstage)
-
-        new file:   README.md
+$ {{ "git add README.md && git status"|multirun }}
 ```
 
 Notes:
@@ -292,11 +243,7 @@ Notes:
 ## What happened in the repository?
 
 ```shell
-$ git add . && git commit -m "Add files to index"
-[master 0a758f5] Add files to index
- 2 files changed, 0 insertions(+), 0 deletions(-)
- create mode 100644 index
- create mode 100644 objects/b2/7501ade65f39bc91a5e6eb0d707903ba225a00
+$ {{ 'git add . && git commit -m "Add files to index"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.51em;" -->
 
@@ -322,12 +269,10 @@ Questions:
 
 Inspect the created object
 ```shell
-$ git cat-file -t b27501a
-blob
+$ {{ "git cat-file -t b27501a"|run }}
 ```
 ```shell
-$ git cat-file -p b27501a
-# My awwwesome training
+$ {{ "git cat-file -p b27501a"|run }}
 ```
 
 Notes:
@@ -344,14 +289,7 @@ Notes:
 
 See staged changes to check if they are ready to be committed:
 ```shell
-$ git diff --cached
-diff --git a/README.md b/README.md
-new file mode 100644
-index 0000000..b27501a
---- /dev/null
-+++ b/README.md
-@@ -0,0 +1 @@
-+# My awwwesome training
+$ {{ "git diff --cached"|run }}
 ```
 
 Notes:
@@ -385,10 +323,7 @@ Notes:
 
 Commit the changes to the repository
 ```shell
-$ git commit -m "Describe the training"
-[master (root-commit) 78d7aa6] Describe the training
- 1 file changed, 1 insertion(+)
- create mode 100644 README.md
+$ {{ 'git commit -m "Describe the training"'|run }}
 ```
 
 Notes:
@@ -406,15 +341,7 @@ The repository's content must have changed,
 commit the changes and go back to the main repository
 
 ```shell
-$ git add . && git commit -m "Commit file"
-[master 3608ed6] Commit file
- 7 files changed, 4 insertions(+)
- create mode 100644 COMMIT_EDITMSG
- create mode 100644 logs/HEAD
- create mode 100644 logs/refs/heads/master
- create mode 100644 objects/a4/4f211c376b94d122c6429ef8e87ffa7856419d
- create mode 100644 objects/f7/26ad352b9c3ea93ab643c038e2bdde4d9a2635
- create mode 100644 refs/heads/master
+$ {{ 'git add . && git commit -m "Commit file"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.51em;" -->
 
@@ -432,16 +359,10 @@ Notes:
 
 What is the object with the commit's hash?
 ```shell
-$ git cat-file -t 78d7aa6
-commit
+$ {{ "git cat-file -t LAST_COMMIT"|run }}
 ```
 ```shell
-$ git cat-file -p 78d7aa6
-tree a44f211c376b94d122c6429ef8e87ffa7856419d
-author Pablo Escodebar <escodebar@gmail.com> 1533199402 +0200
-committer Pablo Escodebar <escodebar@gmail.com> 1533199402 +0200
-
-Describe the training
+$ {{ "git cat-file -p LAST_COMMIT"|run }}
 ```
 ...so this is what a commit looks like!
 
@@ -457,13 +378,11 @@ Notes:
 
 What is the object with the tree's hash?
 ```shell
-$ git cat-file -t a44f211
-tree
+$ {{ "git cat-file -t LAST_TREE"|run }}
 ```
 
 ```shell
-$ git cat-file -p a44f211
-100644 blob b27501ade65f39bc91a5e6eb0d707903ba225a00	README.md
+$ {{ "git cat-file -p LAST_TREE"|run }}
 ```
 <!-- .element: style="font-size: 0.545em;" -->
 
@@ -482,20 +401,7 @@ By now, you know more about Git internals than many who consider themselves prof
 
 Take a look at a change using:
 ```shell
-$ git show
-commit 78d7aa680e7ac5f3e851727ac29dd34afeb766f6 (HEAD -> master)
-Author: Pablo Escodebar <escodebar@gmail.com>
-Date:   Thu Aug 2 10:43:22 2018 +0200
-
-    Describe the training
-
-diff --git a/README.md b/README.md
-new file mode 100644
-index 0000000..b27501a
---- /dev/null
-+++ b/README.md
-@@ -0,0 +1 @@
-+# My awwwesome training
+$ {{ "git show"|run }}
 ```
 <!-- .element: style="font-size:0.5em;" -->
 
@@ -513,22 +419,12 @@ Notes:
 
 ...to select the changes you want to stage
 ```shell
-$ echo 'This training will make you better!' >> README.md && git add -p
-diff --git a/README.md b/README.md
-index b27501a..22d2d62 100644
---- a/README.md
-+++ b/README.md
-@@ -1 +1,2 @@
- # My awwwesome training
-+This training will make you better!
-Stage this hunk [y,n,q,a,d,/,e,?]?
+$ {{ "echo 'This training will make you better!' >> README.md"|shell }} && {{ "git add -p"|run(input="y") }}
 ```
 <!-- .element: style="font-size: 0.485em;" -->
 
 ```shell
-$ git commit -m "Motivate the participant"
-[master 113b2fe] Motivate the participant
- 1 file changed, 1 insertion(+)
+$ {{ 'git commit -m "Motivate the participant"'|run }}
 ```
 
 This is a great way to group your code!
@@ -556,13 +452,7 @@ Notes:
 
 This second commit shouldn't be a root commit:
 ```shell
-$ git cat-file -p 113b2fe
-tree 10d06a676fb65acc4b1a2e57454039d904318393
-parent 78d7aa680e7ac5f3e851727ac29dd34afeb766f6
-author Pablo Escodebar <escodebar@gmail.com> 1534533899 +0200
-committer Pablo Escodebar <escodebar@gmail.com> 1534533899 +0200
-
-Motivate the participant
+$ {{ "git cat-file -p LAST_COMMIT"|run }}
 ```
 ...it has a parent!
 
@@ -575,23 +465,13 @@ Notes:
 
 My favorite way of committing!
 ```shell
-$ echo "Buy me a beer if it made you better." >> README.md
-$ git commit -p -m "Motivate the speaker"
-diff --git a/README.md b/README.md
-index 22d2d62..3f652ed 100644
---- a/README.md
-+++ b/README.md
-@@ -1,2 +1,3 @@
-# My awwwesome training
- This training will make you better!
-+Buy me a beer if it made you better.
-Stage this hunk [y,n,q,a,d,/,e,?]?
+$ {{ 'echo "Buy me a beer if it made you better." >> README.md'|shell }}
+$ {{ 'git commit -p -m "Motivate the speaker"'|run(input="y", store="motivate the speaker") }}{{  "motivate the speaker"|store|lines(0, -2) }}
 ```
 
 Once all hunks are decided, a commit will be created
 ```shell
-[master a894a8e] Motivate the speaker
- 1 file changed, 1 insertion(+)
+{{ "motivate the speaker"|store|lines(-2, None) }}
 ```
 
 
@@ -619,10 +499,7 @@ Notes:
 
 Take a look back at your work using:
 ```shell
-$ git log --oneline
-a894a8e (HEAD -> master) Motivate the speaker
-113b2fe Motivate the participant
-78d7aa6 Describe the training
+$ {{ "git log --oneline"|run }}
 ```
 ...so this is why we want short commit titles?
 
@@ -638,15 +515,7 @@ Notes:
 
 Add the new objects to the repository's repository:
 ```shell
-$ git add . && git commit -m "Add two more commits in patch mode"
-[master 318183b] Add two more commits
- 11 files changed, 7 insertions(+), 2 deletions(-)
- create mode 100644 objects/10/d06a676fb65acc4b1a2e57454039d904318393
- create mode 100644 objects/1d/960fd4261eb3535d6c03b8cf6ff3448a70c833
- create mode 100644 objects/22/d2d6223474b8b442b8aae05d4deab6f57a4a2a
- create mode 100644 objects/38/52d81df67551ce4174a25ce844cf690499f55c
- create mode 100644 objects/3f/652ededa8ed2a054ffa2c02bb34f99b53e94dd
- create mode 100644 objects/45/5befbc50035c52a21060a84c6ff8aaa0d84a93
+$ {{ 'git add . && git commit -m "Add two more commits in patch mode"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.465em;" -->
 
@@ -701,7 +570,7 @@ Goal:
 
 Branches are created using
 ```shell
-$ git branch pe/new_branch
+$ {{ "git branch pe/new_branch"|run }}
 ```
 
 Notes:
@@ -720,15 +589,10 @@ Notes:
 How are branches stored in the repository?
 
 ```shell
-$ git add . && git commit -m "Add a new branch"
-[master 8234c3b] Add a new branch
- 2 files changed, 2 insertions(+)
- create mode 100644 logs/refs/heads/pe/new_branch
- create mode 100644 refs/heads/pe/new_branch
+$ {{ 'git add . && git commit -m "Add a new branch"'|multirun(gitception=True) }}
 ```
 ```shell
-$ cat refs/heads/pe/new_branch
-a894a8e197ea8e5a59323522ac9549a5f974f483
+$ {{ "cat refs/heads/pe/new_branch"|run(gitception=True) }}
 ```
 
 ![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
@@ -743,21 +607,7 @@ Notes:
 
 A branch is just a file with the hash of a commit
 ```shell
-$ git show a894a8e197ea8e5a59323522ac9549a5f974f483
-commit a894a8e197ea8e5a59323522ac9549a5f974f483 (HEAD -> pe/new_branch, master)
-Author: Pablo Escodebar <escodebar@gmail.com>
-Date:   Thu Aug 2 10:46:30 2018 +0200
-
-    Motivate the speaker
-
-diff --git a/README.md b/README.md
-index 22d2d62..3f652ed 100644
---- a/README.md
-+++ b/README.md
-@@ -1,2 +1,3 @@
- # My awwwesome training
- This training will make you better!
-+Buy me a beer if it made you better.
+$ {{ "git show LAST_COMMIT_FULL"|run }}
 ```
 <!-- .element: style="font-size: 0.44em" -->
 
@@ -772,13 +622,30 @@ Statistics:
 
 ---
 
-## Checkout the newly created branch
+## And check, check, check it out!
 
-To checkout a branch, run:
 ```shell
-$ git checkout pe/new_branch
-Switched to branch "pe/new_branch"
+$ {{ "git checkout pe/new_branch"|run }}
 ```
+
+... to add further commit to it!
+
+---
+
+## What happened in the repo?
+
+```shell
+$ {{ 'git add . && git commit -m "Check out the branch"'|multirun(gitception=True) }}
+```
+
+Let's take a closer look!
+```shell
+$ {{ "git show"|run(gitception=True) }}
+```
+![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
+
+Notes:
+* See the changes in the HEAD's log?
 
 ---
 
@@ -787,8 +654,7 @@ Switched to branch "pe/new_branch"
 
 Check out a *new* branch using checkout:
 ```shell
-$ git checkout -b pe/add_list_of_favorite_beers master
-Switched to branch "pe/add_list_of_favorite_beers"
+$ {{ "git checkout -b pe/add_list_of_favorite_beers master"|run }}
 ```
 ...one command is faster than two!
 
@@ -802,20 +668,17 @@ Notes:
 ## Add a commit to the new branch
 
 ```shell
-$ cat << EOBL > beers.md && git add beers.md
+$ {{ """cat << EOBL > beers.md && git add beers.md
 * To Øl - 1 ton of Happiness
 * Rokki - Muikea
 * Felsenau - Bärner Müntschi
 * Rokki - Happo
 * Egger - Galopper
-EOBL
-$ echo "My list of [favorite beers](beers.md)." >> README.md
-$ git commit -a -m "Let people know, what beer to buy"
-[pe/add_list_of_favorite_beers 000ce0a] Let people know, what beer to buy
- 2 files changed, 6 insertions(+)
- create mode 100644 beers.md
+EOBL"""|shell }}
+$ {{ 'echo "My list of [favorite beers](beers.md)." >> README.md'|shell }}
+$ {{ 'git commit -a -m "Let people know, what beer to buy"'|run }}
 ```
-<!-- .element: style="font-size: 0.485em;" -->
+<!-- .element: style="font-size: 0.47em;" -->
 
 Notes:
 * The first command creates and adds a file called "beers.md" (take a minute to digest it)
@@ -828,24 +691,21 @@ Notes:
 ...with another commit
 
 ```shell
-$ git checkout -b pe/whiskey_is_also_an_option master
-Switched to branch "pe/whiskey_is_also_an_option"
+$ {{ "git checkout -b pe/whiskey_is_also_an_option master"|run }}
 ```
 ```shell
-$ echo "Whiskey is also a good reward." >> README.md
-$ cat << EOWL > whiskeys.md && git add whiskeys.md
+$ {{ 'echo "Whiskey is also a good reward." >> README.md'|shell }}
+$ {{ """cat << EOWL > whiskeys.md && git add whiskeys.md
 * Lagavulin - 16
 * Ledaig - 10
 * Talisker - Storm
 * Ledaig - 18
 * Laphroaig - Quarter Cask
-EOWL
-$ echo '[These whiskeys](whiskeys.md) are great!' >> README.md
-$ git commit -am "Accept whiskey as reward"
-[pe/whiskey_is_also_an_option 68f2339] Accept whiskey as reward
- 2 files changed, 7 insertions(+)
- create mode 100644 whiskeys.md
+EOWL"""|shell }}
+$ {{ "echo '[These whiskeys](whiskeys.md) are great!' >> README.md"|shell }}
+$ {{ 'git commit -am "Accept whiskey as reward"'|run }}
 ```
+<!-- .element: style="font-size: 0.545em;" -->
 
 Notes:
 * Now we should have a graph with two branches.
@@ -857,13 +717,7 @@ Notes:
 
 Take a look at the graph of the repository using:
 ```shell
-$ git log --oneline --all --graph
-* 68f2339 (HEAD -> pe/whiskey_is_also_an_option) Accept whiskey as reward
-| * 000ce0a (pe/add_list_of_favorite_beers) Let people know, what beer to buy
-|/
-* a894a8e (pe/new_branch, master) Motivate the speaker
-* 113b2fe Motivate the participant
-* 78d7aa6 Describe the training
+$ {{ "git log --oneline --all --graph"|run }}
 ```
 <!-- .element: style="font-size: 0.46em;" -->
 Our tree starts growing branches!
@@ -878,21 +732,7 @@ Notes:
 
 We do not want to have uncommitted changes!
 ```shell
-$ git add . && git commit -m "Add branches with commits"
-[master 8104794] Add braches with commits
- 16 files changed, 22 insertions(+), 12 deletions(-)
- create mode 100645 logs/refs/heads/pe/add_list_of_favorite_beers
- create mode 100644 logs/refs/heads/pe/whiskey_is_also_an_option
- create mode 100644 objects/0d/f4281955475551ad1a4232fce76a5fb6d340d0
- create mode 100644 objects/21/990ee9610d1601649ca9c669f7f51ecad5358b
- create mode 100644 objects/2f/e20c072d3c6b563cb603213295a24f37f454f2
- create mode 100644 objects/78/097d4cd84c56382e2e63508563aab8dc4d3728
- create mode 100644 objects/7e/c764e3ac5af8a360fc2df5ac5c58aa5bffcd11
- create mode 100644 objects/9c/8d69a8414db1654a6c725de0c670fa28df33a4
- create mode 100644 objects/a2/8e0af61a8785cfec49e2ea707f8172d4b93b78
- create mode 100644 objects/d3/719373bb86bdd46c56e521135a1bd7f69d40ab
- create mode 100644 refs/heads/pe/add_list_of_favorite_beers
- create mode 100644 refs/heads/pe/whiskey_is_also_an_option
+$ {{ 'git add . && git commit -m "Add branches with commits"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.5em;" -->
 
@@ -951,16 +791,12 @@ Notes:
 
 Checkout a new branch for the merge
 ```shell
-$ git checkout -b pe/merging pe/add_list_of_favorite_beers
-Switched to a new branch "pe/merging"
+$ {{ "git checkout -b pe/merging pe/add_list_of_favorite_beers"|run }}
 ```
 
 Merge...
 ```shell
-$ git merge pe/whiskey_is_also_an_option
-Auto-merging README.md
-CONFLICT (content): Merge conflict in README.md
-Automatic merge failed; fix conflicts and then commit the result.
+$ {{ "git merge pe/whiskey_is_also_an_option"|run }}
 ```
 <!-- .element: style="font-size: 0.545em;" -->
 ...and run into conflicts!
@@ -974,17 +810,7 @@ Note:
 
 How does Git handle merge conflicts?
 ```shell
-$ git add . && git commit -m "Commit during merge conflict"
-[master c993da9] Commit during merge conflict
- 10 files changed, 14 insertions(+), 1 deletion(-)
- create mode 100644 MERGE_HEAD
- create mode 100644 MERGE_MODE
- create mode 100644 MERGE_MSG
- create mode 100644 ORIG_HEAD
- rewrite index (100%)
- create mode 100644 logs/refs/heads/pe/merging
- create mode 100644 objects/74/53e34d766307d5056d804f80e4cc2395fb4179
- create mode 100644 refs/heads/pe/merging
+$ {{ 'git add . && git commit -m "Commit during merge conflict"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.505em" -->
 
@@ -1005,18 +831,8 @@ Notes:
 
 We are getting used to this!
 ```shell
-$ git cat-file -t 7453e34
-blob
-$ git cat-file -p 7453e34
-# My awwwesome training
-This training will make you better!
-Buy me a beer if it made you better.
-<<<<<<< HEAD
-My list of [favorite beers](beers.md).
-=======
-Whiskey is also a good reward.
-[These whiskeys](whiskeys.md) are great!
->>>>>>> pe/whiskey_is_also_an_option
+$ {{ "git cat-file -t 7453e34"|run }}
+$ {{ "git cat-file -p 7453e34"|run }}
 ```
 
 Looks like the README file
@@ -1031,20 +847,7 @@ Notes:
 
 Let's take a look at the status:
 ```shell
-$ git status
-On branch pe/merging
-You have unmerged paths.
-  (fix conflicts and run "git commit")
-  (use "git merge --abort" to abort the merge)
-
-Changes to be committed:
-
-        new file:   whiskeys.md
-
-Unmerged paths:
-  (use "git add <file>..." to mark resolution)
-
-        both modified:   README.md
+$ {{ "git status"|run }}
 ```
 As expected, a file was modified by both branches!
 
@@ -1054,28 +857,25 @@ Notes:
 
 ---
 
-## Conflict resolution
+## Understanding the conflict
 
 Take a look at the conflicting files:
 ```shell
-$ git diff
-diff --cc README.md
-index d371937,a28e0af..0000000
---- a/README.md
-+++ b/README.md
-@@@ -1,4 -1,5 +1,9 @@@
-  # My awwwesome training
-  This training will make you better!
-  Buy me a beer if it made you better.
-++<<<<<<< HEAD
- +My list of [favorite beers](beers.md).
-++=======
-+ Whiskey is also a good reward.
-+ [These](whiskeys.md) are great!
-++>>>>>>> pe/whiskey_is_also_an_option
+$ {{ "git diff"|run }}
 ```
 
 This conflict is easily solved!
+
+---
+
+## Conflict resolution
+
+Just remove the 4th, 6th and last line.
+```shell
+$ {{ "sed -i '4d;6d;$d' README.md"|shell }}
+```
+
+Use your favorite editor to do so!
 
 Notes:
 * To resolve a conflict, edit the conflicting files such that it fits the requirements of both changes
@@ -1087,9 +887,8 @@ Notes:
 
 ...once you resolved the conflicts:
 ```shell
-$ git add README.md
-$ git commit -m "Add the list of beers first"
-[pe/merging 3a1f82c] Add the list of beers first
+$ {{ "git add README.md"|shell }}
+$ {{ 'git commit -m "Add the list of beers first"'|run }}
 ```
 That was easy!
 
@@ -1104,16 +903,8 @@ Notes:
 
 Merge commits are special...
 ```shell
-$ git cat-file -t 3a1f82c
-commit
-$ git cat-file -p 3a1f82c
-tree d5a29e72348dd06004654c605f561d7d6fc32e6c
-parent 000ce0a9703aebd0722e2ac3f285985b6b223312
-parent 68f2339b23c674d3b288411a9754991145883e56
-author Pablo Escodebar <escodebar@gmail.com> 1534559548 +0200
-committer Pablo Escodebar <escodebar@gmail.com> 1534559548 +0200
-
-Add the list of beers first
+$ {{ "git cat-file -t LAST_COMMIT"|run }}
+$ {{ "git cat-file -p LAST_COMMIT"|run }}
 ```
 ...since they have more than one parent!
 
@@ -1128,16 +919,7 @@ Notes:
 
 Commit the changes into the repository's repository
 ```shell
-$ git add . && git commit -m "Add the merge"
-[master d089e18] Add the merge
- 11 files changed, 8 insertions(+), 7 deletions(-)
- delete mode 100644 MERGE_HEAD
- delete mode 100644 MERGE_MODE
- delete mode 100644 MERGE_MSG
- rewrite index (100%)
- create mode 100644 objects/00/1073986b1388011c70edf0ec0aff31f490b04d
- create mode 100644 objects/93/d56bde8cd7e1ac44d1f4f454a189b71b7b0d1f
- create mode 100644 objects/d5/a29e72348dd06004654c605f561d7d6fc32e6c
+$ {{ 'git add . && git commit -m "Add the merge"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.51em;" -->
 
@@ -1172,29 +954,20 @@ Notes:
 
 Let's add another branch for cherry picking
 ```shell
-$ git checkout -b pe/cherry_picking pe/add_list_of_favorite_beers
-Switched to branch "pe/cherry_picking"
+$ {{ "git checkout -b pe/cherry_picking pe/add_list_of_favorite_beers"|run }}
 ```
 <!-- .element: style="font-size: 0.545em;" -->
 
 Find the hash of the cherry (commit) to be picked
 ```shell
-$ git log --oneline pe/whiskey_is_also_an_option
-68f2339 (pe/whiskey_is_also_an_option) Accept whiskey as reward
-a894a8e (pe/new_branch, master) Motivate the speaker
-113b2fe Motivate the participant
-78d7aa6 Describe the training
+$ {{ "git log --oneline pe/whiskey_is_also_an_option"|run }}
 ```
 
 ---
 
 ...then pick it up!
 ```shell
-$ git cherry-pick 68f2339
-error: could not apply 68f2339... Accept whiskey as reward
-hint: after resolving the conflicts, mark the corrected paths
-hint: with "git add <paths>" or "git rm <paths>"
-hint: and commit the result with "git commit"
+$ {{ "git cherry-pick pe/whiskey_is_also_an_option"|run }}
 ```
 
 Notes:
@@ -1207,15 +980,7 @@ Notes:
 
 Dig, dig, dig, dig
 ```shell
-$ git add . && git commit -m "Commit a cherry pick conflict"
-[master deb5f6e] Commit during cherry pick conflict
- 8 files changed, 10 insertions(+), 1 deletion(-)
- create mode 100644 CHERRY_PICK_HEAD
- create mode 100644 MERGE_MSG
- rewrite index (100%)
- create mode 100644 logs/refs/heads/pe/cherry_picking
- create mode 100644 objects/5a/6ddc109bd95bbc63cd4a573107eac735681120
- create mode 100644 refs/heads/pe/cherry_picking
+$ {{ 'git add . && git commit -m "Commit a cherry pick conflict"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.495em" -->
 
@@ -1231,74 +996,51 @@ Question:
 
 ---
 
+## So what's the conflict now?
+
+```shell
+$ {{ "git diff"|run }}
+```
+
+as expected, the conflict looks almost the same!
+
+Notes:
+* The only difference is that the hash and commit title are used!
+
+---
+
 ## Use a mergetool
 
 ...to fix the conflict!
 
 ```shell
 $ git mergetool
-
-This message is displayed because 'merge.tool' is not configured.
-See 'git mergetool --tool-help' or 'git help config' for more details.
-'git mergetool' will now attempt to use one of the following tools:
-[...] meld [...] vimdiff [...]
-Merging:
-README.md
-
-Normal merge conflict for 'README.md':
-  {local}: modified file
-  {remote}: modified file
-Hit return to start merge resolution tool (vimdiff):
 ```
-<!-- .element: style="font-size: 0.505em" -->
 
 Conflict resolution with assistance!
 
----
-
-## A safety net
-
-...in case something went wrong!
+Or fix the conflict manually if you prefer
 ```shell
-$ git status
-On branch pe/cherry_picking
-You are currently cherry-picking commit 2fe20c0.
-  (all conflicts fixed: run "git cherry-pick --continue")
-  (use "git cherry-pick --abort" to cancel the cherry-pick operation)
-
-Changes to be committed:
-
-        modified:   README.md
-        new file:   whiskeys.md
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-
-        README.md.orig
-
-```
-<!-- .element: style="font-size: 0.51em" -->
-
-
-Therefore clean up!
-```shell
-$ rm README.md.orig
+$ {{ "sed -i '4d;6d;$d' README.md && git add README.md"|multirun }}
 ```
 
 Notes:
-Also notice, that the README.md file was already added to the staging area.
-You can configure Git not to create this backup file.
+* Backup files will be created in your working directory
+* Also edited files will be added to the staging area automatically
+* You can configure Git not to create this backup file.
 
 ---
 
-## Finish cherry-picking
+## Continue cherry-picking
 
+...once you finished fixing the conflict
 ```shell
 $ git cherry-pick --continue
-[pe/cherry_picking b7083bf] Accept whiskey as reward
- Date: Fri Jun 29 19:47:30 2018 +0200
- 2 files changed, 7 insertions(+)
- create mode 100644 whiskeys.md
+```
+
+...or commit the staged changes with an existing commit message
+```shell
+$ {{ "git commit -C pe/whiskey_is_also_an_option"|run }}
 ```
 
 ---
@@ -1307,14 +1049,7 @@ $ git cherry-pick --continue
 
 Once again...
 ```shell
-$ git add . && git commit -m "Add the cherry-pick"
-[master cd70856] Add the cherry-pick
- 8 files changed, 26 insertions(+), 7 deletions(-)
- delete mode 100644 CHERRY_PICK_HEAD
- rewrite COMMIT_EDITMSG (100%)
- delete mode 100644 MERGE_MSG
- rewrite index (100%)
- create mode 100644 objects/7f/4cb0aa69d5a30bee03b30a0025929fae0c7699
+$ {{ 'git add . && git commit -m "Add the cherry-pick"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.505em;" -->
 
@@ -1340,27 +1075,14 @@ Notes:
 ## Rebase yourself!
 
 ```shell
-$ git checkout -b pe/rebasing pe/whiskey_is_also_an_option
-Switched to branch "pe/rebasing"
+$ {{ "git checkout -b pe/rebasing pe/whiskey_is_also_an_option"|run }}
 ```
 ```shell
-$ git rebase pe/add_list_of_favorite_beers
-First, rewinding head to replay your work on top of it...
-Applying: Let people know, what beer to buy
-Using index info to reconstruct a base tree...
-M       README.md
-Falling back to patching base and 3-way merge...
-Auto-merging README.md
-CONFLICT (content): Merge conflict in README.md
-error: Failed to merge in the changes.
-Patch failed at 0001 Let people know, what beer to buy
-hint: Use 'git am --show-current-patch' to see the failed patch
-Resolve all conflicts manually, mark them as resolved with
-"git add/rm <conflicted_files>", then run "git rebase --continue".
-You can instead skip this commit: run "git rebase --skip".
-To abort and get back to the state before "git rebase", run "git rebase --abort".
+$ {{ "git rebase pe/add_list_of_favorite_beers"|run }}
 ```
 <!-- .element: style="font-size: 0.43em" -->
+
+...that's a lot of output!
 
 Notes:
 * This time "the point of view" changes, therefore we checkout the branch which will be rebased
@@ -1371,35 +1093,7 @@ Notes:
 
 ...is slightly more complicated:
 ```shell
-$ git add . && git commit -m "Commit a rebase conflict"
-[master 6c044a5] Commit a rebase conflict
- 29 files changed, 79 insertions(+), 2 deletions(-)
- create mode 100644 REBASE_HEAD
- rewrite index (100%)
- create mode 100644 logs/refs/heads/pe/rebasing
- create mode 100644 objects/85/c2d4e6fc7a00c7e49bd1d851f54863fd39605f
- create mode 100644 rebase-apply/0001
- create mode 100644 rebase-apply/abort-safety
- create mode 100644 rebase-apply/apply-opt
- create mode 100644 rebase-apply/author-script
- create mode 100644 rebase-apply/final-commit
- create mode 100644 rebase-apply/head-name
- create mode 100644 rebase-apply/keep
- create mode 100644 rebase-apply/last
- create mode 100644 rebase-apply/messageid
- create mode 100644 rebase-apply/next
- create mode 100644 rebase-apply/onto
- create mode 100644 rebase-apply/orig-head
- create mode 100644 rebase-apply/original-commit
- create mode 100644 rebase-apply/patch
- create mode 100644 rebase-apply/patch-merge-index
- create mode 100644 rebase-apply/quiet
- create mode 100644 rebase-apply/rebasing
- create mode 100644 rebase-apply/scissors
- create mode 100644 rebase-apply/sign
- create mode 100644 rebase-apply/threeway
- create mode 100644 rebase-apply/utf8
- create mode 100644 refs/heads/pe/rebasing
+$ {{ 'git add . && git commit -m "Commit a rebase conflict"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size:0.5em;" -->
 
@@ -1411,42 +1105,16 @@ $ git add . && git commit -m "Commit a rebase conflict"
 
 ...once you resolved the conflicts:
 ```shell
-$ git add README.md && git rebase --continue
-Applying: Accept whiskey as reward
+$ {{ "sed -i '4d;6d;$d' README.md && git add README.md && git rebase --continue"|multirun }}
 ```
+<!-- .element: style="font-size:0.47em;" -->
 
 ---
 
 ## What about the rebase files?
 
 ```shell
-$ git add . && git commit -m "Add the rebase"
-[master 46da891] Add the rebase
- 28 files changed, 5 insertions(+), 75 deletions(-)
- delete mode 100644 REBASE_HEAD
- rewrite index (100%)
- create mode 100644 objects/d1/9a3f12787585ba9f50cde724e238cea8f29c73
- delete mode 100644 rebase-apply/0001
- delete mode 100644 rebase-apply/abort-safety
- delete mode 100644 rebase-apply/apply-opt
- delete mode 100644 rebase-apply/author-script
- delete mode 100644 rebase-apply/final-commit
- delete mode 100644 rebase-apply/head-name
- delete mode 100644 rebase-apply/keep
- delete mode 100644 rebase-apply/last
- delete mode 100644 rebase-apply/messageid
- delete mode 100644 rebase-apply/next
- delete mode 100644 rebase-apply/onto
- delete mode 100644 rebase-apply/orig-head
- delete mode 100644 rebase-apply/original-commit
- delete mode 100644 rebase-apply/patch
- delete mode 100644 rebase-apply/patch-merge-index
- delete mode 100644 rebase-apply/quiet
- delete mode 100644 rebase-apply/rebasing
- delete mode 100644 rebase-apply/scissors
- delete mode 100644 rebase-apply/sign
- delete mode 100644 rebase-apply/threeway
- delete mode 100644 rebase-apply/utf8
+$ {{ 'git add . && git commit -m "Add the rebase"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.5em" -->
 
@@ -1479,19 +1147,13 @@ Notes:
 
 Add a branch with a few commits
 ```shell
-$ git checkout -b pe/backups pe/rebasing
-$ echo "I would also love some feedback." >> README.md
-$ git commit -am "Ask for feedback"
-[pe/backups c16a824] Ask for feedback
- 1 file changed, 1 insertion(+)
-$ echo "Personal feedback is the best." >> README.md
-$ git commit -am "Ask for personal feedback"
-[pe/backups 450dc77] Ask for personal feedback
- 1 file changed, 1 insertion(+)
-$ echo "Helpful feedback is awarded with great coffee." >> README.md
-$ git commit -am "Trade feedback for coffee"
-[pe/backups 1603ef5] Trade feedback for coffee
- 1 file changed, 1 insertion(+)
+$ {{ "git checkout -b pe/backups pe/rebasing"|run }}
+$ {{ 'echo "I would also love some feedback." >> README.md'|shell }}
+$ {{ 'git commit -am "Ask for feedback"'|run }}
+$ {{ 'echo "Personal feedback is the best." >> README.md'|shell }}
+$ {{ 'git commit -am "Ask for personal feedback"'|run }}
+$ {{ 'echo "Helpful feedback is awarded with great coffee." >> README.md'|shell }}
+$ {{ 'git commit -am "Trade feedback for coffee"'|run }}
 ```
 <!-- .element: style="font-size: 0.52em" -->
 
@@ -1503,21 +1165,7 @@ Notes:
 ## Commit the changes in the repository
 
 ```shell
-$ git add . && git commit -m "Add the branch of backups"
-[master 000b173] Add the branch of backups
- 15 files changed, 19 insertions(+), 24 deletions(-)
- rewrite COMMIT_EDITMSG (100%)
- create mode 100644 logs/refs/heads/pe/backups
- create mode 100644 objects/34/96ebedc52ee70e2b129e315084623c7deea6a2
- create mode 100644 objects/44/09126657b95c9c83a73ac6d730ae7353b6aac1
- create mode 100644 objects/4f/56584f94dc324de2c2ffd66b4e145a6912f480
- create mode 100644 objects/58/ad30ba9d86b178e9c878ac031b1217d89ac4a7
- create mode 100644 objects/a9/f13a5d39e490577cca3e7af6a579c15dd9c546
- create mode 100644 objects/ba/1cdecffc9b11e65b5b58077ceeaef2fd417bbf
- create mode 100644 objects/c3/2f3348d4d95fed6ff7c80054daf3690c50e390
- create mode 100644 objects/e3/d06c425b6a61e3c8b97f4343ef4bc15366108f
- create mode 100644 objects/f1/c24400178f30d7f56ac2967d2fd796968197d5
- create mode 100644 refs/heads/pe/backups
+$ {{ 'git add . && git commit -m "Add the branch of backups"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.5em" -->
 
@@ -1530,9 +1178,8 @@ $ git add . && git commit -m "Add the branch of backups"
 "Change" the commit history during rebase!
 
 ```shell
-$ git checkout -b pe/interactive_rebase pe/backups
-Switched to a new branch "pe/interactive_rebase"
-$ git rebase -i pe/rebasing
+$ {{ "git checkout -b pe/interactive_rebase pe/backups"|run }}
+$ git rebase -i pe/rebasing"
 ```
 <!-- .element: style="font-size: 0.52em" -->
 
@@ -1544,11 +1191,11 @@ Notes:
 ---
 
 ```text
-pick c16a824 Ask for feedback
-pick 450dc77 Ask for personal feedback
-pick 1603ef5 Trade feedback for coffee
+pick {{ "HEAD~2"|commit_hash }} {{ "HEAD~2"|commit_hash|commit_title }}
+pick {{ "HEAD~1"|commit_hash }} {{ "HEAD~1"|commit_hash|commit_title }}
+pick {{ "HEAD"|commit_hash }} {{ "HEAD"|commit_title }}
 
-# Rebase c96224a..1603ef5 onto c96224a (3 commands)
+# Rebase {{ "HEAD~3"|commit_hash }}..{{ "HEAD"|commit_hash }} onto {{ "pe/rebasing"|commit_hash }} (3 commands)
 #
 # Commands:
 # p, pick <commit> = use commit
@@ -1564,7 +1211,7 @@ pick 1603ef5 Trade feedback for coffee
 # .       create a merge commit using the original merge commit's
 # .       message (or the oneline, if no original merge commit was
 # .       specified). Use -c <commit> to reword the commit message.
-#a
+#
 # These lines can be re-ordered; they are executed from top to bottom.
 #
 # If you remove a line here THAT COMMIT WILL BE LOST.
@@ -1587,11 +1234,7 @@ Notes:
 ## Commit the changes in the repository
 
 ```shell
-$ git add . && git commit -m "Rebase in interactive mode"
-[master dabfcec] Rebase in interactive mode
- 6 files changed, 7 insertions(+), 2 deletions(-)
- create mode 100644 logs/refs/heads/pe/interactive_rebase
- create mode 100644 refs/heads/pe/interactive_rebase
+$ {{ 'git add . && git commit -m "Rebase in interactive mode"'|multirun(gitception=True) }}
 ```
 
 ![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
@@ -1618,6 +1261,7 @@ $ git help commit | grep "autosquash" -C 2
            Construct a commit message for use with rebase --autosquash. The commit message subject
            line is taken from the specified commit with a prefix of "squash! ". Can be used with
            additional commit message options (-m/-c/-C/-F). See git-rebase(1) for details.
+
 ```
 <!-- .element: style="font-size: 0.355em" -->
 
@@ -1683,22 +1327,11 @@ If reset is used with a path, the first step is skipped!
 ## Let's see it in action!
 
 ```shell
-$ git checkout -b pe/reset pe/backups && git reset pe/rebasing
-Switched to a new branch 'pe/reset'
-Unstaged changes after reset:
-M   README.md
+$ {{ "git checkout -b pe/reset pe/backups && git reset pe/rebasing"|multirun }}
 ```
 
 ```shell
-$ git status
-On branch pe/reset
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-        modified:   README.md
-
-no changes added to commit (use "git add" and/or "git commit -a")
+$ {{ "git status"|run }}
 ```
 <!-- .element: style="font-size: 0.47em;" -->
 
@@ -1707,11 +1340,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 ## Let's commit the changes!
 
 ```shell
-$ git add . && git commit -m "Commit the reset"
-[master 3127cce] Commit the reset
- 6 files changed, 7 insertions(+), 2 deletions(-)
- create mode 100644 logs/refs/heads/pe/reset
- create mode 100644 refs/heads/pe/reset
+$ {{ 'git add . && git commit -m "Commit the reset"'|multirun(gitception=True) }}
 ```
 
 ![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
@@ -1721,24 +1350,11 @@ $ git add . && git commit -m "Commit the reset"
 ## Create a more meaningful commit
 
 ```shell
-$ git diff
-diff --git a/README.md b/README.md
-index 93d56bd..58ad30b 100644
---- a/README.md
-+++ b/README.md
-@@ -4,3 +4,6 @@ Buy me a beer if it made you better.
- My list of [favorite beers](beers.md).
- Whiskey is also a good reward.
- [These whiskeys](whiskeys.md) are great!
-+I would also love some feedback.
-+Personal feedback is the best.
-+Helpful feedback is awarded with great coffee.
+$ {{ "git diff"|run }}
 ```
 
 ```shell
-$ git commit -am "Trade coffee for personal feedback"
-[pe/reset 08be0f2] Trade coffee for personal feedback
- 1 file changed, 3 insertions(+)
+$ {{ 'git commit -am "Trade coffee for personal feedback"'|run }}
 ```
 
 ---
@@ -1746,12 +1362,7 @@ $ git commit -am "Trade coffee for personal feedback"
 ## Commit the changes in the repository
 
 ```shell
-$ git add . && git commit -m "Reset to improve the log"
-[master 2c0f85b] Reset to improve the log
- 7 files changed, 10 insertions(+), 3 deletions(-)
- create mode 100644 logs/refs/heads/pe/resetting
- create mode 100644 objects/84/45a59c91529fbb551e2e7e5f9318dd2c144705
- create mode 100644 refs/heads/pe/resetting
+$ {{ 'git add . && git commit -m "Reset to improve the log"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.51em" -->
 
@@ -1786,24 +1397,11 @@ Notes:
 ...to clean up the backup history
 
 ```shell
-$ git checkout -b pe/checkingout pe/rebasing
-Switched to a new branch 'pe/checkout'
+$ {{ "git checkout -b pe/checkingout pe/rebasing"|run }}
 ```
 
 ```shell
-$ git checkout -p pe/backups
-diff --git b/README.md a/README.md
-index 93d56bd..58ad30b 100644
---- b/README.md
-+++ a/README.md
-@@ -4,3 +4,6 @@ Buy me a beer if it made you better.
- My list of [favorite beers](beers.md).
- Whiskey is also a good reward.
- [These whiskeys](whiskeys.md) are great!
-+I would also love some feedback.
-+Personal feedback is the best.
-+Helpful feedback is awarded with great coffee.
-Apply this hunk to index and worktree [y,n,q,a,d,e,?]? 
+$ {{ "git checkout -p pe/backups"|run(input="y") }}
 ```
 
 ---
@@ -1811,12 +1409,7 @@ Apply this hunk to index and worktree [y,n,q,a,d,e,?]?
 ## What did the checkout do?
 
 ```shell
-$ git status
-On branch pe/checkout
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
-
-        modified:   README.md
+$ {{ "git status"|run }}
 ```
 
 ...it put the files in the index!
@@ -1826,9 +1419,7 @@ Changes to be committed:
 ## Create the new commit
 
 ```shell
-$ git commit -m "Trade coffee for personal feedback"
-[pe/checkout 92fd5bb] Trade coffee for personal feedback
- 1 file changed, 3 insertions(+)
+$ {{ 'git commit -m "Trade coffee for personal feedback"'|run }}
 ```
 
 ---
@@ -1836,10 +1427,7 @@ $ git commit -m "Trade coffee for personal feedback"
 ## And what happened in the repository?
 
 ```shell
-$ git add . && git commit -m "Checkout to improve the log"
-[master 3b1465c] Checkout to improve the log
- 6 files changed, 4 insertions(+), 2 deletions(-)
- create mode 100644 objects/92/fd5bb1c51339c8fda4f6584543d96b1a19aca2
+$ {{ 'git add . && git commit -m "Checkout to improve the log"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.51em" -->
 
@@ -1860,13 +1448,12 @@ $ git add . && git commit -m "Checkout to improve the log"
 
 Create a new branch
 ```shell
-$ git checkout -b pe/stashing pe/rebasing
-Switched to a new branch 'pe/stashing'
+$ {{ "git checkout -b pe/stashing pe/rebasing"|run }}
 ```
 
 ...and add a change not worth committing
 ```shell
-$ echo "You can use [beerpay](TODO: activate beerpay) to buy me a beer." >> README.md
+$ {{ 'echo "You can use [beerpay](TODO: activate beerpay) to buy me a beer." >> README.md'|shell }}
 ```
 <!-- .element: style="font-size: 0.41em" -->
 
@@ -1876,16 +1463,14 @@ $ echo "You can use [beerpay](TODO: activate beerpay) to buy me a beer." >> READ
 
 ...what prevents you from continue working
 ```shell
-$ git stash push -m "Mention beerpay (TODO: activate account)"
+$ {{ 'git stash push -m "Mention beerpay (TODO: activate account)"'|run }}
 Saved working directory and index state On stashing: Mention beerpay (TODO: activate account)
 ```
 <!-- .element: style="font-size: 0.38em" -->
 
 and the working directory is clean again!
 ```shell
-$ git status
-On branch pe/stashing
-nothing to commit, working tree clean
+$ {{ "git status"|run }}
 ```
 
 Notes:
@@ -1897,17 +1482,7 @@ Changes in the index which differ from the working directory will not be taken i
 
 ...so let's check what happened in the repository:
 ```shell
-$ git add . && git commit -m "Commit the stashed changes"
-[master 29f0dc5] Commit the stashed changes
- 12 files changed, 10 insertions(+), 2 deletions(-)
- create mode 100644 logs/refs/heads/pe/stashing
- create mode 100644 logs/refs/stash
- create mode 100644 objects/09/935986918f82200d5c17821e30065969cfa0b7
- create mode 100644 objects/71/451e45b521185acf42faf83b5af5e9a2a1a973
- create mode 100644 objects/89/148ed3bf53ccbaada4ec301d3a0a52e7cc7feb
- create mode 100644 objects/e0/413b19ca77279ce47926db500dad21578e439d
- create mode 100644 refs/heads/pe/stashing
- create mode 100644 refs/stash
+$ {{ 'git add . && git commit -m "Commit the stashed changes"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.51em" -->
 ![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
@@ -1918,21 +1493,11 @@ $ git add . && git commit -m "Commit the stashed changes"
 
 ...as soon as you need them
 ```shell
-$ git stash list
-stash@{0}: On stashing: Mention beerpay (TODO: activate account)
+$ {{ "git stash list"|run }}
 ```
 
 ```shell
-$ git stash pop
-On branch pe/stashing
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-        modified:   README.md
-
-no changes added to commit (use "git add" and/or "git commit -a")
-Dropped refs/stash@{0} (89148ed3bf53ccbaada4ec301d3a0a52e7cc7feb)
+$ {{ "git stash pop"|run }}
 ```
 <!-- .element: style="font-size: 0.47em" -->
 
@@ -1945,11 +1510,7 @@ If you want to keep the change in the stash for later use, you can use "apply" i
 
 ...so check the repository again!
 ```shell
-$ git add . && git commit -m "Commit the stash pop"
-[master ad59e16] Commit the stash pop
- 3 files changed, 2 deletions(-)
- delete mode 100644 logs/refs/stash
- delete mode 100644 refs/stash
+$ {{ 'git add . && git commit -m "Commit the stash pop"'|multirun(gitception=True) }}
 ```
 ![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
 
