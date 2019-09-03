@@ -757,11 +757,6 @@ We created branches with diverging history, to simulate common situations.
 
 ---
 
-## Adding features of a branch
-## to another branch
-
----
-
 ## Wait... What?
 
 # Conflicts?!
