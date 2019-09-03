@@ -141,7 +141,16 @@ $ cd ~/working/directory/.git
 We are creating a repository inside the repository
 <!-- .element: class="fragment" -->
 ```shell
-$ {{ "git init . && git add -A && git commit -m 'Add the repository'"|multirun(gitception=True) }}
+$ {{ "git init . && git add -A && git commit -m 'Add the repository'"|multirun(gitception=True, quiet=True) }}
+[master (root-commit) {{ "HEAD"|commit_hash(gitception=True) }}] '{{ "HEAD"|commit_hash(gitception=True)|commit_title(gitception=True) }}'
+ 15 files changed, 653 insertions(+)
+ create mode 100644 HEAD
+ create mode 100644 config
+ create mode 100644 description
+ create mode 100755 hooks/applypatch-msg.sample
+ [...]
+ create mode 100755 hooks/update.sample
+ create mode 100644 info/exclude
 ```
 <!-- .element: class="fragment" style="font-size: 0.535em" -->
 
