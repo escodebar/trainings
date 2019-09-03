@@ -256,7 +256,7 @@ $ {{ 'git add . && git commit -m "Add files to index"'|multirun(gitception=True)
 ```
 <!-- .element: style="font-size: 0.51em;" -->
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
+{% filter gitception %}{% endfilter %}
 
 Notes:
 * The index file is a binary file and it is not discussed in this training
@@ -354,7 +354,7 @@ $ {{ 'git add . && git commit -m "Commit file"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.51em;" -->
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
+{% filter gitception %}{% endfilter %}
 
 Notes:
 * The COMMIT_EDITMSG is used to store the message of the commit
@@ -528,7 +528,7 @@ $ {{ 'git add . && git commit -m "Add two more commits in patch mode"'|multirun(
 ```
 <!-- .element: style="font-size: 0.465em;" -->
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
+{% filter gitception %}{% endfilter %}
 
 Notes:
 * This is just keep the working directory clean, for better understanding the next steps
@@ -604,7 +604,7 @@ $ {{ 'git add . && git commit -m "Add a new branch"'|multirun(gitception=True) }
 $ {{ "cat refs/heads/pe/new_branch"|run(gitception=True) }}
 ```
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
+{% filter gitception %}{% endfilter %}
 
 Notes:
 * The logs are discussed in a more advanced training
@@ -651,7 +651,7 @@ Let's take a closer look!
 ```shell
 $ {{ "git show"|run(gitception=True) }}
 ```
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
+{% filter gitception %}{% endfilter %}
 
 Notes:
 * See the changes in the HEAD's log?
@@ -745,7 +745,7 @@ $ {{ 'git add . && git commit -m "Add branches with commits"'|multirun(gitceptio
 ```
 <!-- .element: style="font-size: 0.5em;" -->
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
+{% filter gitception %}{% endfilter %}
 
 Notes:
 * Now we are ready to go!
@@ -825,7 +825,7 @@ $ {{ 'git add . && git commit -m "Commit during merge conflict"'|multirun(gitcep
 
 A further object?
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
+{% filter gitception %}{% endfilter %}
 
 Notes:
 * The MERGE_HEAD points to pe/whiskey_is_also_an_option's tip commit
@@ -934,7 +934,7 @@ $ {{ 'git add . && git commit -m "Add the merge"'|multirun(gitception=True) }}
 
 The merge files are gone!
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
+{% filter gitception %}{% endfilter %}
 
 Notes:
 * Take a look at ORIG_HEAD
@@ -995,7 +995,7 @@ $ {{ 'git add . && git commit -m "Commit a cherry pick conflict"'|multirun(gitce
 
 Another object!
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
+{% filter gitception %}{% endfilter %}
 
 Notes:
 * This is again the conflicting file
@@ -1062,7 +1062,7 @@ $ {{ 'git add . && git commit -m "Add the cherry-pick"'|multirun(gitception=True
 ```
 <!-- .element: style="font-size: 0.505em;" -->
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
+{% filter gitception %}{% endfilter %}
 
 Notes:
 * There are only 2 new objects... How many would you expect?
@@ -1106,7 +1106,7 @@ $ {{ 'git add . && git commit -m "Commit a rebase conflict"'|multirun(gitception
 ```
 <!-- .element: style="font-size:0.5em;" -->
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
+{% filter gitception %}{% endfilter %}
 
 ---
 
@@ -1129,7 +1129,7 @@ $ {{ 'git add . && git commit -m "Add the rebase"'|multirun(gitception=True) }}
 
 They are gone!
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
+{% filter gitception %}{% endfilter %}
 
 Notes:
 * There are only 2 new objects... How many would you expect?
@@ -1178,7 +1178,7 @@ $ {{ 'git add . && git commit -m "Add the branch of backups"'|multirun(gitceptio
 ```
 <!-- .element: style="font-size: 0.5em" -->
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
+{% filter gitception %}{% endfilter %}
 
 ---
 
@@ -1246,7 +1246,7 @@ Notes:
 $ {{ 'git add . && git commit -m "Rebase in interactive mode"'|multirun(gitception=True) }}
 ```
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
+{% filter gitception %}{% endfilter %}
 
 Notes:
 This output is expected if you only used the command "pick".
@@ -1352,7 +1352,7 @@ $ {{ "git status"|run }}
 $ {{ 'git add . && git commit -m "Commit the reset"'|multirun(gitception=True) }}
 ```
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
+{% filter gitception %}{% endfilter %}
 
 ---
 
@@ -1375,7 +1375,7 @@ $ {{ 'git add . && git commit -m "Reset to improve the log"'|multirun(gitception
 ```
 <!-- .element: style="font-size: 0.51em" -->
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; " -->
+{% filter gitception %}{% endfilter %}
 
 ---
 
@@ -1440,7 +1440,7 @@ $ {{ 'git add . && git commit -m "Checkout to improve the log"'|multirun(gitcept
 ```
 <!-- .element: style="font-size: 0.51em" -->
 
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; " -->
+{% filter gitception %}{% endfilter %}
 
 ---
 
@@ -1494,7 +1494,8 @@ Changes in the index which differ from the working directory will not be taken i
 $ {{ 'git add . && git commit -m "Commit the stashed changes"'|multirun(gitception=True) }}
 ```
 <!-- .element: style="font-size: 0.51em" -->
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px; transform: scalex(-1);" -->
+
+{% filter gitception %}{% endfilter %}
 
 ---
 
@@ -1521,7 +1522,8 @@ If you want to keep the change in the stash for later use, you can use "apply" i
 ```shell
 $ {{ 'git add . && git commit -m "Commit the stash pop"'|multirun(gitception=True) }}
 ```
-![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)<!-- .element: style="width: 150px;" -->
+
+{% filter gitception %}{% endfilter %}
 
 ---
 
