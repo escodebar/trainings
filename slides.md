@@ -688,11 +688,11 @@ Notes:
 
 ## Create another branch
 
-...with another commit
-
 ```shell
 $ {{ "git checkout -b pe/whiskey_is_also_an_option master"|run }}
 ```
+
+...with another commit
 ```shell
 $ {{ 'echo "Whiskey is also a good reward." >> README.md'|shell }}
 $ {{ """cat << EOWL > whiskeys.md && git add whiskeys.md
