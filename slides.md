@@ -645,15 +645,7 @@ $ {{ "git checkout pe/new_branch"|run }}
 ```shell
 $ {{ 'git add . && git commit -m "Check out the branch"'|multirun(gitception=True) }}
 ```
-
-Let's take a closer look!
-```shell
-$ {{ "git show"|run(gitception=True) }}
-```
 {% filter gitception %}{% endfilter %}
-
-Notes:
-* See the changes in the HEAD's log?
 
 ---
 
