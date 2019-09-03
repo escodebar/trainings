@@ -346,8 +346,7 @@ Notes:
 
 ## Time to dig deeper
 
-The repository's content must have changed,
-commit the changes and go back to the main repository
+The repository's content must have changed...
 
 ```shell
 $ {{ 'git add . && git commit -m "Commit file"'|multirun(gitception=True) }}
