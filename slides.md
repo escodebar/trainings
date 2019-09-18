@@ -45,7 +45,7 @@ Notes:
   - The concept of Gitception is used throughtout the training
 * The second block introduces
   - Git's branching mechanism
-  - combining changes implemented in branches
+  - combining changes implemented in seperate branches into one branch
 * The last block treats in more detail:
   - how to create patches using Git
   - cleaning up the Git history before a feature is released
@@ -58,15 +58,14 @@ Notes:
 
 ## Requirements
 
-If you know how to type commands in a terminal and parse its output, this traning is made for you!
+If you know how to type commands in a terminal and parse its output, this training is made for you!
 
 Notes:
 * Reading is crucial here, by the end of the training you'll be using the *man*-pages a lot!
-* No specific Git editor integration is discussed, since none of them covers all of Git's features
+* No specific Git editor integration is discussed, since none of them covers all of Git's features (and none of them does it in the same way)
 * For the same reason, no Git GUI is discussed
-* I recommend using the terminal all of the time and start using other tools, if they make you more efficient than when using the console
-* In many occasions you'll find yourself connected to a server with a Git repository, knowing the commands in that situation is crucial
-* For some features, an integration for your favorite editor might be useful, yet start using the terminal
+* I recommend using the terminal all of the time and start using other tools, if they make you more efficient than when using the console (there are many situations in which other tools are more efficient)
+* In many occasions you'll find yourself connected to a server with a Git repository doing analysis, knowing the commands in that situation is crucial
 
 ---
 
@@ -91,13 +90,12 @@ Notes:
 Notes:
 * The goal of this meetup is to show what Git does when it is used, to allow you to choose when and how to use it
 * I don't will not impose a workflow, it's up to you how you use Git
-* My goal is to empower you to chose how you are going to use Git
+* My goal is to empower you to choose how you are going to use Git
 * This training covers theory for using Git, however brain muscle (training) is needed
 * If you want more training and need help, do not hesitate to contact me
-* Use and learn *all* the commands and ask yourself how they may help you improveing your workflows
-* This meetup is made for people who did not use Git in depth before, but includes information for more experencied users
+* Use and learn *all* the commands and ask yourself how they may help you improving your workflows
 * This meetup covers using Git when there is no *happy path*
-* Some parts of this training are rather technical and go deep into Git's internals
+* Some parts of this training are rather technical and go "deep" into Git's internals
 * It also introduces a method to learn Git by your own
 
 ---
@@ -178,7 +176,7 @@ Notes:
 * Open a second terminal window and navigate to the repository's repository to switch context easier
 * Git keeps track of all the changes, it is therefore a perfect analysis tool
 * Most Git commands go up the directory path to the point where they find a ``.git`` folder, but "ignore" its contents
-* Therefore we can create a repository in the repository to track the changes and understand Git's behaviour
+* Therefore we can create a repository in the repository to track the changes and understand Git's behavior
 * If you do not remember what happens when you run a specific command, you can look it up later in the "Gitception" repository
 * Ignore the added files for now, most of them are discussed later during the training
 * I haven't seen an other Git training doing this! Let me know if you like this idea!
@@ -225,15 +223,7 @@ $ {{ "git status"|run }}
 <!-- .element: style="font-size: 0.465em;" -->
 
 Notes:
-* You can tell Git to ignore files using ``.gitignore``, then they won't be listed in the "Untracked files" section
-* Ignore large files and non-project specific files (well... this depends on what you're using Git for):
-  - backup files
-  - binary files
-  - data files
-  - system specific files (like .DS_Store, or local configurations)
-  - files containing (personal) passwords (move passwords to enivornment variables and use the environment variables)
 * We want to track changes to the current untracked file!
-* The amount of output displayed by Git can be configured!
 
 ---
 
@@ -250,7 +240,7 @@ Notes:
 * I like comparing the staging area to a fork:
   The plate is the working directory, the repository is your tummy... and the fork allows you to:
   - ...pick up what you want to put in your tummy
-  - ...take a look what you are going to eat
+  - ...take a look what you are going to eat before doing so
 
 ---
 
@@ -262,13 +252,12 @@ $ {{ "git add README.md && git status"|multirun }}
 ```
 
 Notes:
-* The file is now in the ``changes to be committed``
+* The file is now in the `changes to be committed`
 * You can add whole directories (double check that there are no files which should not be included)
 * You can also add parts of files (we will see the patch mode later), unless they're not tracked yet
 * The Git integration of your editor may allow to stage a selection of lines (similar to the patch mode)
 
 ---
-
 
 ## What happened in the repository?
 
@@ -334,9 +323,9 @@ Are you ready to commit them?
 Notes:
 * Take a look at the changes to be committed before doing so
 * Make sure you know, what you commit
-* Think of the fork metaphore... do you want to eat a bad pea? or a bug?
+* Think of the fork metaphore... do you want to eat a bad pea? or a bug hidden between them?
 * Make commits as small as possible for easier reviewing, the easier the review, the less errors will slip through
-* If keeping track of what it's being committed is hard, then you might need to rethink your workflow
+* If keeping track of what it's being committed is hard, then you might want to rethink your workflow
 
 ---
 
@@ -355,8 +344,8 @@ Notes:
   - One empty line after the commit title
   - Describe WHAT and WHY you are doing the change (HOW is described in the code)
 * If you need to describe the how, you should probably rethink your code
-* If a commit is not complete, you might want to stash the changes instead or the title can be provided with a [WIP]
-* If you have a test driven workflow, you may commit the test first and then the rest, but then mark, the test as expected to fail or not implemented
+* If a commit is not complete, you might want to stash the changes instead (discussed later today)
+* If you have a test driven workflow, you may commit the test first and then the rest, but then mark, the test as expected to fail or not implemented (and fixup the implementation in a further commit - also discussed later)
 
 ---
 
@@ -368,12 +357,12 @@ $ {{ 'git commit -m "Describe the training"'|run }}
 ```
 
 Notes:
-* `master` is the default branch name by default
+* `master` is the default branch name by default (the name of the default branch is configurable)
 * `root-commit`: This is a special one, it has no parent, well see that in a minute
 * `{{ "HEAD"|commit_hash }}` is part of the hash of the commit
-* Git tells you the the number of files changed, lines insterted or deleted
+* Git tells you the the number of files changed, lines inserted or deleted
 * Create mode with permissions (not all permissions are stored in Git)
-* You can also run just `git commit`, then your editor will pop-up
+* You can also run just `git commit` without the `-m` argument, then your editor will pop-up
 * I did not describe the "why" here, do as I tell you, not as I do (here)
 
 ---
@@ -390,12 +379,12 @@ $ {{ 'git add . && git commit -m "Commit file"'|multirun(gitception=True) }}
 {% filter gitception %}{% endfilter %}
 
 Notes:
-* The COMMIT_EDITMSG is used to temporarily store the message of the commit
-* The logs are keep track of the commit hashes the references pointed to, they become handy when branches are lost (more about this later)
+* The `COMMIT_EDITMSG` is used to temporarily store the message of the commit
+* The logs keep track of the commit hashes the references pointed to, they become handy when branches are lost (more about this later)
 * There is also a log for the `HEAD` (more about the `HEAD` later)
 * References (or refs here) are discussed later - see the `master` there again?
-* One of the objects has the same hash as the previously made commit
-* ...and look! Two more objects! One containing starting with the hash of the last commit!
+* One of the objects (`{{ "HEAD"|commit_hash }}`) has the same hash as the previously made commit
+* ...and look! An other object!
 
 ---
 
@@ -495,7 +484,7 @@ Notes:
 * Some editor integrations allow you to add hunks of code to the index as well
 * Try to make groups of changes before adding them in patch mode
 * Once you grouped your changes, think of their logical order
-* Then add them and commit them
+* Then add and commit them
 * This way of adding changes to the index requires some training until you feel comfortable
 
 ---
@@ -509,7 +498,7 @@ $ {{ "git cat-file -p LAST_COMMIT"|run }}
 ...it has a parent!
 
 Notes:
-* Every commit (with exception of root commits) point to (at least) another commit
+* Every commit (with exception of root commits) point to (at least) an other commit
 
 ---
 
@@ -1856,7 +1845,7 @@ You can use
 during a `git rebase -i`
 
 Notes:
-* BOOM!
+* BOOM! Feel the power?
 
 ---
 
