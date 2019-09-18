@@ -2,3 +2,7 @@
 f59044244b75363c3d11f4b4ea78308e23d323fb e8ef9e3e9910c6c3a2fe3b4b9d0c83cbb1193306 Pablo Escodebar <escodebar@gmail.com> 1568806974 +0200	commit: Motivate the participant
 e8ef9e3e9910c6c3a2fe3b4b9d0c83cbb1193306 9b08baf89d7181904ecc08b8c91e392b71effd9e Pablo Escodebar <escodebar@gmail.com> 1568806974 +0200	commit: Motivate the speaker
 9b08baf89d7181904ecc08b8c91e392b71effd9e 9b08baf89d7181904ecc08b8c91e392b71effd9e Pablo Escodebar <escodebar@gmail.com> 1568806974 +0200	checkout: moving from master to pe/new_branch
+9b08baf89d7181904ecc08b8c91e392b71effd9e 9b08baf89d7181904ecc08b8c91e392b71effd9e Pablo Escodebar <escodebar@gmail.com> 1568806974 +0200	checkout: moving from pe/new_branch to pe/add_list_of_favorite_beers
+9b08baf89d7181904ecc08b8c91e392b71effd9e 49e067502006048da74ef5b4e521cdf52209de71 Pablo Escodebar <escodebar@gmail.com> 1568806974 +0200	commit: Let people know, what beer to buy
+49e067502006048da74ef5b4e521cdf52209de71 9b08baf89d7181904ecc08b8c91e392b71effd9e Pablo Escodebar <escodebar@gmail.com> 1568806974 +0200	checkout: moving from pe/add_list_of_favorite_beers to pe/whiskey_is_also_an_option
+9b08baf89d7181904ecc08b8c91e392b71effd9e 868630cb4c9523198fa37682d1064e83f1ecc615 Pablo Escodebar <escodebar@gmail.com> 1568806974 +0200	commit: Accept whiskey as reward
