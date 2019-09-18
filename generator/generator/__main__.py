@@ -166,12 +166,9 @@ def gitception_generator():
         transform = ""
 
         if counter % 2:
-            transform = " transform: scalex(-1);"
+            transform = "-flipped"
 
-        yield (
-            "![Gitception](https://imgflip.com/s/meme/Serious-Xzibit.jpg)"
-            f'<!-- .element: style="width: 150px;{transform}" -->'
-        )
+        yield f'<!-- .slide: data-background="./gitception{transform}.jpg" -->'
 
 
 gitception = gitception_generator()
