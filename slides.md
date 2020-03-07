@@ -1,18 +1,16 @@
 ---
-theme: solarized
-title: Git meetup
+theme: league
+title: Git workshop
 revealOptions:
     transition: 'fade'
 ---
 
-# Dr. Git-love
-
-## or: How I learned to stop worrying and love the rebase
-<!-- .element: class="fragment" -->
+## Learning Git
+# the hard way
 
 Notes:
 * Most of the things we discuss here are not only achievable with Git, but can be made with other VCS as well
-* I am a total Git-Fanboy, whatever I say during this meetup is totally opinionated
+* I am a total Git-Fanboy, whatever I say during this workshop is totally opinionated
 * I want to make this a fun experience for all of us!
 
 ---
@@ -24,35 +22,51 @@ Notes:
 * It all started when I was asked to give a full day introduction to Git for a CAS
 * I prepared a training trying to add something useful for several levels of Git knowledge
 * The intended audience was PhD students with basic to no Git experience and technicians
+* I learned a lot while preparing the training
 * The training was very successful, receiving a lot of good feedback
-* I gave this training a few more times
-* At the last SoCraTes unconference in Ftan I rushed through the training
-* Then we decided to host this meetup
 * It is going to be tough (for all of us) but rewarding
-* I hope you do not mind the bad jokes
+
+---
+
+## A few words about
+# YOU
+
+Notes:
+* How long have been using Git?
+* What challenges you the most when using Git?
+* How long have been writing software?
+* What kind of software do you work on? (PoC/Prototype, Customized solution, Product)
+* What challenges you the most when writing software?
+* Do you have collaboration workflows?
+* How do you review code?
 
 ---
 
 ## Schedule
 
+* The Good, the Bad and the Ugly
 * Gitception: Reaching into the substructure
 * Of trees, branches and pieces of fruit
 * It's a backup system... It's a patch system... It's Git!
+* Gitfellas
 
 Notes:
+* The Good, the Bad and the Ugly
+  - discusses the strengths, weaknesses, opportunities and threads of using Git
+  - This discussion should lead to determining how you want to use Git and how you can get there
 * Gitception
   - is about using Git to understand Git and understanding the structure of Git
   - The concept of Gitception is used throughtout the training
-* The second block introduces
+  - Knowing Git as a tool removes the constraints for the applied methods
+* Of trees, branches and pieces of fruit
   - Git's branching mechanism
   - combining changes implemented in seperate branches into one branch
-* The last block treats in more detail:
+* It's a backup system... It's a patch system... It's Git!
   - how to create patches using Git
   - cleaning up the Git history before a feature is released
-* I do not know yet if we can go through these 3 blocks within 3 hours (including questions)
-* I expect to discuss each block in within 40 minutes leaving around 15 minutes for questions
-* I prefer answering questions between the blocks rather than rushing through it
-* I consider hosting a second event if the interest is high and we do not make it through or interesting questions remain unanswered
+  - These concepts are helpful for bringing your contributions to the complicated or clear domain
+* Gitfellas
+  - Introduction to possible workflows with Git
 
 ---
 
@@ -71,12 +85,11 @@ Notes:
 
 ## Slides
 
-[https://escodebar.github.io/trainings/git/meetup/](https://escodebar.github.io/trainings/git/meetup/)
+[https://escodebar.github.io/trainings/git/mf/](https://escodebar.github.io/trainings/git/mf/)
 
 Notes:
-* The slides are updated from time to time
-* You can find the speaker notes in the slides, which allows you to go through the training at home (without forcing you to hear my annoying voice)
-* Pass the slides to your coworkers, your friends, etc., the more people understand Git better
+* You can find the speaker notes in the slides, which allows you to go through the training at home
+* Pass the slides to your coworkers, your friends, etc., the more people understand Git the better
 * If a slide needs clarification, please let me know!
 
 ---
@@ -85,18 +98,120 @@ Notes:
 
 ---
 
+![Cynefin](https://cognitive-edge.com/wp-content/uploads/2020/03/Screenshot-2020-03-01-at-07.35.png)<!-- .element: height="500px" -->
+
+Notes:
+* Cynefin is an invention by [Dave Snowden](https://twitter.com/snowded)
+* It defines 5 domains:
+  - Disorder
+  - Chaos
+  - Complex
+  - Complicated
+  - Clear
+* The domain we are in depends on our experience and the subject we are dealing with
+* Practices lead to different results depending on the domain you are in
+
+Questions:
+* Who has heard of Cynefin before?
+
+---
+
+![The Good](https://upload.wikimedia.org/wikipedia/it/5/50/Il_biondo.png)<!-- .element: height="500px" -->
+
+---
+
+## Git
+
+"... is oddly liberal with how and when you use it."
+
+* is a powerful analysis tool
+* allows running automated tasks
+* allows many collaboration workflows
+* allows patch management
+
+Notes:
+* Git does not force you to suit certain workflows, it doesn't get in your way
+* This liberty requires understanding Git
+* This liberty also allows to evolve your development workflow
+
+---
+
+![The Ugly](https://upload.wikimedia.org/wikipedia/it/e/e7/Il_brutto.png)<!-- .element: height="500px" -->
+
+---
+
+# Git
+
+... is utterly complex
+
+* has crazy command line syntax
+* has a leaky abstraction
+* requires many different concepts
+* requires a holistic picture
+
+Notes:
+* no distinction between implementation detail and user interface
+* beginners are confronted with internal details
+
+---
+
+![The Bad](https://upload.wikimedia.org/wikipedia/it/6/68/Il_cattivo.png)<!-- .element: height="500px" -->
+
+---
+
+# Git
+
+... is really hard to learn
+
+* has a complex information model
+* comes with complex workflows
+* has crappy documentation
+
+Notes:
+* Git has a very steep learning curve
+
+---
+
+...but once you're there
+
+---
+
+# Git
+
+##  will make you
+
+# a better
+
+# programmer
+
+Notes:
+* But only if you're willing to change!
+* Improvement always comes with change!
+
+---
+
+# Discussion
+
+Notes:
+* Primary vs. secondary needs
+* Handling complexity
+* Values > Principles > Methods > Tools & Activities
+
+---
+
+# Break
+
+---
+
 ![Git](https://imgs.xkcd.com/comics/git_2x.png)<!-- .element: height="500px" -->
 
 Notes:
-* The goal of this meetup is to show what Git does when it is used, to allow you to choose when and how to use it
-* I don't will not impose a workflow, it's up to you how you use Git
-* My goal is to empower you to choose how you are going to use Git
+* The goal of this block is to show what Git does when it is used, to allow you to choose how to use it
 * This training covers theory for using Git, however brain muscle (training) is needed
 * If you want more training and need help, do not hesitate to contact me
-* Use and learn *all* the commands and ask yourself how they may help you improving your workflows
-* This meetup covers using Git when there is no *happy path*
-* Some parts of this training are rather technical and go "deep" into Git's internals
-* It also introduces a method to learn Git by your own
+* Use and learn *all* the commands and ask yourself how they may help you improving your workflow in a given situation
+* This block gives you the means to learn using Git when there is no *happy path*
+* Some parts of this block are rather technical and go "deep" into Git's internals
 
 ---
 
@@ -326,6 +441,7 @@ Notes:
 * Think of the fork metaphore... do you want to eat a bad pea? or a bug hidden between them?
 * Make commits as small as possible for easier reviewing, the easier the review, the less errors will slip through
 * If keeping track of what it's being committed is hard, then you might want to rethink your workflow
+* Think of slicing down you work!
 
 ---
 
@@ -570,7 +686,15 @@ Questions:
 
 ---
 
-# Time for questions
+# Discussion
+
+Notes:
+* Backups vs Changes
+* Slicing changes
+
+---
+
+# Break
 
 ---
 
@@ -1289,7 +1413,17 @@ Notes:
 
 ---
 
-# Time for questions
+# Discussion
+
+Notes:
+* References to versions
+* Signs of bad architecture
+* Rewriting the history
+* Garbage collection
+
+---
+
+# Break
 
 ---
 
@@ -1840,7 +1974,7 @@ $ {{ 'git add . && git commit -m "Commit the stash pop"'|multirun(gitception=Tru
 
 You can use
 
-`git checkout` and `git stash`
+`git reset`, `git checkout` and `git stash`
 
 during a `git rebase -i`
 
@@ -1849,11 +1983,26 @@ Notes:
 
 ---
 
-# Time for questions
+# Discussion
+
+Notes:
+* Keeping the holistic picture
+* Changing the way of action
+
+---
+
+# Break
+
+---
+
+---
 
 ---
 
 ## Resources
+
+* [10 things I hate about Git](https://stevebennett.me/2012/02/24/10-things-i-hate-about-git/)
+* [Cynefin](https://cognitive-edge.com/videos/cynefin-framework-introduction/)
 * [Git Magic](http://www-cs-students.stanford.edu/~blynn/gitmagic/ch08.html)
 * [Git Reference](https://git-scm.com/docs/)
 * [Git is simpler](http://nfarina.com/post/9868516270/git-is-simpler)
