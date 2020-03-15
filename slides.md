@@ -28,29 +28,18 @@ Notes:
 
 ---
 
-## A few words about
-# YOU
-
-Notes:
-* How long have been using Git?
-* What challenges you the most when using Git?
-* How long have been writing software?
-* What kind of software do you work on? (PoC/Prototype, Customized solution, Product)
-* What challenges you the most when writing software?
-* Do you have collaboration workflows?
-* How do you review code?
-
----
-
 ## Schedule
 
 * The Good, the Bad and the Ugly
 * Gitception: Reaching into the substructure
 * Of trees, branches and pieces of fruit
 * It's a backup system... It's a patch system... It's Git!
-* Gitfellas
+* Gitbreak
 
 Notes:
+
+There are going to be excercises after or during each block!
+
 * The Good, the Bad and the Ugly
   - discusses the strengths, weaknesses, opportunities and threads of using Git
   - This discussion should lead to determining how you want to use Git and how you can get there
@@ -65,8 +54,10 @@ Notes:
   - how to create patches using Git
   - cleaning up the Git history before a feature is released
   - These concepts are helpful for bringing your contributions to the complicated or clear domain
-* Gitfellas
+* Gitbreak
+  - Introduction into distributed Git
   - Introduction to possible workflows with Git
+  - In-depth discussion of Gitflow-Workflow
 
 ---
 
@@ -140,7 +131,7 @@ Notes:
 
 ---
 
-# Git
+## Git
 
 ... is utterly complex
 
@@ -159,7 +150,7 @@ Notes:
 
 ---
 
-# Git
+## Git
 
 ... is really hard to learn
 
@@ -187,6 +178,40 @@ Notes:
 Notes:
 * But only if you're willing to change!
 * Improvement always comes with change!
+
+---
+
+## Exercises
+
+* Have you been using other version control systems?
+* How long have been using Git?
+* What challenges you the most when using Git?
+* How long have been programming?
+* What kind of software do you work on?
+* What kind of tasks do you solve?
+* What challenges you the most when writing software?
+
+Notes:
+
+1. [ , , , , , , , , , , , , , , , , ]
+2. [ , , , , , , , , , , , , , , , , ]
+3. - 
+4. [ , , , , , , , , , , , , , , , , ]
+5. [ , , , ]
+  Examples:
+  - Proof of concept / Prototype
+  - Customized solution
+  - Product
+  - Commodity
+  - ...
+6. [ , , , ]
+  Examples:
+  - Feature development
+  - Writing tests
+  - Reviewing new code
+  - Reviewing old code
+  - ...
+7. -
 
 ---
 
@@ -686,6 +711,16 @@ Questions:
 
 ---
 
+## Exercises
+
+* Run the commands in the previous slides
+* What's your mindset? Do you commit backups or changes?
+* Add two different changes to a file and commit them separatedly
+* Restore a file from a blob object
+* Create a commit with two files and one blob object
+
+---
+
 # Discussion
 
 Notes:
@@ -845,18 +880,7 @@ Notes:
 * `git checkout` is criticized to be overloaded with functionality, we are discussing this in more detail later
 * `git checkout` might require some runtime, depending on the size of the files to be copied
 
-Now that we know how to create branches, let's create two with conflicting changes!
-
----
-
-## Wait... What?
-
-# Conflicts?!
-
-Notes:
-* Conflicts happen when a file is changed and it is not obvious (to Git) how the changes should be applied
-* There are also silent conflicts... let's discuss these later
-* Let's introduce a change to our branch to provoque a conflict
+Now that we know how to create branches, let's create two with diverging history!
 
 ---
 
@@ -943,6 +967,24 @@ Notes:
 
 ---
 
+## Exercises
+
+* Run the commands in the previous slides
+* Go into "detached `HEAD` mode" and back
+* Delete and recover a branch with some commits
+* Create a new branch based on a commit
+* Take a look at the graph of a more mature project
+* Create a new branch using then `--orphan` option
+
+---
+
+# Discussion
+
+Notes:
+
+
+---
+
 ![Git](https://assets.amuniversal.com/ddf1fa20315201378d0e005056a9545d)
 
 Notes:
@@ -951,7 +993,18 @@ Notes:
 * Conflicts often arise when combining changes of several files
 * You need to chose the workflow according to your projects' needs and developers' skills
 
-We created branches with diverging history, to simulate common situations.
+We created branches with diverging history and a conflict, to simulate common situations.
+
+---
+
+## Wait... What?
+
+# Conflicts?!
+
+Notes:
+* Conflicts happen when a file is changed and it is not obvious (to Git) how the changes should be applied
+* There are also silent conflicts... let's discuss these later
+* Let's introduce a change to our branch to provoque a conflict
 
 ---
 
@@ -1411,19 +1464,29 @@ Notes:
 * If you test your code for behavior, this kind of conflicts are catched
 * Now go tell Fredrik V. Mørken how he should be using `git rebase`
 
+
+---
+
+## Exercises
+
+* Run the commands in the previous slides
+* Abort a `merge`, `cherry-pick` or a `rebase`
+* Merge two branches with different roots
+* Create a commit with 3 parents
+* Cherry-pick two commits at once
+* Cherry-pick a merge commit
+* Use `git rebase --onto`
+
 ---
 
 # Discussion
 
 Notes:
-* References to versions
+* Cherry-picking using backups instead of changes
+* Checking the change in test coverage of every commit
 * Signs of bad architecture
 * Rewriting the history
 * Garbage collection
-
----
-
-# Break
 
 ---
 
@@ -1431,11 +1494,25 @@ Notes:
 
 Notes:
 * Please do not do this!
-* Keep a clean history
+* Keep a the information to noise ratio high
 * This is important for later code analysis
 * Think of the people who will deal with your repository
 * Think of the repositories you will deal with
 * There are several strategies to clean such a history
+
+---
+
+## Backups vs. Patches
+
+Version control is a system that records changes to a file or set of files over time ...so that you can recall specific *states* later.
+<!-- .element: class="fragment" -->
+
+Version control is a system that allows to write and manage sets of *patches* ...so that you can recall specific *versions* later.
+<!-- .element: class="fragment" -->
+
+Notes:
+* The concept of backups is common and backups are widely-used
+* The concept of changes / patches, requires a better overview
 
 ---
 
@@ -1578,6 +1655,20 @@ Notes:
 
 ---
 
+## Exercises
+
+* Change the order of commits
+* Create a `--fixup` or `--squash` commit
+* Rebase a branch using the `--autosquash` flag
+* Run an interactive rebase with the `-x` option
+* Edit a commit during a rebase
+
+---
+
+# Discussion
+
+---
+
 ## But what if
 
 * ...it is more complex?
@@ -1611,19 +1702,6 @@ Notes:
 
 Notes:
 * We saw a similar image before
-
----
-
-## Reset vs checkout vs stash
-
-* Reset will move what your `HEAD` is pointing to
-* Checkout will move your `HEAD`
-* Stash will move your index and change the working directory
-
-Notes:
-* This is the general case
-* Depending on the options passed to these commands, these will behave differently
-* Let's discuss these therefore in detail
 
 ---
 
@@ -1775,6 +1853,23 @@ $ {{ 'git add . && git commit -m "Reset to improve the log"'|multirun(gitception
 
 ---
 
+## Exercises
+
+* Reflog `HEAD` and a branch
+* Reset to a previous commit in the current branch using
+  - `--soft`
+  - `--hard`
+* Reset to a different branch using `--soft`
+* Reset to a branch using the `-p` flag
+* Reset a file in the index
+* Reset a file in the index using the `-p` flag
+
+---
+
+# Discussion
+
+---
+
 ## Checkout in detail
 
 The following steps are executed when checking out:
@@ -1861,6 +1956,23 @@ $ {{ 'git add . && git commit -m "Checkout to improve the log"'|multirun(gitcept
 
 Notes:
 * All in all, this is pretty similar to using the reset command to clean up the history
+
+---
+
+## Exercises
+
+* Checkout a branch or commit the using `-p` flag
+* Checkout the current `HEAD`
+  - using the `-p` flag
+  - when a change is in the index
+* Checkout a modified file
+* Checkout a modified file using the `-p` flag
+* Checkout a file from an other branch
+* Checkout a file from an other branch using `-p`
+
+---
+
+# Discussion
 
 ---
 
@@ -1970,41 +2082,22 @@ $ {{ 'git add . && git commit -m "Commit the stash pop"'|multirun(gitception=Tru
 
 ---
 
-## Combining them all!
+## Exercises
 
-You can use
-
-`git reset`, `git checkout` and `git stash`
-
-during a `git rebase -i`
-
-Notes:
-* BOOM! Feel the power?
+* Stash changes in your working directory
+* Use stash along with the `-p` flag
+* Use stash with a modified index
+* Apply stashed changes to your working directory
+* Take a look at stashed changes
+* Run `git log --all --graph --oneline --reflog`
 
 ---
 
 # Discussion
 
-Notes:
+* Splitting commits
+* Combining rebase, reset, checkout and stash
 * Keeping the holistic picture
-* Changing the way of action
-
----
-
-# Break
-
----
-
-## Mindset
-
-Version control is a system that records changes to a file or set of files over time
-
-...so that you can recall specific versions later.
-<!-- .element: class="fragment" -->
-
-Notes:
-* The concept of backups is common and backups are widely-used
-* Who doesn't do backups?
 
 ---
 
@@ -2106,18 +2199,7 @@ Notes:
 
 How do we reduce complexity?
 
-Let's introduce a new mindset!
-
----
-
-## Mindset *improved*
-
-Version control is a system that allows to write and manage sets of *changes*
-
-...and allows you to recall specific versions later.<!-- .element: class="fragment" -->
-
-Notes:
-* Think of changes as patches! (Thanks to Peter for this!)
+Think of patches!
 
 ---
 
@@ -2134,7 +2216,7 @@ Notes:
 
 ---
 
-Other conveniences:
+Other conveniences of using patches:
 * simpler error analysis
 * simpler code review
 * better code reusability
@@ -2144,6 +2226,66 @@ Notes:
 * Tools exist to find out which patch introduced errors, it is much much easier to find an error in within a few lines of code than in within hundreds of lines of code
 * Correctly signed patches allow to ask the author in case of uncertainty
 * Patches can be applied to several systems if the same or a similar logic is required
+
+---
+
+## Working with remotes
+
+
+---
+
+## Excercises
+
+* Run the commands in the previous slides
+* Checkout a remote branch
+* Create a new branch based on a remote branch
+* Delete your local master branch
+* Add a second remote and push a branch to it
+* Run `git fetch` and parse its output
+* Run `git pull` and parse its output
+* Push a local commit to a remote branch
+
+---
+
+# Discussion
+
+---
+
+## Workflows
+
+---
+
+## Centralized Workflow
+
+![Centralized Workflow](https://git-scm.com/book/en/v2/images/centralized_workflow.png)
+
+---
+
+## Integration-Manager Workflow
+
+![Integration-Manager Workflow](https://git-scm.com/book/en/v2/images/integration-manager.png)
+
+---
+
+## Dictator and Lieutenants Workflow
+
+![Dictator and Lieutenants Workflow](https://git-scm.com/book/en/v2/images/benevolent-dictator.png)
+
+---
+
+## Github Workflow
+
+---
+
+## Gitflow Workflow
+
+---
+
+## Exercices
+
+---
+
+# Discussion
 
 ---
 
