@@ -34,7 +34,8 @@ Notes:
 * Gitception: Reaching into the substructure
 * Of trees, branches and pieces of fruit
 * It's a backup system... It's a patch system... It's Git!
-* Gitbreak
+* Gitbreak: Try to keep the holistic view
+* Workfellas: Five ways to contribute to the code base
 
 Notes:
 
@@ -56,8 +57,9 @@ There are going to be excercises after or during each block!
   - These concepts are helpful for bringing your contributions to the complicated or clear domain
 * Gitbreak
   - Introduction into distributed Git
+  - Working with remotes
+* Workfellas
   - Introduction to possible workflows with Git
-  - In-depth discussion of Gitflow-Workflow
 
 ---
 
@@ -101,9 +103,7 @@ Notes:
   - Clear
 * The domain we are in depends on our experience and the subject we are dealing with
 * Practices lead to different results depending on the domain you are in
-
-Questions:
-* Who has heard of Cynefin before?
+* ...adapt therefore your methods and tools depending on the domain you are in
 
 ---
 
@@ -191,28 +191,6 @@ Notes:
 * What kind of tasks do you solve?
 * What challenges you the most when writing software?
 
-Notes:
-
-1. [ , , , , , , , , , , , , , , , , ]
-2. [ , , , , , , , , , , , , , , , , ]
-3. - 
-4. [ , , , , , , , , , , , , , , , , ]
-5. [ , , , ]
-  Examples:
-  - Proof of concept / Prototype
-  - Customized solution
-  - Product
-  - Commodity
-  - ...
-6. [ , , , ]
-  Examples:
-  - Feature development
-  - Writing tests
-  - Reviewing new code
-  - Reviewing old code
-  - ...
-7. -
-
 ---
 
 # Discussion
@@ -221,10 +199,6 @@ Notes:
 * Primary vs. secondary needs
 * Handling complexity
 * Values > Principles > Methods > Tools & Activities
-
----
-
-# Break
 
 ---
 
@@ -237,6 +211,24 @@ Notes:
 * Use and learn *all* the commands and ask yourself how they may help you improving your workflow in a given situation
 * This block gives you the means to learn using Git when there is no *happy path*
 * Some parts of this block are rather technical and go "deep" into Git's internals
+
+---
+
+## Configuring your Git
+
+...to identify your actions
+```shell
+$ {{ 'git config --global user.name "Pablo Escodebar"'|run }}
+$ {{ 'git config --global user.email "escodebar@gmail.com"'|run }}
+```
+
+Notes:
+* Whenever you do something in Git, your user will be used to track your actions
+* There are three levels of configuration:
+  - The repository configuration
+  - Your user configuration (using `--global`)
+  - The system configuration (using `--system`)
+* You can also configure the editor, the default editor is `vim`
 
 ---
 
@@ -277,9 +269,6 @@ Notes:
 * HEAD, config, description are files
 * The rest are folders
 * Studying what happens in here while using Git was very helpful to me
-
-Questions:
-* Who has taken a look into the `.git` before?
 
 ---
 
@@ -444,10 +433,6 @@ Notes:
 * Only the first few (min. 7) hexadecimal digits of a hash are required to determine the file
 * More objects are discussed later
 * Please remember, that the whole file and not only the diff is stored! (well... it depends! 😊)
-
-Questions:
-* What happens if I change the file and add it again? [A new object is created]
-* What happens to the previous object? [It remains in the repository until it is garbage collected]
 
 ---
 
@@ -706,9 +691,6 @@ $ {{ 'git add . && git commit -m "Use the patch mode"'|multirun(gitception=True)
 Notes:
 * This is just to keep the working directory clean, to understand the next steps better
 
-Questions:
-* Why do we have 6 objects? [2 commits, 2 trees and 2 blobs]
-
 ---
 
 ## Exercises
@@ -726,10 +708,6 @@ Questions:
 Notes:
 * Backups vs Changes
 * Slicing changes
-
----
-
-# Break
 
 ---
 
@@ -947,9 +925,6 @@ Notes:
 * Now we should have a graph with two branches.
 * Could you draw the graph of our Git repository?
 
-Questions:
-* Where do all these objects come from? [2 commits, 2 trees, 2 new blobs, 2 changes to `README`]
-
 ---
 
 ## What a beautiful tree
@@ -980,9 +955,6 @@ Notes:
 
 # Discussion
 
-Notes:
-
-
 ---
 
 ![Git](https://assets.amuniversal.com/ddf1fa20315201378d0e005056a9545d)
@@ -1010,7 +982,7 @@ Notes:
 
 ## Git merge
 
-![merge](https://wac-cdn.atlassian.com/dam/jcr:83323200-3c57-4c29-9b7e-e67e98745427/Branch-1.png?cdnVersion=lj) <!-- .element: height="380px" style="background: white;" -->
+![merge](https://wac-cdn.atlassian.com/dam/jcr:83323200-3c57-4c29-9b7e-e67e98745427/Branch-1.png?cdnVersion=lj)<!-- .element: height="380px" style="background: white;" -->
 
 
 Join development histories
@@ -1698,7 +1670,7 @@ Notes:
 
 ---
 
-![The three trees](https://git-scm.com/book/en/v2/images/reset-workflow.png)
+![The three trees](https://git-scm.com/book/en/v2/images/reset-workflow.png)<!-- .element: height="500px" -->
 
 Notes:
 * We saw a similar image before
@@ -1718,7 +1690,7 @@ The following steps are executed when resetting:
 [Here's a less compact explanation!](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified)
 
 Notes:
-If reset is used with a path, the first step is skipped! Read the link for more information
+* If reset is used with a path, the first step is skipped! Read the link for more information
 
 ---
 
@@ -1945,7 +1917,7 @@ Notes:
 
 ---
 
-## And what happened in the repository?
+## Start enjoying digging!
 
 ```shell
 $ {{ 'git add . && git commit -m "Checkout to improve the log"'|multirun(gitception=True) }}
@@ -2060,7 +2032,7 @@ $ {{ "git stash list"|run }}
 ```shell
 $ {{ "git stash pop"|run }}
 ```
-<!-- .element: style="font-size: 0.5em" -->
+<!-- .element: style="font-size: 0.49em" -->
 
 Notes:
 * If you want to keep the change in the stash for later use, you can use "apply" instead of "pop"
@@ -2101,8 +2073,17 @@ $ {{ 'git add . && git commit -m "Commit the stash pop"'|multirun(gitception=Tru
 
 ---
 
-![Local VCS](VCS/local_vcs.png)
-<!-- .element: height="400px" -->
+## I didn't find a decent comic for discussing distributed Git
+
+## so you only get this lowsy slide
+
+Notes:
+* 100 internet points for the one who suggests a good comic for distributed repositories!
+* 1000 internet points for the one who makes a good comic for distributed repositories!
+
+---
+
+![Local VCS](VCS/local_vcs.png)<!-- .element: height="400px" -->
 
 Notes:
 * This is a "Local Version Control System"
@@ -2124,8 +2105,7 @@ Notes:
 * Therefore it makes sense to setup a central file-share and make up backups of these files
 ---
 
-![Centralized VCS](VCS/centralized_vcs.png)
-<!-- .element: height="400px" -->
+![Centralized VCS](VCS/centralized_vcs.png)<!-- .element: height="400px" -->
 
 Notes:
 * This is called "Centralized Version Control System"
@@ -2166,8 +2146,7 @@ Notes:
 
 ---
 
-![Decentralized VCS](VCS/decentralized_vcs.png)
-<!-- .element: height="550px" -->
+![Decentralized VCS](VCS/decentralized_vcs.png)<!-- .element: height="400px" -->
 
 Notes:
 * This is what a distributed version control system looks like
@@ -2229,8 +2208,154 @@ Notes:
 
 ---
 
-## Working with remotes
+## Adding a remote
 
+...is simple as running
+```shell
+$ {{ "git remote add gitception .git/"|run }}
+```
+
+Notes:
+* Replace the folder path with an URL or a Git handle
+* The default remote is called `origin`
+* There are several subcommands which allow you to manage remotes
+
+---
+
+## Starting to feel like home
+
+Let's see how Git deals with remotes:
+```shell
+$ {{ 'git add . && git diff --cached'|multirun(gitception=True)}}
+```
+
+Aha! They're stored in the repository's configuration!
+
+{% filter gitception %}{% endfilter %}
+
+Notes:
+
+---
+
+## Commit the changes
+
+```shell
+$ {{ 'git commit -m "Add Gitception as remote"'|run(gitception=True) }}
+```
+
+{% filter gitception %}{% endfilter %}
+
+---
+
+## Sync the repositories
+
+...using
+
+```shell
+$ {{ 'git fetch gitception'|run }}
+```
+
+This will download all branches and their associated objects!
+
+Notes:
+* This is similar to `git pull`, there is an excersise to determine the differences!
+
+---
+
+## We could start building a bunker!
+
+```shell
+$ {{ 'git add . && git commit -m "Fetch the gitception remote"'|multirun(gitception=True) }}
+```
+<!-- .element: style="font-size: 0.42em" -->
+
+What the $%#@! What are pack files?
+
+{% filter gitception %}{% endfilter %}
+
+Notes:
+* I actually can't tell you much about packfiles!
+* You can read about pack-files here: https://git-scm.com/book/en/v2/Git-Internals-Packfiles
+
+---
+
+!["Is this the real world?"](https://cdn.prod.www.spiegel.de/images/de945cc8-0001-0004-0000-000000115065_w920_r1.5005359056806002_fpx33.29_fpy49.95.jpg)<!-- .element: height="550px" -->
+
+Notes:
+* Ok, ok, ok... so now we have in our Git repository within our Git repository, our Git repository as commits of commits of commits in pack files!
+* I think that's deep enough for today!
+
+---
+
+## Let's add a public repository
+
+...to make our work accessible to others
+```shell
+$ {{ "git remote add github git@github.com:escodebar/trainings.git"|run }}
+```
+
+Notes:
+* This is where you will find:
+  - the commits and branches made so far
+  - the Gitception repository
+
+---
+
+## Pushing all branches
+
+...and changing their name on the remote
+```shell
+$ {{ 'git push -u github "refs/heads/*:refs/heads/git/mf/repo/*"'|run }}
+```
+
+Notes:
+* This was a lot of information at once!
+* You can also just push single branches... but I am sure you will understand this command if you made it this far!
+* When pushing a branch, you are pushing all associated objects
+* You can also push all branches and associated objects with `--all`
+
+---
+
+## Remote branches in our repository?
+
+...how does that work?
+```shell
+$ {{ 'git add . && git commit -m "Push the branch"'|multirun(gitception=True) }}
+```
+<!-- .element: style="font-size: 0.40em" -->
+
+{% filter gitception %}{% endfilter %}
+
+---
+
+## But how...
+
+...does it know which branches belong together?
+```shell
+$ {{ 'git show'|run(gitception=True) }}
+```
+
+{% filter gitception %}{% endfilter %}
+
+Notes:
+* Git keeps track of the associated branches in the repository's configuration!
+
+---
+
+## Let's also push the gitception branch
+
+...for the sake of completeness
+
+```shell
+$ {{ "git fetch && git push -u github refs/remotes/gitception/master:refs/heads/git/mf/gitception"|multirun }}
+```
+<!-- .element: style="font-size: 0.38em" -->
+
+Now you know where to get the repositories for later analysis!
+
+Notes:
+* This allows you to push branches between remotes
+* This workshop is self-contained!
 
 ---
 
@@ -2239,11 +2364,11 @@ Notes:
 * Run the commands in the previous slides
 * Checkout a remote branch
 * Create a new branch based on a remote branch
-* Delete your local master branch
+* Think about it: Do you need a local master branch?
 * Add a second remote and push a branch to it
-* Run `git fetch` and parse its output
-* Run `git pull` and parse its output
+* Explain how `git pull` is different from `git fetch`
 * Push a local commit to a remote branch
+* Read about `git push --mirror`
 
 ---
 
@@ -2251,7 +2376,12 @@ Notes:
 
 ---
 
-## Workflows
+![Workflows](https://imgs.xkcd.com/comics/90s_flowchart.png)<!-- .element: height="550px" -->
+
+Notes:
+* There are a lot of different workflows
+* The workflow is a tool which has to be chosen according to the task and the people working on the task
+* You do not necessarily have to use the same workflow all the time (think about Cynefin!)
 
 ---
 
@@ -2259,33 +2389,77 @@ Notes:
 
 ![Centralized Workflow](https://git-scm.com/book/en/v2/images/centralized_workflow.png)
 
+Notes:
+* This is probably the simplest possible workflow
+* This workflow is very common
+* The complexity is handled in code and the deployment tools
+
 ---
 
 ## Integration-Manager Workflow
 
 ![Integration-Manager Workflow](https://git-scm.com/book/en/v2/images/integration-manager.png)
 
+Notes:
+* I like this workflow a lot
+* Depending on the Integration-Manager, the developers are not forced to write nice patches
+
 ---
 
 ## Dictator and Lieutenants Workflow
 
-![Dictator and Lieutenants Workflow](https://git-scm.com/book/en/v2/images/benevolent-dictator.png)
+![Dictator and Lieutenants Workflow](https://git-scm.com/book/en/v2/images/benevolent-dictator.png)<!-- .element: height="440px" -->
+
+Notes:
+* The Linux kernel developer community uses this workflow
+* It is similar to the Integration-Manager workflow but with an additional layer
 
 ---
 
-## Github Workflow
+## GitHub Flow
+
+The [GitHub Flow](https://guides.github.com/introduction/flow/) is a simple yet elegant workflow!
+
+Notes:
+* It includes:
+  - Code review
+  - Discussions
+  - Deployment
+  - Testing
+* It is *pretty* lean!
+
+---
+
+![Technical Debt](https://i.pinimg.com/originals/07/07/f3/0707f39f910cbf3560b423910ec23e5a.gif)
 
 ---
 
 ## Gitflow Workflow
 
+And then there is the [Gitflow Workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)!
+
+Notes:
+* To me, this workflow handles way too much complexity
+* All developers need to have a good Git knowledge and a holistic picture
+
 ---
 
 ## Exercices
 
+* Discuss in a group your current workflows
+* Think of possible scenarios where these workflows may be useful
+* Discuss where and who manages project complexity with these workflows
+
 ---
 
 # Discussion
+
+---
+
+## Extra task
+
+Share a public repository and implement FizzBuzz in TDD communicating only using Git commits.
+Also think of a way to establish a common workflow using only Git commits!
 
 ---
 
