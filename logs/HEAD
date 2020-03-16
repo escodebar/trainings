@@ -14,3 +14,7 @@ cceb198cbd3acfef47a664a5e730f13a20af2650 2e0ed18b60e15d74239d1e32740e30b963e3aec
 5831d48f2c84c3a5272250d5d6df1a73235ec52d cceb198cbd3acfef47a664a5e730f13a20af2650 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	rebase: checkout pe/add_list_of_favorite_beers
 cceb198cbd3acfef47a664a5e730f13a20af2650 2e0ed18b60e15d74239d1e32740e30b963e3aec3 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	rebase: Accept whiskey as reward
 2e0ed18b60e15d74239d1e32740e30b963e3aec3 2e0ed18b60e15d74239d1e32740e30b963e3aec3 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	rebase finished: returning to refs/heads/pe/rebasing
+2e0ed18b60e15d74239d1e32740e30b963e3aec3 2e0ed18b60e15d74239d1e32740e30b963e3aec3 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	checkout: moving from pe/rebasing to pe/backups
+2e0ed18b60e15d74239d1e32740e30b963e3aec3 afa6d5c8b9783cccac7bb417ffb33217e21be293 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	commit: Ask for feedback
+afa6d5c8b9783cccac7bb417ffb33217e21be293 640ab41887937145665f795764990ad4627a262e Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	commit: Ask for personal feedback
+640ab41887937145665f795764990ad4627a262e c50ee29d790b0722ea0f15fe452f1de84e567b73 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	commit: Trade feedback for coffee
