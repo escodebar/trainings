@@ -9,3 +9,4 @@ b214f3eb6447de6481adbb383026f583eae59be6 5831d48f2c84c3a5272250d5d6df1a73235ec52
 5831d48f2c84c3a5272250d5d6df1a73235ec52d cceb198cbd3acfef47a664a5e730f13a20af2650 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	checkout: moving from pe/whiskey_is_also_an_option to pe/merging
 cceb198cbd3acfef47a664a5e730f13a20af2650 e75139dd47742220cb4f2d0d0ec8fb439c2dad60 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	commit (merge): Add the list of beers first
 e75139dd47742220cb4f2d0d0ec8fb439c2dad60 cceb198cbd3acfef47a664a5e730f13a20af2650 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	checkout: moving from pe/merging to pe/cherry_picking
+cceb198cbd3acfef47a664a5e730f13a20af2650 2e0ed18b60e15d74239d1e32740e30b963e3aec3 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	commit (cherry-pick): Accept whiskey as reward
