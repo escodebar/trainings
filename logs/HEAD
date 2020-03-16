@@ -19,3 +19,5 @@ cceb198cbd3acfef47a664a5e730f13a20af2650 2e0ed18b60e15d74239d1e32740e30b963e3aec
 afa6d5c8b9783cccac7bb417ffb33217e21be293 640ab41887937145665f795764990ad4627a262e Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	commit: Ask for personal feedback
 640ab41887937145665f795764990ad4627a262e c50ee29d790b0722ea0f15fe452f1de84e567b73 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	commit: Trade feedback for coffee
 c50ee29d790b0722ea0f15fe452f1de84e567b73 c50ee29d790b0722ea0f15fe452f1de84e567b73 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	checkout: moving from pe/backups to pe/interactive_rebase
+c50ee29d790b0722ea0f15fe452f1de84e567b73 c50ee29d790b0722ea0f15fe452f1de84e567b73 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	checkout: moving from pe/interactive_rebase to pe/reset
+c50ee29d790b0722ea0f15fe452f1de84e567b73 2e0ed18b60e15d74239d1e32740e30b963e3aec3 Pablo Escodebar <escodebar@gmail.com> 1584390378 +0100	reset: moving to pe/rebasing
