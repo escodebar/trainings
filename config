@@ -3,3 +3,6 @@
 	filemode = true
 	bare = false
 	logallrefupdates = true
+[remote "gitception"]
+	url = .git/
+	fetch = +refs/heads/*:refs/remotes/gitception/*
