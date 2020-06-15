@@ -15,16 +15,7 @@ Notes:
 
 ---
 
-## A few words about
-# this training
-
-Notes:
-* It all started when I was asked to give a full day introduction to Git for a CAS
-* I prepared a training trying to add something useful for several levels of Git knowledge
-* The intended audience was PhD students with basic to no Git experience and technicians
-* I learned a lot while preparing the training
-* The training was very successful, receiving a lot of good feedback
-* It is going to be tough (for all of us) but rewarding
+## Who am I
 
 ---
 
@@ -33,7 +24,6 @@ Notes:
 * The Good, the Bad and the Ugly
 * Gitception: Reaching into the substructure
 * Of trees, branches and pieces of fruit
-* It's a backup system... It's a patch system... It's Git!
 * Gitbreak: Try to keep the holistic view
 * Workfellas: Five ways to contribute to the code base
 
@@ -51,10 +41,6 @@ There are going to be excercises after or during each block!
 * Of trees, branches and pieces of fruit
   - Git's branching mechanism
   - combining changes implemented in seperate branches into one branch
-* It's a backup system... It's a patch system... It's Git!
-  - how to create patches using Git
-  - cleaning up the Git history before a feature is released
-  - These concepts are helpful for bringing your contributions to the complicated or clear domain
 * Gitbreak
   - Introduction into distributed Git
   - Working with remotes
@@ -76,34 +62,28 @@ Notes:
 
 ---
 
-## Slides
-
-[https://escodebar.github.io/trainings/git/mf/](https://escodebar.github.io/trainings/git/mf/)
-
-Notes:
-* You can find the speaker notes in the slides, which allows you to go through the training at home
-* Pass the slides to your coworkers, your friends, etc., the more people understand Git the better
-* If a slide needs clarification, please let me know!
+## The Tangled Working Copy Problem
 
 ---
 
-# Are you ready?
+## Version Control Systems
+
+What is a VCS and why do I need it?
+
+* Version Control
+* Collaboration
+* Run automated tasks
+* Error analysis
 
 ---
 
-![Cynefin](https://cognitive-edge.com/wp-content/uploads/2020/03/Screenshot-2020-03-01-at-07.35.png)<!-- .element: height="500px" -->
+## Some VCS
 
-Notes:
-* Cynefin is an invention by [Dave Snowden](https://twitter.com/snowded)
-* It defines 5 domains:
-  - Disorder
-  - Chaos
-  - Complex
-  - Complicated
-  - Clear
-* The domain we are in depends on our experience and the subject we are dealing with
-* Practices lead to different results depending on the domain you are in
-* ...adapt therefore your methods and tools depending on the domain you are in
+ArX, Bazaar, BitKeeper, Codeville, CVS, Darcs, DCVS, Fossil, Git, GNU arch, Mercurial, Monotone, Perforce, Subversion, TFVCS, Veracity, ...
+
+---
+
+# Git
 
 ---
 
@@ -183,43 +163,51 @@ Notes:
 
 ## Exercises
 
-* Have you been using other version control systems?
-* How long have been using Git?
-* What challenges you the most when using Git?
 * How long have been programming?
 * What kind of software do you work on?
 * What kind of tasks do you solve?
 * What challenges you the most when writing software?
+* Have you been using other version control systems?
+* How long have been using Git?
+* What challenges you the most when using Git?
 
 ---
 
 # Discussion
 
 Notes:
+* Context - Cynefin
 * Primary vs. secondary needs
 * Handling complexity
 * Values > Principles > Methods > Tools & Activities
 
 ---
 
-![Git](https://imgs.xkcd.com/comics/git_2x.png)<!-- .element: height="500px" -->
+## Slides
+
+[https://escodebar.github.io/trainings/git/](https://escodebar.github.io/trainings/git/)
 
 Notes:
-* The goal of this block is to show what Git does when it is used, to allow you to choose how to use it
-* This training covers theory for using Git, however brain muscle (training) is needed
-* If you want more training and need help, do not hesitate to contact me
-* Use and learn *all* the commands and ask yourself how they may help you improving your workflow in a given situation
-* This block gives you the means to learn using Git when there is no *happy path*
-* Some parts of this block are rather technical and go "deep" into Git's internals
+* You can find the speaker notes in the slides, which allows you to go through the training at home
+* Pass the slides to your coworkers, your friends, etc., the more people understand Git the better
+* If a slide needs clarification, please let me know!
 
 ---
 
-## Configuring your Git
+## Setup
 
-...to identify your actions
+[Install Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and tell it who you are
 ```shell
 $ {{ 'git config --global user.name "Pablo Escodebar"'|run }}
 $ {{ 'git config --global user.email "escodebar@gmail.com"'|run }}
+```
+
+Then configure the editor you want to use
+```shell
+$ git config --global core.editor 'vim'
+$ git config --global core.editor 'subl -n -w'
+$ git config --global core.editor 'atom --wait'
+$ git config --global core.editor 'code --wait'
 ```
 
 Notes:
@@ -269,6 +257,18 @@ Notes:
 * HEAD, config, description are files
 * The rest are folders
 * Studying what happens in here while using Git was very helpful to me
+
+---
+
+![Git](https://imgs.xkcd.com/comics/git_2x.png)<!-- .element: height="500px" -->
+
+Notes:
+* The goal of this block is to show what Git does when it is used, to allow you to choose how to use it
+* This training covers theory for using Git, however brain muscle (training) is needed
+* If you want more training and need help, do not hesitate to contact me
+* Use and learn *all* the commands and ask yourself how they may help you improving your workflow in a given situation
+* This block gives you the means to learn using Git when there is no *happy path*
+* Some parts of this block are rather technical and go "deep" into Git's internals
 
 ---
 
@@ -696,10 +696,11 @@ Notes:
 ## Exercises
 
 * Run the commands in the previous slides
-* What's your mindset? Do you commit backups or changes?
+* What's your mindset? Do you commit backups or changes? Or both?
+* Why can we add a repository in the repository?
 * Add two different changes to a file and commit them separatedly
 * Restore a file from a blob object
-* Create a commit with two files and one blob object
+* Create a commit with two files but only one blob object
 
 ---
 
@@ -723,7 +724,7 @@ Take a look at the graph in the comic:
 * No matter where you start, if you follow the arrows, you'll always finish at one!
 
 This could be a valid graph of a Git repository!
-* Each node in the comic could correspond to a commit
+* Each node in the comic could be a commit
 
 We already started building such a graph! Now let's build branches!
 * Creating branches with diverging commits
@@ -801,10 +802,10 @@ Notes:
 
 ---
 
-## Now let's check, check, check it out!
+## Now let's switch to it!
 
 ```shell
-$ {{ "git checkout pe/new_branch"|run }}
+$ {{ "git switch pe/new_branch"|run }}
 ```
 
 ... to add further commit to it!
@@ -844,19 +845,20 @@ Notes:
 
 ---
 
-## Create and checkout branches
+## Create and switch to branches
 ## ...in one step!
 
-Switch to a *new* branch using checkout:
+Switch to a *new* branch:
 ```shell
-$ {{ "git checkout -b pe/add_list_of_favorite_beers master"|run }}
+$ {{ "git switch -c pe/add_list_of_favorite_beers master"|run }}
 ```
 ...one command is faster than two!
 
 Notes:
 * If you leave the starting point (`master` here), the current `HEAD` is used
-* `git checkout` is criticized to be overloaded with functionality, we are discussing this in more detail later
-* `git checkout` might require some runtime, depending on the size of the files to be copied
+* `git checkout` was previously used for this purspose
+* `git checkout` is criticized to be overloaded with functionality
+* `git switch` might require some runtime, depending on the size of the files to be copied
 
 Now that we know how to create branches, let's create two with diverging history!
 
@@ -887,7 +889,7 @@ Notes:
 ## Create another branch
 
 ```shell
-$ {{ "git checkout -b pe/whiskey_is_also_an_option master"|run }}
+$ {{ "git switch -c pe/whiskey_is_also_an_option master"|run }}
 ```
 
 ...with another commit
@@ -945,7 +947,9 @@ Notes:
 ## Exercises
 
 * Run the commands in the previous slides
-* Go into "detached `HEAD` mode" and back
+* What is stored in the `HEAD` file?
+* Take a look at the log files
+* Can you switch to a specific commit?
 * Delete and recover a branch with some commits
 * Create a new branch based on a commit
 * Take a look at the graph of a more mature project
@@ -999,7 +1003,7 @@ Notes:
 
 Checkout a new branch for the merge
 ```shell
-$ {{ "git checkout -b pe/merging pe/add_list_of_favorite_beers"|run }}
+$ {{ "git switch -c pe/merging pe/add_list_of_favorite_beers"|run }}
 ```
 
 Merge...
@@ -1211,7 +1215,7 @@ Notes:
 
 Let's add another branch for cherry picking
 ```shell
-$ {{ "git checkout -b pe/cherry_picking pe/add_list_of_favorite_beers"|run }}
+$ {{ "git switch -c pe/cherry_picking pe/add_list_of_favorite_beers"|run }}
 ```
 <!-- .element: style="font-size: 0.545em;" -->
 
@@ -1338,17 +1342,14 @@ Notes:
 ## Rebase yourself!
 
 ```shell
-$ {{ "git checkout -b pe/rebasing pe/whiskey_is_also_an_option"|run }}
+$ {{ "git switch -c pe/rebasing pe/whiskey_is_also_an_option"|run }}
 ```
 ```shell
 $ {{ "git rebase pe/add_list_of_favorite_beers"|run }}
 ```
-<!-- .element: style="font-size: 0.43em" -->
-
-...that's a lot of output!
 
 Notes:
-* This time "the point of view" changes, therefore we checkout the branch which will be rebased
+* This time "the point of view" changes, therefore we switch to the branch which will be rebased
 * The branch onto which you are rebasing to remains untouched
 * The history of the active branch is rewritten
 * If there is more than one conflicting commit, `git rebase` will stop at each conflict
@@ -1387,7 +1388,14 @@ Notes:
 
 ...once you resolved the conflicts:
 ```shell
-$ {{ "sed -i '4d;6d;$d' README.md && git add README.md && git rebase --continue"|multirun }}
+$ {{ "sed -i '4d;6d;$d' README.md && git add README.md"|multirun }}
+```
+```shell
+$ {{ "git commit -m 'Accept whiskey as reward'"|run }}
+```
+
+```shell
+$ {{ "git rebase --continue"|multirun }}
 ```
 <!-- .element: style="font-size:0.47em;" -->
 
@@ -1448,6 +1456,7 @@ Notes:
 * Cherry-pick two commits at once
 * Cherry-pick a merge commit
 * Use `git rebase --onto`
+* Take a look at the `--interactive` option of `git rebase`
 
 ---
 
@@ -1492,7 +1501,7 @@ Notes:
 
 Add a branch with a few commits
 ```shell
-$ {{ "git checkout -b pe/backups pe/rebasing"|run }}
+$ {{ "git switch -c pe/backups pe/rebasing"|run }}
 $ {{ 'echo "I would also love some feedback." >> README.md'|shell }}
 $ {{ 'git commit -am "Ask for feedback"'|run }}
 $ {{ 'echo "Personal feedback is the best." >> README.md'|shell }}
@@ -1527,7 +1536,7 @@ Notes:
 "Change" the commit history during rebase!
 
 ```shell
-$ {{ "git checkout -b pe/interactive_rebase pe/backups"|run }}
+$ {{ "git switch -c pe/interactive_rebase pe/backups"|run }}
 ```
 
 This is like rebasing
@@ -1634,439 +1643,13 @@ Notes:
 * Rebase a branch using the `--autosquash` flag
 * Run an interactive rebase with the `-x` option
 * Edit a commit during a rebase
+* Study `git reset`, `git stash` and `git checkout`
 
 ---
 
 # Discussion
 
----
-
-## But what if
-
-* ...it is more complex?
-* ...commits need to be split?
-* ...part of a commit sneaked into another commit?
-
-`reset`, `checkout` and `stash` to the help!
-
 Notes:
-* The reset and checkout commands are two of the most confusing parts of Git when first encountered
-* They do many different things depending on the used arguments
-* Once you think you understood them, you will find another usage which will change your concept of these commands completely (or to a big part)
-* Let's therefore "demystify" these commands!
-
----
-
-## The Three Trees
-
-* the `HEAD`
-* the index
-* Working Directory
-
-Notes:
-* The `HEAD` is the last commit (also the next parent), what we called "the repository" before
-* The index is the proposed next commit, what's on our fork
-* The working directory is our sandbox
-
----
-
-![The three trees](https://git-scm.com/book/en/v2/images/reset-workflow.png)<!-- .element: height="500px" -->
-
-Notes:
-* We saw a similar image before
-
----
-
-## Reset in detail
-
-The following steps are executed when resetting:
-
-```raw
-1. Move the branch HEAD points to (--soft)
-2. Make the index look like HEAD (--mixed, default)
-3. Make the working directory look like the index (--hard)
-```
-
-[Here's a less compact explanation!](https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified)
-
-Notes:
-* If reset is used with a path, the first step is skipped! Read the link for more information
-
----
-
-## Let's see it in action!
-
-Create a new branch
-```shell
-$ {{ "git checkout -b pe/reset pe/backups"|run }}
-```
-
-...and reset to where your "backup history" starts
-```shell
-$ {{ "git reset pe/rebasing"|run }}
-```
-
-Notes:
-* The `README` is now modified?
-
----
-
-## What's the status now?
-
-```shell
-$ {{ "git status"|run }}
-```
-<!-- .element: style="font-size: 0.47em;" -->
-
-...but we did not modify anything?
-
----
-
-## What's modified?
-
-```shell
-$ {{ "git diff"|run }}
-```
-
-All the changes from the `backups` branch are now in the working directory!
-
-Notes:
-* `git reset` will not change your working directory (unless you use the `--hard` option)
-* The `HEAD` (and index) now differs from the working directory
-* Therefore the `README` looks modified to Git
-
----
-
-## So what happened? 
-
-```shell
-$ {{ 'git add . && git commit -m "Commit the reset"'|multirun(gitception=True) }}
-```
-
-...this is not enough information!
-
-{% filter gitception %}{% endfilter %}
-
----
-
-## Let's take a closer look!
-
-```shell
-$ {{ "git show --name-only"|run(gitception=True) }}
-```
-
-{% filter gitception %}{% endfilter %}
-
-Notes:
-* The `HEAD` changed, since that's what `git reset` does
-* The `ORIG_HEAD` contains a reference to where the branch was pointing to before the reset
-* The index was changed to match the `HEAD`
-* The logs contain information about the changes to `HEAD` and `pe/reset`
-
----
-
-## Let's look even closer!
-
-```shell
-$ {{ "cat ORIG_HEAD"|run(gitception=True) }}
-```
-This is the last commit in the `pe/backups` branch!
-
-```shell
-$ {{ "cat logs/refs/heads/pe/reset"|run(gitception=True) }}
-```
-These where `pe/reset` pointed to
-
-{% filter gitception %}{% endfilter %}
-
-Notes:
-* Please take also a look at `logs/HEAD`, it will contain similar information as `pe/reset`
-
----
-
-## (
-
-You can access this information using
-```shell
-$ {{ "git reflog pe/reset"|run }}
-```
-...parsing it for readability
-
-## )
-
-Notes:
-* Who used `git reflog` before?
-
----
-
-## Create a new commit
-
-...by commiting the change
-```shell
-$ {{ 'git commit -am "Trade coffee for personal feedback"'|run }}
-```
-with a more meaninful message.
-
-Notes:
-* You could also chose to "git commit -C <existing_commit>" to prevent rewriting the commit message
-* You can also make more than one commit
-* Use `git reflog`s information to restore the branch if you need to
-
----
-
-## Commit the changes in the repository
-
-```shell
-$ {{ 'git add . && git commit -m "Reset to improve the log"'|multirun(gitception=True) }}
-```
-<!-- .element: style="font-size: 0.51em" -->
-
-{% filter gitception %}{% endfilter %}
-
----
-
-## Exercises
-
-* Reflog `HEAD` and a branch
-* Reset to a previous commit in the current branch using
-  - `--soft`
-  - `--hard`
-* Reset to a different branch using `--soft`
-* Reset to a branch using the `-p` flag
-* Reset a file in the index
-* Reset a file in the index using the `-p` flag
-
----
-
-# Discussion
-
----
-
-## Checkout in detail
-
-The following steps are executed when checking out:
-
-```raw
-1. Try a trivial merge with chosen commit
-2. Move the HEAD
-3. Make the working directory look like the HEAD
-```
-
-But used with a path the following happens:
-```raw
-1. Make the index look like chosen commit
-2. Make the working directory look like the index
-```
-
-Notes:
-* `git checkout` is criticized to be overloaded with functionality
-* Depending on the options it will behave in a different way, making it hard to understand
-* Yet it is a very handy tool!
-* If checkout is used with a path is not working directory safe!
-* This means, that you can use `git checkout -p` to selectively discard edits from your current working tree
-
----
-
-## Using the checkout command
-
-...to clean up the backup history
-
-```shell
-$ {{ "git checkout -b pe/checkingout pe/rebasing"|run }}
-```
-
-Notes:
-This is similar to what we did with `git reset`:
-We go to the point from where we want to rewrite the history
-
----
-
-## Checkout the changes
-
-...which you want to commit
-```shell
-$ {{ "git checkout -p pe/backups"|run(input="y") }}
-```
-
-Notes:
-* The difference to `git reset` is that we created a new branch, leaving the previous instact
-
----
-
-## What did the checkout do?
-
-```shell
-$ {{ "git status"|run }}
-```
-
-...it put the files in the index!
-
-Notes:
-* Checkout (in patch mode) makes the index (and the working directory) look like the checked out change
-
----
-
-## Create the new commit
-
-```shell
-$ {{ 'git commit -m "Trade coffee for personal feedback"'|run }}
-```
-
-Notes:
-* You can checkout changes from several branches, joining changes into a single branch
-
----
-
-## Start enjoying digging!
-
-```shell
-$ {{ 'git add . && git commit -m "Checkout to improve the log"'|multirun(gitception=True) }}
-```
-<!-- .element: style="font-size: 0.51em" -->
-
-{% filter gitception %}{% endfilter %}
-
-Notes:
-* All in all, this is pretty similar to using the reset command to clean up the history
-
----
-
-## Exercises
-
-* Checkout a branch or commit the using `-p` flag
-* Checkout the current `HEAD`
-  - using the `-p` flag
-  - when a change is in the index
-* Checkout a modified file
-* Checkout a modified file using the `-p` flag
-* Checkout a file from an other branch
-* Checkout a file from an other branch using `-p`
-
----
-
-# Discussion
-
----
-
-## The change stash 
-
-...can also be used for changes which
-* are "work in progress"
-* do not belong to the current branch
-* do not require a commit but need to be kept
-
----
-
-## Let's see what stash does
-
-Create a new branch
-```shell
-$ {{ "git checkout -b pe/stashing pe/rebasing"|run }}
-```
-...as we did in the other steps
-
----
-
-## Add changes not worth committing
-
-```shell
-$ {{ 'echo "[Beerpay](TODO: activate beerpay) is cool!" >> README.md'|shell }}
-```
-
-Let's have some fun staging part of it
-```shell
-$ {{ "git add README.md"|run }}
-```
-
-...and keeping another part in the working directory
-```shell
-$ {{ 'echo "I also love mechanical keyboards" >> README.md'|shell }}
-```
-
----
-
-## Put in the stash
-
-...what prevents you from continue working
-```shell
-$ {{ 'git stash push -m "WIP beerpay"'|run }}
-```
-
-and the working directory is clean again!
-```shell
-$ {{ "git status"|run }}
-```
-
-Notes:
-Changes in the index which differ from the working directory will not be taken into account.
-
----
-
-## No muscle soreness yet
-
-...so let's check what happened in the repository:
-```shell
-$ {{ 'git add . && git commit -m "Commit the stashed changes"'|multirun(gitception=True) }}
-```
-<!-- .element: style="font-size: 0.51em" -->
-
-6 new objects?! But we only changed one file!
-
-{% filter gitception %}{% endfilter %}
-
-Notes:
-Feel free to use `git cat-file` to see the contents of these objects.
-There is a:
-* Commit, tree and blob for the state of the index
-* Commit, tree and blob for the state of the working directory
-
----
-
-## Getting stashed changes back
-
-...as soon as you need them
-```shell
-$ {{ "git stash list"|run }}
-```
-
-```shell
-$ {{ "git stash pop"|run }}
-```
-<!-- .element: style="font-size: 0.49em" -->
-
-Notes:
-* If you want to keep the change in the stash for later use, you can use "apply" instead of "pop"
-* Take a closer look at the output, part of it is equivalent to `git status`
-* The index changed, it does not contain the changes added before
-* Git will try to reconstruct the index when using "git stash pop" and "git stash apply"
-* But under certain circumstances, Git will not set the index
-
----
-
-## No blisters either
-
-...so check the repository again!
-```shell
-$ {{ 'git add . && git commit -m "Commit the stash pop"'|multirun(gitception=True) }}
-```
-
-{% filter gitception %}{% endfilter %}
-
----
-
-## Exercises
-
-* Stash changes in your working directory
-* Use stash along with the `-p` flag
-* Use stash with a modified index
-* Apply stashed changes to your working directory
-* Take a look at stashed changes
-* Run `git log --all --graph --oneline --reflog`
-
----
-
-# Discussion
-
 * Splitting commits
 * Combining rebase, reset, checkout and stash
 * Keeping the holistic picture
@@ -2305,7 +1888,7 @@ Notes:
 
 ...and changing their name on the remote
 ```shell
-$ {{ 'git push -u github "refs/heads/*:refs/heads/git/mf/repo/*"'|run }}
+$ {{ 'git push -u github "refs/heads/*:refs/heads/git/unibe/repo/*"'|run }}
 ```
 
 Notes:
@@ -2347,7 +1930,7 @@ Notes:
 ...for the sake of completeness
 
 ```shell
-$ {{ "git fetch && git push -u github refs/remotes/gitception/master:refs/heads/git/mf/gitception"|multirun }}
+$ {{ "git fetch && git push -u github refs/remotes/gitception/master:refs/heads/git/unibe/gitception"|multirun }}
 ```
 <!-- .element: style="font-size: 0.38em" -->
 
@@ -2449,6 +2032,9 @@ Notes:
 * Discuss in a group your current workflows
 * Think of possible scenarios where these workflows may be useful
 * Discuss where and who manages project complexity with these workflows
+* Make a pull request
+* Review the code of a pull request
+* Add comments to a pull request
 
 ---
 
