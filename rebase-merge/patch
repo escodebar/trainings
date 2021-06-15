@@ -1,0 +1,21 @@
+diff --git a/README.md b/README.md
+index 3f652ed..a28e0af 100644
+--- a/README.md
++++ b/README.md
+@@ -1,3 +1,5 @@
+ # My awwwesome training
+ This training will make you better!
+ Buy me a beer if it made you better.
++Whiskey is also a good reward.
++[These whiskeys](whiskeys.md) are great!
+diff --git a/whiskeys.md b/whiskeys.md
+new file mode 100644
+index 0000000..0df4281
+--- /dev/null
++++ b/whiskeys.md
+@@ -0,0 +1,5 @@
++* Lagavulin - 16
++* Ledaig - 10
++* Talisker - Storm
++* Ledaig - 18
++* Laphroaig - Quarter Cask
