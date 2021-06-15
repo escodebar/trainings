@@ -7,3 +7,4 @@
 d5a1ac9cff8e5096f8a336f024395837d87cb44e 6c2a61e3b5e1d75b929e7a5a1e06caab0a20bf89 Pablo Escodebar <escodebar@gmail.com> 1623794684 +0200	checkout: moving from pe/add_list_of_favorite_beers to pe/whiskey_is_also_an_option
 6c2a61e3b5e1d75b929e7a5a1e06caab0a20bf89 0962c4822df870960e3352ddf89d7dcaea6e8eed Pablo Escodebar <escodebar@gmail.com> 1623794684 +0200	commit: Accept whiskey as reward
 0962c4822df870960e3352ddf89d7dcaea6e8eed d5a1ac9cff8e5096f8a336f024395837d87cb44e Pablo Escodebar <escodebar@gmail.com> 1623794684 +0200	checkout: moving from pe/whiskey_is_also_an_option to pe/merging
+d5a1ac9cff8e5096f8a336f024395837d87cb44e 4bc15468c7ca5050bf603a7f538ba8b18149d91e Pablo Escodebar <escodebar@gmail.com> 1623794684 +0200	commit (merge): Add the list of beers first
