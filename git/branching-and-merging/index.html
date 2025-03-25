@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Git Sessions - Part 3 - Branching and joining histories 1/2</title>
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/league.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## Git Sessions
+# @CodersOnly
+</script></section><section  data-markdown><script type="text/template">
+## Schedule
+
+* What do I expect from todays workshop?
+* Branches: Creating diverging development histories
+* Conflicts in diverging development histories
+* Using `merge` to join development histories
+* Checkout, 🍷, 🥃 & 🍝
+</script></section><section  data-markdown><script type="text/template">
+## What are my expectations for this workshop?
+</script></section><section  data-markdown><script type="text/template">
+## Setup Gitception
+
+Create the toy repository
+```shell
+$ mkdir -p ~/working/directory/ && cd $_ && git init .
+Initialized empty Git repository in ~/working/directory/.git/
+```
+
+...and the Gitception repository
+```shell
+$ cd ~/working/directory/.git/ && git init .
+Initialized empty Git repository in ~/working/directory/.git/.git/
+$ git add -A && git commit -m "Add the clean repository"
+[master (root-commit) 4224fe1] Add the clean repository
+ 15 files changed, 653 insertions(+)
+ create mode 100644 HEAD
+ create mode 100644 config
+ create mode 100644 description
+ create mode 100755 hooks/applypatch-msg.sample
+ [...]
+ create mode 100755 hooks/update.sample
+ create mode 100644 info/exclude
+```
+<!-- .element: style="font-size: 0.52em;" -->
+</script></section><section  data-markdown><script type="text/template">
+![Gitception](https://i.imgflip.com/2f33xj.jpg)
+</script></section><section  data-markdown><script type="text/template">
+## A branch
+
+aka. *a reference*
+
+"*References are pointers to commits.*"
+
+* simplify complex workflows.
+* allow to group the logic of a feature.
+</script></section><section  data-markdown><script type="text/template">
+Since we've got no commit yet, we need to create one before we can create a branch:
+```shell
+$ git commit --allow-empty -m "Add empty commit"
+[master (root-commit) 81f2864] Add empty commit
+```
+</script></section><section  data-markdown><script type="text/template">
+## Let's save the state of the repository
+
+```shell
+$ git add . && git commit -m "Add empty commit"
+[master dbb1cc6] Add empty commit
+ 7 files changed, 4 insertions(+)
+ create mode 100644 COMMIT_EDITMSG
+ create mode 100644 index
+ create mode 100644 logs/HEAD
+ create mode 100644 logs/refs/heads/master
+ create mode 100644 objects/4b/825dc642cb6eb9a060e54bf8d69288fbee4904
+ create mode 100644 objects/81/f28644a8c8b0305dad5fe7016f6ffe89217e50
+ create mode 100644 refs/heads/master
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+oh... see that `refs/heads/master`?
+
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+Let's take a closer look at it
+
+```shell
+$ cat refs/heads/master
+81f28644a8c8b0305dad5fe7016f6ffe89217e50
+```
+That's totally the hash of our first commit!
+
+<!-- .slide: data-background="./gitception.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## Let's create a branch
+
+...since we want to see what creating a branch does
+```shell
+$ git branch pe/new-branch
+
+```
+</script></section><section  data-markdown><script type="text/template">
+## What happened in the repository?
+
+```shell
+$ git add . && git commit -m "Create a new-branch"
+[master 0955259] Create a new-branch
+ 2 files changed, 2 insertions(+)
+ create mode 100644 logs/refs/heads/pe/new-branch
+ create mode 100644 refs/heads/pe/new-branch
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+Now we see, that creating a branch only creates two files!
+
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## What happens if
+
+...we delete the branch?
+
+```shell
+$ git branch -d pe/new-branch
+Deleted branch pe/new-branch (was 81f2864).
+```
+</script></section><section  data-markdown><script type="text/template">
+## Let's check the repository
+
+```shell
+$ git add . && git commit -m "Delete branch"
+[master 77a447a] Delete branch
+ 2 files changed, 2 deletions(-)
+ delete mode 100644 logs/refs/heads/pe/new-branch
+ delete mode 100644 refs/heads/pe/new-branch
+```
+It deleted both previously generated files!
+
+<!-- .slide: data-background="./gitception.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## Working on a branch
+
+requires to switch to it: 
+```shell
+$ git switch -c pe/another-new-branch
+Switched to a new branch 'pe/another-new-branch'
+```
+<!-- .element: style="font-size: 0.46em;" -->
+
+(Previously `git checkout` was used for this!)
+</script></section><section  data-markdown><script type="text/template">
+## What changes in the repository?
+
+```shell
+$ git add . && git commit -m "Switch to another-new-branch"
+[master 7bed3fe] Switch to another-new-branch
+ 4 files changed, 4 insertions(+), 1 deletion(-)
+ create mode 100644 logs/refs/heads/pe/another-new-branch
+ create mode 100644 refs/heads/pe/another-new-branch
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+Who can spot the difference?
+
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## Let's take a closer look
+
+```shell
+$ git show --name-only
+commit 7bed3fe37224c412a58dd81be8e7b2d5d7be2e0a
+Author: Pablo Verges <pablo.verges@dectris.com>
+Date:   Wed Nov 11 14:34:39 2020 +0100
+
+    Switch to another-new-branch
+
+HEAD
+logs/HEAD
+logs/refs/heads/pe/another-new-branch
+refs/heads/pe/another-new-branch
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+...so it changed the `HEAD` and `logs/HEAD`
+
+<!-- .slide: data-background="./gitception.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## What is this `HEAD`?
+
+Let's take a look at it:
+```shell
+$ cat HEAD
+ref: refs/heads/pe/another-new-branch
+```
+
+Looks like `HEAD` is just a reference to a branch!
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## Hands-on
+
+* Run the commands in the previous slides.
+* Try switching to a commit, what happens?
+* Try checking out a commit, what is `HEAD` now?
+* Take a look at the options of
+  - `git help branch`
+  - `git help switch`
+  - `git help checkout`
+</script></section><section  data-markdown><script type="text/template">
+## Discussion
+
+Insights / Remarks / Highlights
+</script></section><section  data-markdown><script type="text/template">
+## Development histories
+
+Now that we know what branches are, let's create two diverging histories!
+</script></section><section  data-markdown><script type="text/template">
+## Create the first branch
+
+```shell
+$ git switch -c pe/favorite-beers master
+Switched to a new branch 'pe/favorite-beers'
+```
+
+and add a commit to it
+```shell
+$ cat << EOBL > beers.md && git add beers.md
+* To Øl - 1 ton of Happiness
+* Rokki - Muikea
+* Felsenau - Bärner Müntschi
+* Rokki - Happo
+* Egger - Galopper
+EOBL
+$ echo "My list of [favorite beers](beers.md)." > README.md
+$ git add README.md
+
+$ git commit -a -m "Let everyone know, what beers to get me"
+[pe/favorite-beers 23bee11] Let everyone know, what beers to get me
+ 2 files changed, 6 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 beers.md
+```
+<!-- .element: style="font-size: 0.51em;" -->
+</script></section><section  data-markdown><script type="text/template">
+## Create the second branch
+
+```shell
+$ git switch -c pe/favorite-whiskeys master
+Switched to a new branch 'pe/favorite-whiskeys'
+```
+
+and add a commit to it
+```shell
+$ echo "Whiskey is also a good reward." >> README.md
+$ cat << EOWL > whiskeys.md && git add whiskeys.md
+* Lagavulin - 16
+* Ledaig - 10
+* Talisker - Storm
+* Ledaig - 18
+* Laphroaig - Quarter Cask
+EOWL
+$ echo '[These whiskeys](whiskeys.md) are goooood!' > README.md
+$ git add README.md
+
+$ git commit -am "Tell everyone what whiskeys I like"
+[pe/favorite-whiskeys 4e95ff2] Tell everyone what whiskeys I like
+ 2 files changed, 6 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 whiskeys.md
+```
+<!-- .element: style="font-size: 0.51em;" -->
+</script></section><section  data-markdown><script type="text/template">
+## We know the behavior in the repository
+
+...so let's commit the changes to have a clean state
+```shell
+$ git add . && git commit -m "Add two diverging branches"
+[master 9e49440] Add two diverging branches
+ 16 files changed, 15 insertions(+), 2 deletions(-)
+ create mode 100644 logs/refs/heads/pe/favorite-beers
+ create mode 100644 logs/refs/heads/pe/favorite-whiskeys
+ create mode 100644 objects/0d/f4281955475551ad1a4232fce76a5fb6d340d0
+ create mode 100644 objects/23/bee1151945441d7d5d6052eb020d6399d0a25b
+ create mode 100644 objects/32/d4f6d32171dc9481f4a0572cd2dc7d0d688e6f
+ create mode 100644 objects/4d/f7a59dcf3b40d3599012cf11332b8a5f804445
+ create mode 100644 objects/4e/95ff2948ec70a3944745dde12fafbd04d0b854
+ create mode 100644 objects/7e/c764e3ac5af8a360fc2df5ac5c58aa5bffcd11
+ create mode 100644 objects/aa/97c9056dafe0f8334bb33892dcaf873161e84a
+ create mode 100644 objects/d8/76fd12c653c8eca83984603a27e536f41fb28b
+ create mode 100644 refs/heads/pe/favorite-beers
+ create mode 100644 refs/heads/pe/favorite-whiskeys
+```
+<!-- .element: style="font-size: 0.51em;" -->
+<!-- .slide: data-background="./gitception.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## Let's take a look at the log
+
+```shell
+$ git log --all --graph --oneline
+* 23bee11 Let everyone know, what beers to get me
+| * 4e95ff2 Tell everyone what whiskeys I like
+|/  
+* 81f2864 Add empty commit
+```
+...see how there are two branches?
+</script></section><section  data-markdown><script type="text/template">
+## We can also take a look at the individual development histories
+
+```shell
+$ git log --oneline pe/favorite-beers
+23bee11 Let everyone know, what beers to get me
+81f2864 Add empty commit
+```
+
+```shell
+$ git log --oneline pe/favorite-whiskeys
+4e95ff2 Tell everyone what whiskeys I like
+81f2864 Add empty commit
+```
+</script></section><section  data-markdown><script type="text/template">
+## Or you can take a closer look
+
+...at the actual changes within each history
+```shell
+$ git log -p pe/favorite-beers
+commit 23bee1151945441d7d5d6052eb020d6399d0a25b
+Author: Pablo Verges <pablo.verges@dectris.com>
+Date:   Wed Nov 11 14:34:39 2020 +0100
+
+    Let everyone know, what beers to get me
+
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..32d4f6d
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1 @@
++My list of [favorite beers](beers.md).
+diff --git a/beers.md b/beers.md
+new file mode 100644
+index 0000000..7ec764e
+--- /dev/null
++++ b/beers.md
+@@ -0,0 +1,5 @@
++* To Øl - 1 ton of Happiness
++* Rokki - Muikea
++* Felsenau - Bärner Müntschi
++* Rokki - Happo
++* Egger - Galopper
+
+commit 81f28644a8c8b0305dad5fe7016f6ffe89217e50
+Author: Pablo Verges <pablo.verges@dectris.com>
+Date:   Wed Nov 11 14:34:39 2020 +0100
+
+    Add empty commit
+```
+</script></section><section  data-markdown><script type="text/template">
+## Hands-on
+
+* Run the commands in the previous slides.
+* Try switching to a commit's hash, what happens?
+* Try checking out a commit's hash, what happens?
+* Take a look at the options of
+  - `git help switch`
+  - `git help checkout`
+  - `git help reflog`
+</script></section><section  data-markdown><script type="text/template">
+## Discussion
+
+Insights / Remarks / Highlights
+</script></section><section  data-markdown><script type="text/template">
+Now that we have divergent histories...
+
+...let's merge them and cause a conflict!
+</script></section><section  data-markdown><script type="text/template">
+## Wait what?!
+# Conflicts??!!
+</script></section><section  data-markdown><script type="text/template">
+## Merge Conflicts
+
+...happen when the *same content* changes in diverging histories and it's not clear to Git how to merge the changes!
+</script></section><section  data-markdown><script type="text/template">
+## Let's merge two branches 
+
+we want to add the changes of `pe/favorite-beers` to `master`
+```shell
+$ git switch master && git merge pe/favorite-beers
+Updating 81f2864..23bee11
+Fast-forward
+ README.md | 1 +
+ beers.md  | 5 +++++
+ 2 files changed, 6 insertions(+)
+ create mode 100644 README.md
+ create mode 100644 beers.md
+```
+...fast forward, too easy!
+</script></section><section  data-markdown><script type="text/template">
+## What happened in the repository?
+
+```shell
+$ git add . && git commit -m "Make a fast forward merge"
+[master a35fd42] Make a fast forward merge
+ 6 files changed, 6 insertions(+), 2 deletions(-)
+ create mode 100644 ORIG_HEAD
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+No new objects were created! But what's that `ORIG_HEAD`?
+
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## Let's take another look!
+
+```shell
+$ cat ORIG_HEAD
+81f28644a8c8b0305dad5fe7016f6ffe89217e50
+```
+
+Looks like it's an other reference!
+
+<!-- .slide: data-background="./gitception.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## Which reference is it?
+
+let's try
+```shell
+$ git show ORIG_HEAD
+commit 81f28644a8c8b0305dad5fe7016f6ffe89217e50
+Author: Pablo Verges <pablo.verges@dectris.com>
+Date:   Wed Nov 11 14:34:39 2020 +0100
+
+    Add empty commit
+```
+that works!
+
+And it looks like it's the commit to which the master branch was pointing to!
+</script></section><section  data-markdown><script type="text/template">
+## Now let's merge the second branch
+
+```shell
+$ git merge pe/favorite-whiskeys
+CONFLICT (add/add): Merge conflict in README.md
+Auto-merging README.md
+Automatic merge failed; fix conflicts and then commit the result.
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+💥💥💥
+
+...as expected! We got a merge conflict!
+</script></section><section  data-markdown><script type="text/template">
+## What happened in the repository?
+
+```shell
+$ git add . && git commit -m "Commit the merge conflict"
+[master 18aa940] Commit the merge conflict
+ 6 files changed, 6 insertions(+), 1 deletion(-)
+ create mode 100644 MERGE_HEAD
+ create mode 100644 MERGE_MODE
+ create mode 100644 MERGE_MSG
+ rewrite index (100%)
+ create mode 100644 objects/63/ccb517ba1863e2af26a63fed68e85c40272c50
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+More references! And files! And a further object!
+
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## What's in that new objects?
+
+```shell
+$ git cat-file -t 63ccb517
+blob
+```
+
+```shell
+$ git cat-file -p 63ccb517
+<<<<<<< HEAD
+My list of [favorite beers](beers.md).
+=======
+[These whiskeys](whiskeys.md) are goooood!
+>>>>>>> pe/favorite-whiskeys
+```
+
+So conflicts are stored as well in Git objects!
+</script></section><section  data-markdown><script type="text/template">
+## What's the status now?
+
+```shell
+$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Changes to be committed:
+	new file:   whiskeys.md
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+	both added:      README.md
+```
+
+Git tells us, that both branches added `README.md`
+</script></section><section  data-markdown><script type="text/template">
+## How's the working directory?
+
+Let's see the differences:
+```shell
+$ git diff
+diff --cc README.md
+index 32d4f6d,4df7a59..0000000
+--- a/README.md
++++ b/README.md
+@@@ -1,1 -1,1 +1,5 @@@
+++<<<<<<< HEAD
+ +My list of [favorite beers](beers.md).
+++=======
++ [These whiskeys](whiskeys.md) are goooood!
+++>>>>>>> pe/favorite-whiskeys
+```
+
+We can see the conflict in the files!
+</script></section><section  data-markdown><script type="text/template">
+## Resolving this conflict
+
+...is easy as
+```shell
+$ sed -i '1d;3d;$d' README.md
+```
+
+```shell
+$ cat README.md
+My list of [favorite beers](beers.md).
+[These whiskeys](whiskeys.md) are goooood!
+```
+
+Use your favorite editor to fix conflicts!
+</script></section><section  data-markdown><script type="text/template">
+## Finish merging
+
+...once you resolved the conflicts:
+```shell
+$ git add README.md
+```
+
+and run
+```shell
+$ git merge --continue
+```
+to open your editor to write the commit's message
+
+or commit yourself directly
+```shell
+$ git commit -m "Add the list of beers first"
+[master e37a7af] Add the list of beers first
+```
+</script></section><section  data-markdown><script type="text/template">
+## One last look at the repository
+
+```shell
+$ git add . && git commit -m "Commit after conflict resolution"
+[master cd0e711] Commit after conflict resolution
+ 11 files changed, 7 insertions(+), 7 deletions(-)
+ delete mode 100644 MERGE_HEAD
+ delete mode 100644 MERGE_MODE
+ delete mode 100644 MERGE_MSG
+ rewrite index (84%)
+ create mode 100644 objects/e3/7a7afd31ba0064e2a78aad7cb9448b0f5f7056
+ create mode 100644 objects/f0/1c20ca5d1e11124202f573be67592ec1fc8929
+ create mode 100644 objects/fb/ba182b4cf3ac259f4f88d4939395d803c24399
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+Most of the merge related files are gone!
+
+<!-- .slide: data-background="./gitception.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## Hands-on
+
+* Run the commands in the previous slides.
+* Fix the conflict
+* Take a look at `MERGE_HEAD`, `MERGE_MODE` and `MERGE_MSG`
+* Create a commit with 3 parents
+* Run `git help merge` and take a look at its options
+* Take a look at `git help mergetool`
+* What kind of conflicts did we not cover? 
+</script></section><section  data-markdown><script type="text/template">
+## Discussion
+
+Insights / Remarks / Highlights
+</script></section><section  data-markdown><script type="text/template">
+## Checkout
+</script></section><section  data-markdown><script type="text/template">
+## Thank you!
+
+🍺🍻🍺</script></section></div>
+    </div>
+
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"transition":"fade"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Git Sessions - Part 2 - Git's information model</title>
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/league.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## Git Sessions
+# @CodersOnly
+</script></section><section  data-markdown><script type="text/template">
+## Schedule
+
+* What do I expect from todays workshop?
+* The index aka. the staging area & "blob" objects
+* Commit's anatomy & impact on the history
+* Checkout, 🍺🍻🍺 & 🍕
+</script></section><section  data-markdown><script type="text/template">
+## What are my expectations for this workshop?
+</script></section><section  data-markdown><script type="text/template">
+## Setup Gitception
+
+Create the toy repository
+```shell
+$ mkdir -p ~/working/directory/ && cd $_ && git init .
+Initialized empty Git repository in ~/working/directory/.git/
+```
+
+..and the Gitception repository
+```shell
+$ cd ~/working/directory/.git/ && git init .
+Initialized empty Git repository in ~/working/directory/.git/.git/
+$ git add -A && git commit -m "Add the clean repository"
+[master (root-commit) ed44862] Add the clean repository
+ 15 files changed, 653 insertions(+)
+ create mode 100644 HEAD
+ create mode 100644 config
+ create mode 100644 description
+ create mode 100755 hooks/applypatch-msg.sample
+ [...]
+ create mode 100755 hooks/update.sample
+ create mode 100644 info/exclude
+```
+<!-- .element: style="font-size: 0.52em;" -->
+</script></section><section  data-markdown><script type="text/template">
+![Gitception](https://i.imgflip.com/2f33xj.jpg)
+</script></section><section  data-markdown><script type="text/template">
+## The index
+
+aka. *the staging area*
+
+ ![The index](http://web.archive.org/web/20090210020404id_/http://whygitisbetterthanx.com/images/index1.png) <!-- .element: height="250px" style="background: white" -->
+
+"*...is an intermediate area which allows to setup the change before making the commit.*"
+</script></section><section  data-markdown><script type="text/template">
+## Let's use the staging area!
+
+```shell
+$ echo "# My awwwesome training" > README.md
+```
+
+```shell
+$ git add README.md && git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+	new file:   README.md
+```
+</script></section><section  data-markdown><script type="text/template">
+## What happened in the repository?
+
+```shell
+$ git add . && git commit -m "Add files to index"
+[master c9f75ab] Add files to index
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 index
+ create mode 100644 objects/b2/7501ade65f39bc91a5e6eb0d707903ba225a00
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## What's in the newly created object?
+
+Inspect the created object
+```shell
+$ git cat-file -t b27501a
+blob
+```
+```shell
+$ git cat-file -p b27501a
+# My awwwesome training
+```
+</script></section><section  data-markdown><script type="text/template">
+## What if...
+
+...we remove the file from the index?
+```shell
+$ git rm --cached README.md && git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	README.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+<!-- .element: style="font-size: 0.46em;" -->
+</script></section><section  data-markdown><script type="text/template">
+## What changes in the repository?
+
+```shell
+$ git add . && git commit -m "Remove file from index"
+[master 1e1f4d7] Remove file from index
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+that's not enough information, let's take a closer look
+```shell
+$ git show
+commit 1e1f4d793c58c7de6a45cfff417c1c5b1a14bd52
+Author: Pablo Verges <pablo.verges@dectris.com>
+Date:   Wed Oct 28 14:49:28 2020 +0100
+
+    Remove file from index
+
+diff --git a/index b/index
+index 50ed3ce..3330d71 100644
+Binary files a/index and b/index differ
+```
+
+only the index changed!
+
+<!-- .slide: data-background="./gitception.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## And what if...
+
+...we add the file again with an other name?
+```shell
+$ mv README.md DOCUMENTATION.md && git add DOCUMENTATION.md
+
+```
+</script></section><section  data-markdown><script type="text/template">
+## What changes in the repository?
+
+```shell
+$ git add . && git commit -m "Rename file and add it to the index"
+[master 2f3fafc] Rename file and add it to the index
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+that's not enough information, let's take a closer look
+```shell
+$ git show
+commit 2f3fafc6f4939e9cd2d6c02f0fc36f3e6a08bc83
+Author: Pablo Verges <pablo.verges@dectris.com>
+Date:   Wed Oct 28 14:49:28 2020 +0100
+
+    Rename file and add it to the index
+
+diff --git a/index b/index
+index 3330d71..a79fbef 100644
+Binary files a/index and b/index differ
+```
+
+only the index changed!
+
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## Hands-on
+
+* Run the commands in the previous slides.
+* Create two files with the same content, add both to the index. How many Git objects were created?
+* Take a look at all the options listed in `git help add`
+</script></section><section  data-markdown><script type="text/template">
+## Discussion
+
+Insights / Remarks / Highlights
+</script></section><section  data-markdown><script type="text/template">
+## A commit
+
+aka. *a change*
+
+"*...represents a complete version of your code.*"
+</script></section><section  data-markdown><script type="text/template">
+## Save the changes
+
+...by commiting them to the repository
+```shell
+$ git commit -m "Describe the training"
+[master (root-commit) 21f09c8] Describe the training
+ 1 file changed, 1 insertion(+)
+ create mode 100644 DOCUMENTATION.md
+```
+</script></section><section  data-markdown><script type="text/template">
+## Time to dig in the repository
+
+since its content must have changed...
+
+```shell
+$ git add . && git commit -m "Commit documentation"
+[master d7874ba] Commit documentation
+ 7 files changed, 4 insertions(+)
+ create mode 100644 COMMIT_EDITMSG
+ create mode 100644 logs/HEAD
+ create mode 100644 logs/refs/heads/master
+ create mode 100644 objects/21/f09c8296c45c1807d719d1be465c87d8984ab7
+ create mode 100644 objects/2f/27405c1e90ee8f76c3d4bdeb7db1c07911622e
+ create mode 100644 refs/heads/master
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+<!-- .slide: data-background="./gitception.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+## Commit objects!
+
+What is the object with the commit's hash?
+```shell
+$ git cat-file -t 21f09c8
+commit
+```
+```shell
+$ git cat-file -p 21f09c8
+tree 2f27405c1e90ee8f76c3d4bdeb7db1c07911622e
+author Pablo Verges <pablo.verges@dectris.com> 1603892968 +0100
+committer Pablo Verges <pablo.verges@dectris.com> 1603892968 +0100
+
+Describe the training
+```
+...so this is what a commit looks like!
+</script></section><section  data-markdown><script type="text/template">
+## Tree objects!
+
+What is the object with the tree's hash?
+```shell
+$ git cat-file -t 2f27405
+tree
+```
+
+```shell
+$ git cat-file -p 2f27405
+100644 blob b27501ade65f39bc91a5e6eb0d707903ba225a00	DOCUMENTATION.md
+```
+<!-- .element: style="font-size: 0.545em;" -->
+
+...it's a collection of references to objects!
+</script></section><section  data-markdown><script type="text/template">
+## Hands-on
+
+* Run the commands in the previous slides.
+* Create a second commit and use `git cat-file -p` to take a closer look at it. What changed?
+* Create a commit with a tree listing two blob entries with the same hash.
+* Take a look at all the options listed in `git help commit`
+* Take a closer look at `git commit -p` and try it out!
+</script></section><section  data-markdown><script type="text/template">
+## Discussion
+
+Insights / Remarks / Highlights
+</script></section><section  data-markdown><script type="text/template">
+## Checkout
+</script></section><section  data-markdown><script type="text/template">
+## Thank you!
+
+🍺🍻🍺</script></section></div>
+    </div>
+
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"transition":"fade"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>

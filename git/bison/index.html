@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Git workshop</title>
+    <link rel="stylesheet" href="./css/reveal.css" />
+    <link rel="stylesheet" href="./css/theme/league.css" id="theme" />
+    <link rel="stylesheet" href="./css/highlight/zenburn.css" />
+    <link rel="stylesheet" href="./css/print/paper.css" type="text/css" media="print" />
+
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides"><section  data-markdown><script type="text/template">
+
+## Learning Git
+# the hard way
+
+<aside class="notes"><ul>
+<li>Most of the things we discuss here are not only achievable with Git, but can be made with other VCS as well</li>
+<li>I am a total Git-Fanboy, whatever I say during this workshop is totally opinionated</li>
+<li>I want to make this a fun experience for all of us!</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Who am I
+</script></section><section  data-markdown><script type="text/template">
+## Schedule
+
+* Gitception
+* Git objects
+* Git branches
+* Merge conflicts 
+
+<aside class="notes"><p>There are going to be excercises after or during each block!</p>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Requirements
+
+If you know how to type commands in a terminal and parse its output, this training is made for you!
+
+<aside class="notes"><ul>
+<li>Reading is crucial here, by the end of the training you&#39;ll be using the <em>man</em>-pages a lot!</li>
+<li>No specific Git editor integration is discussed, since none of them covers all of Git&#39;s features (and none of them does it in the same way)</li>
+<li>For the same reason, no Git GUI is discussed</li>
+<li>I recommend using the terminal all of the time and start using other tools, if they make you more efficient than when using the console (there are many situations in which other tools are more efficient)</li>
+<li>In many occasions you&#39;ll find yourself connected to a server with a Git repository doing analysis, knowing the commands in that situation is crucial</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## The Tangled Working Copy Problem
+</script></section><section  data-markdown><script type="text/template">
+## Git
+
+"... is oddly liberal with how and when you use it."
+
+* is a powerful analysis tool
+* allows running automated tasks
+* allows many collaboration workflows
+* allows patch management
+
+<aside class="notes"><ul>
+<li>Git does not force you to suit certain workflows, it doesn&#39;t get in your way</li>
+<li>This liberty requires understanding Git</li>
+<li>This liberty also allows to evolve your development workflow</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Git
+
+... is utterly complex
+
+* has crazy command line syntax
+* has a leaky abstraction
+* requires many different concepts
+* requires a holistic picture
+
+<aside class="notes"><ul>
+<li>no distinction between implementation detail and user interface</li>
+<li>beginners are confronted with internal details</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Git
+
+... is really hard to learn
+
+* has a complex information model
+* comes with complex workflows
+* has crappy documentation
+
+<aside class="notes"><ul>
+<li>Git has a very steep learning curve</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+...but once you're there
+</script></section><section  data-markdown><script type="text/template">
+# Git
+
+##  will make you
+
+# a better
+
+# programmer
+
+<aside class="notes"><ul>
+<li>But only if you&#39;re willing to change!</li>
+<li>Improvement always comes with change!</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Exercises
+
+* Have you been using other version control systems?
+* How long have been using Git?
+* What challenges you the most when using Git?
+* How do you solve the tangled working copy problem?
+</script></section><section  data-markdown><script type="text/template">
+# Discussion
+</script></section><section  data-markdown><script type="text/template">
+## Slides
+
+[https://escodebar.github.io/trainings/git/bison/](https://escodebar.github.io/trainings/git/bison/)
+
+<aside class="notes"><ul>
+<li>You can find the speaker notes in the slides, which allows you to go through the training at home</li>
+<li>Pass the slides to your coworkers, your friends, etc., the more people understand Git the better</li>
+<li>If a slide needs clarification, please let me know!</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Setup
+
+Create a repository:
+
+```shell
+$ mkdir -p ~/working/directory/ && cd $_ && git init .
+Initialized empty Git repository in ~/working/directory/.git/
+```
+
+```shell
+$ ls -blah
+total 0
+drwxr-xr-x. 3 escodebar escodebar  60 Jul 15 18:04 .
+drwx------. 3 escodebar escodebar  60 Jul 15 18:04 ..
+drwxrwxr-x. 7 escodebar escodebar 200 Jul 15 18:04 .git
+```
+
+See that `.git` folder there? That's the repository.
+
+<aside class="notes"><ul>
+<li>During this training a toy repository is used</li>
+<li>We will be adding changes to the repository during the training to confront you with typical Git situations</li>
+<li>Everything tracked by Git is inside the repository. Everything! Seriously... everything! Or almost everything!</li>
+<li>If there is something you want to backup, then it&#39;s the <code>.git</code> folder... but&#39;s let&#39;s discuss that later</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Digging deeper
+
+Don't panic!
+
+```shell
+$ ls -blah .git
+total 12K
+drwxrwxr-x. 7 escodebar escodebar 200 Jul 15 18:04 .
+drwxr-xr-x. 3 escodebar escodebar  60 Jul 15 18:04 ..
+drwxrwxr-x. 2 escodebar escodebar  40 Jul 15 18:04 branches
+-rw-rw-r--. 1 escodebar escodebar  92 Jul 15 18:04 config
+-rw-rw-r--. 1 escodebar escodebar  73 Jul 15 18:04 description
+-rw-rw-r--. 1 escodebar escodebar  23 Jul 15 18:04 HEAD
+drwxrwxr-x. 2 escodebar escodebar 280 Jul 15 18:04 hooks
+drwxrwxr-x. 2 escodebar escodebar  60 Jul 15 18:04 info
+drwxrwxr-x. 4 escodebar escodebar  80 Jul 15 18:04 objects
+drwxrwxr-x. 4 escodebar escodebar  80 Jul 15 18:04 refs
+```
+
+This is deep enough for now!
+
+<aside class="notes"><ul>
+<li>Become aware of the list entries</li>
+<li>HEAD, config, description are files</li>
+<li>The rest are folders</li>
+<li>Studying what happens in here while using Git was very helpful to me</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+![Git](https://imgs.xkcd.com/comics/git_2x.png)<!-- .element: height="500px" -->
+
+<aside class="notes"><ul>
+<li>The goal of this block is to show what Git does when it is used, to allow you to choose how to use it</li>
+<li>This training covers theory for using Git, however brain muscle (training) is needed</li>
+<li>If you want more training and need help, do not hesitate to contact me</li>
+<li>Use and learn <em>all</em> the commands and ask yourself how they may help you improving your workflow in a given situation</li>
+<li>This block gives you the means to learn using Git when there is no <em>happy path</em></li>
+<li>Some parts of this block are rather technical and go &quot;deep&quot; into Git&#39;s internals</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Gitception
+
+Behold, run this in a separate terminal!
+<!-- .element: class="fragment" -->
+
+```shell
+$ cd ~/working/directory/.git
+```
+<!-- .element: class="fragment" -->
+
+We are creating a repository inside the repository
+<!-- .element: class="fragment" -->
+```shell
+$ git init . && git add -A && git commit -m "Add the repository"
+[master (root-commit) 77f9224] Add the repository
+ 15 files changed, 653 insertions(+)
+ create mode 100644 HEAD
+ create mode 100644 config
+ create mode 100644 description
+ create mode 100755 hooks/applypatch-msg.sample
+ [...]
+ create mode 100755 hooks/update.sample
+ create mode 100644 info/exclude
+```
+<!-- .element: class="fragment" style="font-size: 0.535em" -->
+
+Don't do this at home!
+<!-- .element: class="fragment" -->
+
+<aside class="notes"><ul>
+<li>Open a second terminal window and navigate to the repository&#39;s repository to switch context easier</li>
+<li>Git keeps track of all the changes, it is therefore a perfect analysis tool</li>
+<li>Most Git commands go up the directory path to the point where they find a <code>.git</code> folder, but &quot;ignore&quot; its contents</li>
+<li>Therefore we can create a repository in the repository to track the changes and understand Git&#39;s behavior</li>
+<li>If you do not remember what happens when you run a specific command, you can look it up later in the &quot;Gitception&quot; repository</li>
+<li>Ignore the added files for now, most of them are discussed later during the training</li>
+<li>I haven&#39;t seen an other Git training doing this! Let me know if you like this idea!</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+![Gitception](https://i.imgflip.com/2f33xj.jpg)
+
+<aside class="notes"><ul>
+<li>Xzibit shows up on every slide which uses the repository in the repository to set you in the right context</li>
+<li>You do not need to run the commands of these slides, since they&#39;re only for comprehension</li>
+<li>The repository is publicly available, you can clone it and take a look at its history</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Exercises
+
+* Run the commands in the previous slides
+* Why can we add a repository in the repository?
+</script></section><section  data-markdown><script type="text/template">
+# Discussion
+</script></section><section  data-markdown><script type="text/template">
+## What's the status?
+
+To get an overview of the repository run:
+```shell
+$ git status
+On branch master
+
+No commits yet
+
+nothing to commit (create/copy files and use "git add" to track)
+```
+
+<aside class="notes"><ul>
+<li>The repository is on the master branch</li>
+<li>Branches are discussed later, for now, just remember that the master branch is (in most repositories) the default branch</li>
+<li>There are no commits</li>
+<li>Commits are discussed in detail in a few slides</li>
+<li>In many cases Git tells you what to do, you may configure these advices with the Git config command</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Let's do something!
+
+Documentation first!
+
+```shell
+$ echo "# My awwwesome training" > README.md
+```
+
+What's the status now?
+```shell
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	README.md
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+<!-- .element: style="font-size: 0.465em;" -->
+
+<aside class="notes"><ul>
+<li>We want to track changes to the current untracked file!</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## The index
+
+aka. *the staging area*
+
+![The index](http://web.archive.org/web/20090210020404id_/http://whygitisbetterthanx.com/images/index1.png) <!-- .element: height="250px" style="background: white" -->
+
+"*...is an intermediate area which allows to setup the change before making the commit.*"
+
+<aside class="notes"><ul>
+<li>Not all VCS have this feature!</li>
+<li>I like comparing the staging area to a fork:
+The plate is the working directory, the repository is your tummy... and the fork allows you to:<ul>
+<li>...pick up what you want to put in your tummy</li>
+<li>...take a look what you are going to eat before doing so</li>
+</ul>
+</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Let's stage!
+
+Put files in the staging area:
+```shell
+$ git add README.md && git status
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+	new file:   README.md
+```
+
+<aside class="notes"><ul>
+<li>The file is now in the <code>changes to be committed</code></li>
+<li>You can add whole directories (double check that there are no files which should not be included)</li>
+<li>You can also add parts of files (we will see the patch mode later), unless they&#39;re not tracked yet</li>
+<li>The Git integration of your editor may allow to stage a selection of lines (similar to the patch mode)</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## What happened in the repository?
+
+```shell
+$ git add . && git commit -m "Add files to index"
+[master 9f68dbd] Add files to index
+ 2 files changed, 0 insertions(+), 0 deletions(-)
+ create mode 100644 index
+ create mode 100644 objects/b2/7501ade65f39bc91a5e6eb0d707903ba225a00
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+
+<aside class="notes"><ul>
+<li>The index file is a binary file and it is not discussed in this training</li>
+<li>The name of the objects is given by their (SHA1) hash (altough moving to another hashing algorithm is being discussed)</li>
+<li>To improve file-system usage, the objects are stored in folders</li>
+<li>You can add any kind of content into a Git repository, yet some objects shouldn&#39;t be added (large files which change a lot)</li>
+<li>Git will store this content in an object.</li>
+<li>Git objects are seen as part of the Git internals!</li>
+<li>Understanding objects is relevant for using and debugging Git well</li>
+</ul>
+<p>Questions:</p>
+<ul>
+<li>How many folders will be created at max? [16^2]</li>
+<li>How many files can be created? [16^32]</li>
+<li>What&#39;s the probability to have two files with the same hash?</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## What's in the newly created object?
+
+Inspect the created object
+```shell
+$ git cat-file -t b27501a
+blob
+```
+```shell
+$ git cat-file -p b27501a
+# My awwwesome training
+```
+
+<aside class="notes"><ul>
+<li>Git categorizes commands into porcelain and plumbing commands</li>
+<li>This command is considered a plumbing command</li>
+<li>You can also use <code>git show</code>, the output will differ tough</li>
+<li>Files are stored as objects of type &quot;blob&quot; (Binary Large OBject)</li>
+<li>Not only files are stored in objects</li>
+<li>You can find the size of an object by using the <code>-s</code> flag</li>
+<li>Only the first few (min. 7) hexadecimal digits of a hash are required to determine the file</li>
+<li>More objects are discussed later</li>
+<li>Please remember, that the whole file and not only the diff is stored! (well... it depends! 😊)</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## See staged changes
+
+...to check if they are ready to be committed:
+```shell
+$ git diff --cached
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..b27501a
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1 @@
++# My awwwesome training
+```
+
+Are you ready to commit them?
+
+<aside class="notes"><ul>
+<li>Take a look at the changes to be committed before doing so</li>
+<li>Make sure you know, what you commit</li>
+<li>Think of the fork metaphore... do you want to eat a bad pea? or a bug hidden between them?</li>
+<li>Make commits as small as possible for easier reviewing, the easier the review, the less errors will slip through</li>
+<li>If keeping track of what it&#39;s being committed is hard, then you might want to rethink your workflow</li>
+<li>Think of slicing down you work!</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## A commit
+
+aka. *a change*
+
+"*...represents a complete version of your code.*"
+
+<aside class="notes"><ul>
+<li>Complete means: Tested, documented and ready to ship (well... this depends!)</li>
+<li>A commit comes with a commit message</li>
+<li>Guidelines for commit messages exist (...but most ignore them)</li>
+<li>Read <a href="https://chris.beams.io/posts/git-commit/">How to write a Git Commit Message</a>:<ul>
+<li>Expressive but short title and in imperative mode</li>
+<li>One empty line after the commit title</li>
+<li>Describe WHAT and WHY you are doing the change (HOW is described in the code)</li>
+</ul>
+</li>
+<li>If you need to describe the how, you should probably rethink your code</li>
+<li>If a commit is not complete, you might want to stash the changes instead (discussed later today)</li>
+<li>If you have a test driven workflow, you may commit the test first and then the rest, but then mark, the test as expected to fail or not implemented (and fixup the implementation in a further commit - also discussed later)</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Save the changes
+
+...by commiting them to the repository
+```shell
+$ git commit -m "Describe the training"
+[master (root-commit) ea57215] Describe the training
+ 1 file changed, 1 insertion(+)
+ create mode 100644 README.md
+```
+
+<aside class="notes"><ul>
+<li><code>master</code> is the default branch name by default (the name of the default branch is configurable)</li>
+<li><code>root-commit</code>: This is a special one, it has no parent, well see that in a minute</li>
+<li><code>ea57215</code> is part of the hash of the commit</li>
+<li>Git tells you the the number of files changed, lines inserted or deleted</li>
+<li>Create mode with permissions (not all permissions are stored in Git)</li>
+<li>You can also run just <code>git commit</code> without the <code>-m</code> argument, then your editor will pop-up</li>
+<li>I did not describe the &quot;why&quot; here, do as I tell you, not as I do (here)</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Time to dig deeper
+
+The repository's content must have changed...
+
+```shell
+$ git add . && git commit -m "Commit file"
+[master 6532246] Commit file
+ 7 files changed, 6 insertions(+)
+ create mode 100644 COMMIT_EDITMSG
+ create mode 100644 logs/HEAD
+ create mode 100644 logs/refs/heads/master
+ create mode 100644 objects/a4/4f211c376b94d122c6429ef8e87ffa7856419d
+ create mode 100644 objects/ea/57215f394ead96f52ea56f1760225b06b93e54
+ create mode 100644 refs/heads/master
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+<!-- .slide: data-background="./gitception.jpg" -->
+
+<aside class="notes"><ul>
+<li>The <code>COMMIT_EDITMSG</code> is used to temporarily store the message of the commit</li>
+<li>The logs keep track of the commit hashes the references pointed to, they become handy when branches are lost (more about this later)</li>
+<li>There is also a log for the <code>HEAD</code> (more about the <code>HEAD</code> later)</li>
+<li>References (or refs here) are discussed later - see the <code>master</code> there again?</li>
+<li>One of the objects (<code>ea57215</code>) has the same hash as the previously made commit</li>
+<li>...and look! An other object!</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Commit objects!
+
+What is the object with the commit's hash?
+```shell
+$ git cat-file -t ea57215
+commit
+```
+```shell
+$ git cat-file -p ea57215
+tree a44f211c376b94d122c6429ef8e87ffa7856419d
+author Pablo Escodebar <escodebar@gmail.com> 1594829055 +0200
+committer Pablo Escodebar <escodebar@gmail.com> 1594829055 +0200
+
+Describe the training
+```
+...so this is what a commit looks like!
+
+<aside class="notes"><ul>
+<li>Git stores commits in objects as well</li>
+<li>There is a reference to the tree (discussed in the next slide)</li>
+<li>The author and the committer are not necessarily the same person</li>
+<li>A timestamp is stored as well in the commit</li>
+<li>The title and the message are stored in the commit object</li>
+<li>The first commit (also called root) has no parent (more to parents later)</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Tree objects!
+
+What is the object with the tree's hash?
+```shell
+$ git cat-file -t a44f211
+tree
+```
+
+```shell
+$ git cat-file -p a44f211
+100644 blob b27501ade65f39bc91a5e6eb0d707903ba225a00	README.md
+```
+<!-- .element: style="font-size: 0.545em;" -->
+
+...it's collection of references to objects!
+
+<aside class="notes"><ul>
+<li>The tree is an object containing references to the blobs (or other trees)</li>
+<li>The tree also stores the permissions and the names of the files (but you can&#39;t set all permissions!)</li>
+<li>If a file happens to be more than once in the repository, Git will save it only once, since all the trees will reference the same file</li>
+</ul>
+<p>By now, you know more about Git internals than many who consider themselves proficient in Git.
+You will also be able to find &quot;lost&quot; files, folders and commits!</p>
+</aside></script></section><section  data-markdown><script type="text/template">
+## What was the last commit?
+
+Take a look at a change using:
+```shell
+$ git show
+commit ea57215f394ead96f52ea56f1760225b06b93e54
+Author: Pablo Escodebar <escodebar@gmail.com>
+Date:   Wed Jul 15 18:04:15 2020 +0200
+
+    Describe the training
+
+diff --git a/README.md b/README.md
+new file mode 100644
+index 0000000..b27501a
+--- /dev/null
++++ b/README.md
+@@ -0,0 +1 @@
++# My awwwesome training
+```
+<!-- .element: style="font-size:0.5em;" -->
+
+<aside class="notes"><ul>
+<li>If no argument is passed, the currently checked out commit will be shown</li>
+<li>You can also show trees, blobs and other commits by passing their hash</li>
+<li>More details about commits are discussed in a few slides</li>
+<li>The diff is also visible</li>
+<li>As you can see, this command is similar to <code>git cat-file</code></li>
+<li>You can change the output using options</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Add in patch mode
+
+...to select the changes you want to stage
+```shell
+$ echo 'This training will make you better!' >> README.md && git add -p
+diff --git a/README.md b/README.md
+index b27501a..22d2d62 100644
+--- a/README.md
++++ b/README.md
+@@ -1 +1,2 @@
+ # My awwwesome training
++This training will make you better!
+(1/1) Stage this hunk [y,n,q,a,d,e,?]?
+```
+<!-- .element: style="font-size: 0.485em;" -->
+
+```shell
+$ git commit -m "Motivate the participant"
+[master b4cfac6] Motivate the participant
+ 1 file changed, 1 insertion(+)
+```
+
+This is a great way to group your code!
+
+<aside class="notes"><ul>
+<li>This interactive process allow to select the hunks to add to the index.</li>
+<li>Possible command during interactive mode:<ul>
+<li>y - stage this hunk</li>
+<li>n - do not stage this hunk</li>
+<li>q - quit; do not stage this hunk or any of the remaining ones</li>
+<li>a - stage this hunk and all later hunks in the file</li>
+<li>d - do not stage this hunk or any of the later hunks in the file</li>
+<li>g - select a hunk to go to</li>
+<li>/ - search for a hunk matching the given regex</li>
+<li>j - leave this hunk undecided, see next undecided hunk</li>
+<li>J - leave this hunk undecided, see next hunk</li>
+<li>s - split the current hunk into smaller hunks</li>
+<li>e - manually edit the current hunk</li>
+<li>? - print help</li>
+</ul>
+</li>
+<li>You can always abort this command with <code>Ctrl-c</code></li>
+<li>Some editor integrations allow you to add hunks of code to the index as well</li>
+<li>Try to make groups of changes before adding them in patch mode</li>
+<li>Once you grouped your changes, think of their logical order</li>
+<li>Then add and commit them</li>
+<li>This way of adding changes to the index requires some training until you feel comfortable</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## How does the new commit look like?
+
+This second commit shouldn't be a root commit:
+```shell
+$ git cat-file -p b4cfac6
+tree 10d06a676fb65acc4b1a2e57454039d904318393
+parent ea57215f394ead96f52ea56f1760225b06b93e54
+author Pablo Escodebar <escodebar@gmail.com> 1594829055 +0200
+committer Pablo Escodebar <escodebar@gmail.com> 1594829055 +0200
+
+Motivate the participant
+```
+...it has a parent!
+
+<aside class="notes"><ul>
+<li>Every commit (with exception of root commits) point to (at least) an other commit</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Commit in patch mode
+
+My favorite way of committing!
+```shell
+$ echo "Buy me a beer if it made you better." >> README.md
+$ git commit -p -m "Motivate the speaker"
+diff --git a/README.md b/README.md
+index 22d2d62..3f652ed 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1,3 @@
+ # My awwwesome training
+ This training will make you better!
++Buy me a beer if it made you better.
+(1/1) Stage this hunk [y,n,q,a,d,e,?]? 
+```
+
+Once all hunks are decided, a commit will be created
+```shell
+[master 60884b7] Motivate the speaker
+ 1 file changed, 1 insertion(+)
+```
+
+
+<aside class="notes"><ul>
+<li>It is like adding in patch mode and commit in one step!</li>
+<li>Try adding in patch mode and committing while you feel insecure using the patch mode</li>
+<li>Once you feel comfortable enough, start committing directly in patch mode to save time</li>
+<li>The flags are the same as for the add command<ul>
+<li>y - stage this hunk</li>
+<li>n - do not stage this hunk</li>
+<li>q - quit; do not stage this hunk or any of the remaining ones</li>
+<li>a - stage this hunk and all later hunks in the file</li>
+<li>d - do not stage this hunk or any of the later hunks in the file</li>
+<li>g - select a hunk to go to</li>
+<li>/ - search for a hunk matching the given regex</li>
+<li>j - leave this hunk undecided, see next undecided hunk</li>
+<li>J - leave this hunk undecided, see next hunk</li>
+<li>s - split the current hunk into smaller hunks</li>
+<li>e - manually edit the current hunk</li>
+<li>? - print help</li>
+</ul>
+</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## What did we do so far?
+
+Take a look back at your work using:
+```shell
+$ git log --oneline
+60884b7 Motivate the speaker
+b4cfac6 Motivate the participant
+ea57215 Describe the training
+```
+...so this is why we want short commit titles?
+
+<aside class="notes"><ul>
+<li>The newest commits are displayed on top</li>
+<li>Without the <code>--oneline</code> flag, each commit would use several lines</li>
+<li>We have a branch with three commmits.</li>
+<li>This command is one of the reasons to choose short, meaningful commit titles</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Commit the repository's changes
+
+Add the new objects to the repository's repository:
+```shell
+$ git add . && git commit -m "Use the patch mode"
+[master f7fa13e] Use the patch mode
+ 11 files changed, 10 insertions(+), 2 deletions(-)
+ create mode 100644 objects/10/d06a676fb65acc4b1a2e57454039d904318393
+ create mode 100644 objects/22/d2d6223474b8b442b8aae05d4deab6f57a4a2a
+ create mode 100644 objects/38/52d81df67551ce4174a25ce844cf690499f55c
+ create mode 100644 objects/3f/652ededa8ed2a054ffa2c02bb34f99b53e94dd
+ create mode 100644 objects/60/884b73bff5851cbfc2cf535d6edb2b731eb3a1
+ create mode 100644 objects/b4/cfac690883cbe538ba32243f065dc71f90aa75
+```
+<!-- .element: style="font-size: 0.465em;" -->
+
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+
+<aside class="notes"><ul>
+<li>This is just to keep the working directory clean, to understand the next steps better</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Exercises
+
+* Run the commands in the previous slides
+* What's your mindset? Do you commit backups or changes? Or both?
+* Add two different changes to a file and commit them separatedly
+* Restore a file from a blob object
+* Create a commit with two files but only one blob object
+* Take a look at the sizes of blob objects in a mature project.
+</script></section><section  data-markdown><script type="text/template">
+# Discussion
+
+<aside class="notes"><ul>
+<li>Backups vs Changes</li>
+<li>Slicing changes</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+![Graph theory](https://imgs.xkcd.com/comics/collatz_conjecture.png)
+
+<aside class="notes"><p>Take a look at the graph in the comic:</p>
+<ul>
+<li>No number appears twice</li>
+<li>Each number points only to one number</li>
+<li>...but several numbers can point to the same number</li>
+<li>There are no loops</li>
+<li>It is a directed graph</li>
+<li>No matter where you start, if you follow the arrows, you&#39;ll always finish at one!</li>
+</ul>
+<p>This could be a valid graph of a Git repository!</p>
+<ul>
+<li>Each node in the comic could be a commit</li>
+</ul>
+<p>We already started building such a graph! Now let&#39;s build branches!</p>
+<ul>
+<li>Creating branches with diverging commits</li>
+<li>Add the changes of a branch to an other branch</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## A branch
+
+aka. *a reference*
+
+"*References are pointers to commits.*"
+
+* simplify complex workflows.
+* allow to group the logic of a feature.
+* allow to work in parallel on several features.
+
+<aside class="notes"><ul>
+<li>There are also other references: tags</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Create a branch
+
+Branches are created using
+```shell
+$ git branch pe/new_branch
+
+```
+
+<aside class="notes"><ul>
+<li>There are naming conventions for branches</li>
+<li>Prefix branches with your initials, to tell others not to touch it</li>
+<li>Reference the issue in the name if the branch is related to it</li>
+<li>If the branch name looks like a folder path, Git will create folders</li>
+<li>To work on a branch you need to check it out (or switch to it)</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Digging again!
+
+How are branches stored in the repository?
+
+```shell
+$ git add . && git commit -m "Add a new branch"
+[master a66c432] Add a new branch
+ 2 files changed, 2 insertions(+)
+ create mode 100644 logs/refs/heads/pe/new_branch
+ create mode 100644 refs/heads/pe/new_branch
+```
+```shell
+$ cat refs/heads/pe/new_branch
+60884b73bff5851cbfc2cf535d6edb2b731eb3a1
+```
+
+It's just a file with a hash
+
+...that's why creating branches is so fast!
+
+<!-- .slide: data-background="./gitception.jpg" -->
+
+<aside class="notes"><ul>
+<li>See how a further logfile was created? There is a log file for each branch!</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Remember git show?
+
+Let's see what the hash is
+```shell
+$ git show 60884b73bff5851cbfc2cf535d6edb2b731eb3a1
+commit 60884b73bff5851cbfc2cf535d6edb2b731eb3a1
+Author: Pablo Escodebar <escodebar@gmail.com>
+Date:   Wed Jul 15 18:04:15 2020 +0200
+
+    Motivate the speaker
+
+diff --git a/README.md b/README.md
+index 22d2d62..3f652ed 100644
+--- a/README.md
++++ b/README.md
+@@ -1,2 +1,3 @@
+ # My awwwesome training
+ This training will make you better!
++Buy me a beer if it made you better.
+```
+<!-- .element: style="font-size: 0.44em" -->
+
+A branch is just a hash of a commit
+
+<aside class="notes"><ul>
+<li>Deleting branches shouldn&#39;t scare you anymore!</li>
+<li>If you accidentally delete a branch, you can create it again</li>
+<li>You just need to find the right commit!</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Now let's switch to it!
+
+```shell
+$ git switch pe/new_branch
+Switched to branch 'pe/new_branch'
+```
+
+... to add further commit to it!
+
+<aside class="notes"><ul>
+<li>As noted before, it is necessary to switch to a branch to add commits</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## What happened in the repo?
+
+```shell
+$ git add . && git commit -m "Check out the branch"
+[master ab87ea8] Check out the branch
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+```
+
+2 files changed... but what changed?
+
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+</script></section><section  data-markdown><script type="text/template">
+### Let's take a closer look
+
+`git show` comes with many options:
+```shell
+$ git show --name-only
+commit ab87ea8995009df8661588fe9ad5d641d4bc072b
+Author: Pablo Escodebar <escodebar@gmail.com>
+Date:   Wed Jul 15 18:04:15 2020 +0200
+
+    Check out the branch
+
+HEAD
+logs/HEAD
+```
+
+...ah! the `HEAD` changed!
+
+<!-- .slide: data-background="./gitception.jpg" -->
+
+<aside class="notes"><ul>
+<li>Run <code>git help show</code> once, to see all of the options!</li>
+<li>We are discussing the <code>HEAD</code> more in detail later during this training</li>
+<li>We are also taking a look at the logs later</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Create and switch to branches
+## ...in one step!
+
+Switch to a *new* branch:
+```shell
+$ git switch -c pe/add_list_of_favorite_beers master
+Switched to a new branch 'pe/add_list_of_favorite_beers'
+```
+...one command is faster than two!
+
+<aside class="notes"><ul>
+<li>If you leave the starting point (<code>master</code> here), the current <code>HEAD</code> is used</li>
+<li><code>git checkout</code> was previously used for this purspose</li>
+<li><code>git checkout</code> is criticized to be overloaded with functionality</li>
+<li><code>git switch</code> might require some runtime, depending on the size of the files to be copied</li>
+</ul>
+<p>Now that we know how to create branches, let&#39;s create two with diverging history!</p>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Add a commit to the new branch
+
+```shell
+$ cat << EOBL > beers.md && git add beers.md
+* To Øl - 1 ton of Happiness
+* Rokki - Muikea
+* Felsenau - Bärner Müntschi
+* Rokki - Happo
+* Egger - Galopper
+EOBL
+$ echo "My list of [favorite beers](beers.md)." >> README.md
+$ git commit -a -m "Let people know, what beer to buy"
+[pe/add_list_of_favorite_beers 8a58e43] Let people know, what beer to buy
+ 2 files changed, 6 insertions(+)
+ create mode 100644 beers.md
+```
+<!-- .element: style="font-size: 0.47em;" -->
+
+<aside class="notes"><ul>
+<li>The first command creates and adds a file called &quot;beers.md&quot; (take a minute to digest it)</li>
+<li>The <code>-a</code> flag commits adding all <em>tracked</em> and modified files to the staging area!</li>
+<li>We created a new file and added a change to the existing one</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Create another branch
+
+```shell
+$ git switch -c pe/whiskey_is_also_an_option master
+Switched to a new branch 'pe/whiskey_is_also_an_option'
+```
+
+...with another commit
+```shell
+$ echo "Whiskey is also a good reward." >> README.md
+$ cat << EOWL > whiskeys.md && git add whiskeys.md
+* Lagavulin - 16
+* Ledaig - 10
+* Talisker - Storm
+* Ledaig - 18
+* Laphroaig - Quarter Cask
+EOWL
+$ echo '[These whiskeys](whiskeys.md) are great!' >> README.md
+$ git commit -am "Accept whiskey as reward"
+[pe/whiskey_is_also_an_option c0c240e] Accept whiskey as reward
+ 2 files changed, 7 insertions(+)
+ create mode 100644 whiskeys.md
+```
+<!-- .element: style="font-size: 0.545em;" -->
+
+<aside class="notes"><ul>
+<li>Options can also be put together <code>-a -m</code> is the same as <code>-am</code></li>
+<li>We created a new file and added a change to the existing one, at the same place where the other branch introduce a change</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Clean up!
+
+We do not want to have uncommitted changes 
+```shell
+$ git add . && git commit -m "Add branches with conflicting commits"
+[master f810c72] Add branches with conflicting commits
+ 16 files changed, 23 insertions(+), 2 deletions(-)
+ create mode 100644 logs/refs/heads/pe/add_list_of_favorite_beers
+ create mode 100644 logs/refs/heads/pe/whiskey_is_also_an_option
+ create mode 100644 objects/0d/f4281955475551ad1a4232fce76a5fb6d340d0
+ create mode 100644 objects/21/990ee9610d1601649ca9c669f7f51ecad5358b
+ create mode 100644 objects/7e/c764e3ac5af8a360fc2df5ac5c58aa5bffcd11
+ create mode 100644 objects/8a/58e4302cdbcaed9b31840f6663bdc6009bb28e
+ create mode 100644 objects/9c/8d69a8414db1654a6c725de0c670fa28df33a4
+ create mode 100644 objects/a2/8e0af61a8785cfec49e2ea707f8172d4b93b78
+ create mode 100644 objects/c0/c240e89f5acefaaed0181faeb5246da21f21e8
+ create mode 100644 objects/d3/719373bb86bdd46c56e521135a1bd7f69d40ab
+ create mode 100644 refs/heads/pe/add_list_of_favorite_beers
+ create mode 100644 refs/heads/pe/whiskey_is_also_an_option
+```
+<!-- .element: style="font-size: 0.5em;" -->
+
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+
+<aside class="notes"><ul>
+<li>Now we should have a graph with two branches.</li>
+<li>Could you draw the graph of our Git repository?</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## What a beautiful tree
+
+Take a look at the graph of the repository using:
+```shell
+$ git log --oneline --all --graph
+* 8a58e43 Let people know, what beer to buy
+| * c0c240e Accept whiskey as reward
+|/  
+* 60884b7 Motivate the speaker
+* b4cfac6 Motivate the participant
+* ea57215 Describe the training
+```
+<!-- .element: style="font-size: 0.46em;" -->
+Our tree starts growing branches!
+
+<aside class="notes"><ul>
+<li>Using <code>--all</code> you can display commits of other branches as well (and the stash!)</li>
+<li>The graph is a little bit more hard to read: the lines represent connections</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Exercises
+
+* Run the commands in the previous slides
+* What is stored in the `HEAD` file?
+* Take a look at the log files
+* Can you switch to a specific commit?
+* Delete and recover a branch with some commits
+* Create a new branch based on a commit
+* Take a look at the graph of a more mature project
+* Create a new branch using then `--orphan` option
+</script></section><section  data-markdown><script type="text/template">
+# Discussion
+</script></section><section  data-markdown><script type="text/template">
+![Git](https://assets.amuniversal.com/ddf1fa20315201378d0e005056a9545d)
+
+<aside class="notes"><ul>
+<li>We are discussing how to add changes of branch to another branch</li>
+<li>There are several ways and workflows to achieve this</li>
+<li>Conflicts often arise when combining changes of several files</li>
+<li>You need to chose the workflow according to your projects&#39; needs and developers&#39; skills</li>
+</ul>
+<p>We created branches with diverging history and a conflict, to simulate common situations.</p>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Wait... What?
+
+# Conflicts?!
+
+<aside class="notes"><ul>
+<li>Conflicts happen when a file is changed and it is not obvious (to Git) how the changes should be applied</li>
+<li>There are also silent conflicts... let&#39;s discuss these later</li>
+<li>Let&#39;s introduce a change to our branch to provoque a conflict</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Git merge
+
+![merge](https://wac-cdn.atlassian.com/dam/jcr:83323200-3c57-4c29-9b7e-e67e98745427/Branch-1.png?cdnVersion=lj)<!-- .element: height="380px" style="background: white;" -->
+
+
+Join development histories
+
+<aside class="notes"><ul>
+<li>This (may) result in a forked (non-linear) commit-history (you have several ways to get to the root)</li>
+<li>If the changes are fast forward, then no merge commit is created</li>
+<li>You merge the changes of the other branch into your branch (the commit merge is added to the branch you are working on)</li>
+<li>Several branches can be merged at once</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Let's merge
+
+Checkout a new branch for the merge
+```shell
+$ git switch -c pe/merging pe/add_list_of_favorite_beers
+Switched to a new branch 'pe/merging'
+```
+
+Merge...
+```shell
+$ git merge pe/whiskey_is_also_an_option
+Auto-merging README.md
+CONFLICT (content): Merge conflict in README.md
+Automatic merge failed; fix conflicts and then commit the result.
+```
+<!-- .element: style="font-size: 0.545em;" -->
+...and run into conflicts!
+
+<aside class="notes"><ul>
+<li>A new branch is not required, this just keeps the previous branches intact</li>
+<li>The output of the merge command is self explaining</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Merge conflicts are fun!
+
+How does Git handle merge conflicts?
+```shell
+$ git add . && git commit -m "Commit during merge conflict"
+[master 7c6517e] Commit during merge conflict
+ 10 files changed, 14 insertions(+), 1 deletion(-)
+ create mode 100644 MERGE_HEAD
+ create mode 100644 MERGE_MODE
+ create mode 100644 MERGE_MSG
+ create mode 100644 ORIG_HEAD
+ rewrite index (100%)
+ create mode 100644 logs/refs/heads/pe/merging
+ create mode 100644 objects/74/53e34d766307d5056d804f80e4cc2395fb4179
+ create mode 100644 refs/heads/pe/merging
+```
+<!-- .element: style="font-size: 0.505em" -->
+
+A further object?
+
+<!-- .slide: data-background="./gitception.jpg" -->
+
+<aside class="notes"><ul>
+<li>The <code>MERGE_HEAD</code> points to <code>pe/whiskey_is_also_an_option</code>&#39;s tip commit</li>
+<li>The <code>MERGE_MODE</code> is not discussed here</li>
+<li>Take a look at the <code>MERGE_MSG</code> if you feel like it</li>
+<li><code>ORGI_HEAD</code> points to <code>pe/add_list_of_favorite_beers</code>&#39; tip commit</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Take a look at that object!
+
+We are getting used to this!
+```shell
+$ git cat-file -t 7453e34
+blob
+```
+```shell
+$ git cat-file -p 7453e34
+# My awwwesome training
+This training will make you better!
+Buy me a beer if it made you better.
+<<<<<<< HEAD
+My list of [favorite beers](beers.md).
+=======
+Whiskey is also a good reward.
+[These whiskeys](whiskeys.md) are great!
+>>>>>>> pe/whiskey_is_also_an_option
+```
+
+Looks like the `README` file... 
+
+<aside class="notes"><ul>
+<li>Git stores conflicting files in objects as well</li>
+<li>The conflicting part is marked by <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code> and <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code></li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## What's the status?
+
+Let's take a look at the status:
+```shell
+$ git status
+On branch pe/merging
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Changes to be committed:
+	new file:   whiskeys.md
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+	both modified:   README.md
+```
+As expected, a file was modified by both branches!
+
+<aside class="notes"><ul>
+<li><code>README.md</code> is modified by both branches, such that Git cannot tell how the changes should be merged.</li>
+<li>Git is telling you what to do: either fix the conflicts or abort the merge</li>
+<li>Did you notice Git added <code>whiskeys.md</code> as a change to be commited?</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Understanding the conflict
+
+Take a look at the conflicting files:
+```shell
+$ git diff
+diff --cc README.md
+index d371937,a28e0af..0000000
+--- a/README.md
++++ b/README.md
+@@@ -1,4 -1,5 +1,9 @@@
+  # My awwwesome training
+  This training will make you better!
+  Buy me a beer if it made you better.
+++<<<<<<< HEAD
+ +My list of [favorite beers](beers.md).
+++=======
++ Whiskey is also a good reward.
++ [These whiskeys](whiskeys.md) are great!
+++>>>>>>> pe/whiskey_is_also_an_option
+```
+
+This conflict is easily solved!
+
+<aside class="notes"><p>If the conflict is not that easy, you can:</p>
+<ol>
+<li><code>git log</code> both branches</li>
+<li>identify the commits which introduce the conflict</li>
+<li>read the commit messages and understand why the changes were introduced</li>
+<li>speak to the author of the change and find a solution</li>
+</ol>
+<ul>
+<li>If the commit messages are of good quality, understanding the changes won&#39;t be a big deal</li>
+<li>if the commit messages are bad, I suggest you contact the author(s) of the conflicting changes</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Conflict resolution
+
+Just remove the 4th, 6th and last line.
+```shell
+$ sed -i '4d;6d;$d' README.md
+```
+
+```shell
+$ cat README.md
+# My awwwesome training
+This training will make you better!
+Buy me a beer if it made you better.
+My list of [favorite beers](beers.md).
+Whiskey is also a good reward.
+[These whiskeys](whiskeys.md) are great!
+```
+
+Use your favorite editor to do so!
+
+<aside class="notes"><ul>
+<li>To resolve a conflict, edit the conflicting files such that it fits the requirements of both changes</li>
+<li>I would consider testing the application after the conflicts are resolved before finish merging</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Finish merging
+
+...once you resolved the conflicts:
+```shell
+$ git add README.md
+```
+
+and run
+```shell
+$ git merge --continue
+```
+to open your editor to write the commit's message
+
+or commit yourself directly
+```shell
+$ git commit -m "Add the list of beers first"
+[pe/merging 5875824] Add the list of beers first
+```
+That was easy!
+
+<aside class="notes"><ul>
+<li>You can also run <code>git merge --continue</code>, which checks if there is an (interrupted) merge in progress before calling <code>git commit</code></li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Take a look at the merge commit
+
+Merge commits are special...
+```shell
+$ git cat-file -t 5875824
+commit
+```
+```shell
+$ git cat-file -p 5875824
+tree d5a29e72348dd06004654c605f561d7d6fc32e6c
+parent 8a58e4302cdbcaed9b31840f6663bdc6009bb28e
+parent c0c240e89f5acefaaed0181faeb5246da21f21e8
+author Pablo Escodebar <escodebar@gmail.com> 1594829055 +0200
+committer Pablo Escodebar <escodebar@gmail.com> 1594829055 +0200
+
+Add the list of beers first
+```
+...since they have more than one parent!
+
+<aside class="notes"><ul>
+<li>This makes error analysis a little bit more complex</li>
+<li>You need to follow up the changes of several parents now when looking for errors</li>
+<li>This can be accomplished by using ^1, ^2 or ^N (to reach the N-th direct parent)</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Clean up!
+
+Commit the changes into the repository's repository
+```shell
+$ git add . && git commit -m "Add the merge"
+[master f3b643d] Add the merge
+ 11 files changed, 7 insertions(+), 7 deletions(-)
+ delete mode 100644 MERGE_HEAD
+ delete mode 100644 MERGE_MODE
+ delete mode 100644 MERGE_MSG
+ rewrite index (100%)
+ create mode 100644 objects/58/75824d9d938fcc30d2b35cbf0a411c8e93dee9
+ create mode 100644 objects/93/d56bde8cd7e1ac44d1f4f454a189b71b7b0d1f
+ create mode 100644 objects/d5/a29e72348dd06004654c605f561d7d6fc32e6c
+```
+<!-- .element: style="font-size: 0.51em;" -->
+
+The merge files are gone!
+
+<!-- .slide: data-background="./gitception-flipped.jpg" -->
+
+<aside class="notes"><ul>
+<li>What do the new objects contain? [The merge commit, the new tree and the <code>README</code> file]</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+## Exercises
+
+* Run the commands in the previous slides
+* Create a merge commit with 3 parents
+* Try using `git mergetool`
+* How do you currently deal with conflicts?
+</script></section><section  data-markdown><script type="text/template">
+# Discussion
+
+* Silent conflicts
+</script></section><section  data-markdown><script type="text/template">
+## Resources
+
+* [10 things I hate about Git](https://stevebennett.me/2012/02/24/10-things-i-hate-about-git/)
+* [Cynefin](https://cognitive-edge.com/videos/cynefin-framework-introduction/)
+* [Git Magic](http://www-cs-students.stanford.edu/~blynn/gitmagic/ch08.html)
+* [Git Reference](https://git-scm.com/docs/)
+* [Git is simpler](http://nfarina.com/post/9868516270/git-is-simpler)
+* [Oh shit Git!](https://ohshitgit.com/)
+* [Pro Git](https://git-scm.com/book/en/v2)
+* [The thing about Git](https://tomayko.com/blog/2008/the-thing-about-git)
+* [Think like a Git](http://think-like-a-git.net/)
+* [Why Git is Better than X](http://web.archive.org/web/20090210020404id_/http://whygitisbetterthanx.com/#the-staging-area)</script></section><section  data-markdown><script type="text/template">
+## Questions & Feedback
+</script></section><section  data-markdown><script type="text/template">
+## Thank you!
+
+🍺🍻🍺
+</script></section></div>
+    </div>
+
+    <script src="./js/reveal.js"></script>
+
+    <script>
+      function extend() {
+        var target = {};
+        for (var i = 0; i < arguments.length; i++) {
+          var source = arguments[i];
+          for (var key in source) {
+            if (source.hasOwnProperty(key)) {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+
+      // Optional libraries used to extend on reveal.js
+      var deps = [
+        { src: './plugin/markdown/marked.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/markdown/markdown.js', condition: function() { return !!document.querySelector('[data-markdown]'); } },
+        { src: './plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+        { src: './plugin/zoom-js/zoom.js', async: true },
+        { src: './plugin/notes/notes.js', async: true },
+        { src: './plugin/math/math.js', async: true }
+      ];
+
+      // default options to init reveal.js
+      var defaultOptions = {
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        transition: 'default', // none/fade/slide/convex/concave/zoom
+        dependencies: deps
+      };
+
+      // options from URL query string
+      var queryOptions = Reveal.getQueryHash() || {};
+
+      var options = extend(defaultOptions, {"transition":"fade"}, queryOptions);
+    </script>
+
+
+    <script>
+      Reveal.initialize(options);
+    </script>
+  </body>
+</html>
